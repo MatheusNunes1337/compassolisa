@@ -35,8 +35,8 @@ class UserController {
     async update(req, res, next) {
         try {
             const { id } = req.params
-            await UserService.update(id, req.body)
-            return res.status(204).end()
+            const result = await UserService.update(id, req.body)
+            return res.status(200).json(result)
         } catch(err) {
             next(err)
         }
