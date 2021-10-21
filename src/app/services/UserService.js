@@ -14,6 +14,10 @@ class UserService {
         return await UserRepository.create(user)
     }
 
+    async update(id, userData) {
+        return await UserRepository.update(id, userData)
+    }
+
     async delete(id) {
         return await UserRepository.delete(id)
     }
