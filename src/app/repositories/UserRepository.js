@@ -1,6 +1,9 @@
 const UserModel = require('../models/UserModel')
 
 class UserRepository {
+    async getAll() {
+        return await UserModel.find()
+    }
     
     async getById(id) {
         return await UserModel.findById(id)
