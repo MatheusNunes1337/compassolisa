@@ -6,6 +6,10 @@ class UserRepository {
         return await UserModel.findById(id)
     }
 
+    async create(user) {
+        return await UserModel.create(user)
+    }
+
 }
 
 module.exports = new UserRepository()
