@@ -2,6 +2,10 @@ const UserRepository = require('../repositories/UserRepository')
 const NotFound = require('../errors/NotFound')
 
 class UserService {
+    async findAll() {
+        return await UserRepository.getAll()
+    }
+
     async findById(id) {
         const user = await UserRepository.getById(id)
         if(!user) {
