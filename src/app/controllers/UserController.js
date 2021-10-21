@@ -7,3 +7,5 @@ class UserController {
         return res.status(200).json(user)
     }
 }
+
+module.exports = new UserController()
