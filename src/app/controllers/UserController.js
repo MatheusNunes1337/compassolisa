@@ -36,6 +36,7 @@ class UserController {
         try {
             const { id } = req.params
             const result = await UserService.update(id, req.body)
+            result.senha = undefined
             return res.status(200).json(result)
         } catch(err) {
             next(err)
