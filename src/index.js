@@ -1,5 +1,6 @@
 const express = require('express')
 
+const routes = require('./routes')
 const errorHandler = require('./app/middlewares/errorHandler')
 const dbConnection = require('./infra/database')
 
@@ -9,6 +10,7 @@ class App {
     constructor() {
         this.express = express()
         this.middlewares()
+        this.routes()
         this.errors()
     }
 
@@ -16,9 +18,14 @@ class App {
         this.express.use(express.json())
     }
 
+    routes() {
+        this.express.use(routes)
+    }
+
     errors() {
         this.express.use(errorHandler)
     }
+
 
 }
 
