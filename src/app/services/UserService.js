@@ -16,10 +16,18 @@ class UserService {
     }
 
     async update(id, userData) {
+        const user = this.findById(id)
+        if(!user) {
+            throw new NotFound('User')
+        }
         return await UserRepository.update(id, userData)
     }
 
     async delete(id) {
+        const user = this.findById(id)
+        if(!user) {
+            throw new NotFound('User')
+        }
         return await UserRepository.delete(id)
     }
 }
