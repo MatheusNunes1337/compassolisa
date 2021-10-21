@@ -21,6 +21,17 @@ class UserController {
         }
     }
 
+    async update(req, res, next) {
+        try {
+            const { id } = req.params
+            await UserService.findById(id)
+            await UserService.update(id, req.body)
+            return res.status(204).end()
+        } catch(err) {
+            next(err)
+        }
+    }
+
     async delete(req, res, next) {
         try {
             const { id } = req.params
