@@ -8,7 +8,10 @@ class UserService {
             throw new NotFound('User')
         }
         return user
-       
+    }
+
+    async create(user) {
+        return await UserRepository.create(user)
     }
 }
 
