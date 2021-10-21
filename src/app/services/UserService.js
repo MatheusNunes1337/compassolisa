@@ -24,7 +24,7 @@ class UserService {
     }
 
     async delete(id) {
-        const user = this.findById(id)
+        const user = await this.findById(id)
         if(!user) {
             throw new NotFound('User')
         }
