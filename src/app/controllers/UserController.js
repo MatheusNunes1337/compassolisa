@@ -10,6 +10,15 @@ class UserController {
             next(err)
         }
     }
+
+    async create(req, res, next) {
+        try {
+            const user = await UserService.create(req.body)
+            return res.status(201).json(user)
+        } catch(err) {
+            next(err)
+        }
+    }
 }
 
 module.exports = new UserController()
