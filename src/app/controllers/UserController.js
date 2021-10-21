@@ -16,7 +16,10 @@ class UserController {
         try {
             const { id } = req.params 
             const user = await UserService.findById(id)
-            return res.status(200).json(user)
+            if(user)
+                return res.status(200).json(user)
+            else 
+            return res.status(204).end()    
         } catch(err) {
             next(err)
         }
