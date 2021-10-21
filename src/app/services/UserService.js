@@ -13,6 +13,10 @@ class UserService {
     async create(user) {
         return await UserRepository.create(user)
     }
+
+    async delete(id) {
+        return await UserRepository.delete(id)
+    }
 }
 
 module.exports = new UserService()

@@ -10,6 +10,10 @@ class UserRepository {
         return await UserModel.create(user)
     }
 
+    async delete(id) {
+        return await UserModel.findByIdAndDelete(id)
+    }
+
 }
 
 module.exports = new UserRepository()
