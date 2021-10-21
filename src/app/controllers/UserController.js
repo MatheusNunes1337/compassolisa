@@ -46,7 +46,6 @@ class UserController {
     async delete(req, res, next) {
         try {
             const { id } = req.params
-            await UserService.findById(id)
             await UserService.delete(id)
             return res.status(204).end()
         } catch(err) {
