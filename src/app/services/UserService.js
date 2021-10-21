@@ -4,7 +4,7 @@ const NotFound = require('../errors/NotFound')
 class UserService {
     async findById(id) {
         try {
-            const user = UserRepository.getById(id)
+            const user = await UserRepository.getById(id)
             if(!user) {
                 throw new NotFound('User')
             }
@@ -13,5 +13,6 @@ class UserService {
             return err
         }
     }
-
 }
+
+module.exports = new UserService()
