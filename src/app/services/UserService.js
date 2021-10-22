@@ -6,7 +6,7 @@ class UserService {
         return await UserRepository.getAll()
     }
 
-    findByFilter({offset, limit, ...filter}) {
+    async findByFilter({offset, limit, ...filter}) {
         return await UserRepository.getByFilter(offset, limit, filter)
     }
 
