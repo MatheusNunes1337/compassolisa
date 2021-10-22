@@ -6,6 +6,10 @@ class UserService {
         return await UserRepository.getAll()
     }
 
+    async findByFilter({offset, limit, ...filter}) {
+        return await UserRepository.getByFilter(offset, limit, filter)
+    }
+
     async findById(id) {
         const user = await UserRepository.getById(id)
         return user

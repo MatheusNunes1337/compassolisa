@@ -3,7 +3,17 @@ const UserService = require('../services/UserService')
 class UserController {
     async getAll(req, res, next) {
         try {
-            const users = await UserService.findAll()
+            let users
+        
+            req.query.offset = parseInt(req.query.offset)
+            req.query.limit = parseInt(req.query.limit)
+
+            if(Object.keys(req.query).length > 2) {
+                users = await UserService.findByFilter(req.query)
+            }    
+            else {
+                users = await UserService.findAll(req.query)
+            }
             users.map(user => user.senha = undefined)
             return res.status(200).json(users)
         } catch(err) {
@@ -19,7 +29,7 @@ class UserController {
             if(user)
                 return res.status(200).json(user)
             else 
-            return res.status(204).end()    
+                return res.status(204).end()    
         } catch(err) {
             next(err)
         }
