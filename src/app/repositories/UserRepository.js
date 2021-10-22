@@ -1,8 +1,8 @@
 const UserModel = require('../models/UserModel')
 
 class UserRepository {
-    async getAll() {
-        return await UserModel.find()
+    async getAll(offset, limit) {
+        return await UserModel.find().skip(offset).limit(limit)
     }
 
     async getByFilter(offset, limit, filter) {
