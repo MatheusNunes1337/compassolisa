@@ -1,5 +1,6 @@
 const UserRepository = require('../repositories/UserRepository')
 const NotFound = require('../errors/NotFound')
+const replacePlusWithSpace = require('../utils/replacePlusWithSpace')
 
 class UserService {
     async findAll({offset, limit}) {
@@ -7,6 +8,9 @@ class UserService {
     }
 
     async findByFilter({offset, limit, ...filter}) {
+        if(filter.hasOwnProperty('nome')) {
+            filter.nome = replacePlusWithSpace(filter.nome)
+        }    
         return await UserRepository.getByFilter(offset, limit, filter)
     }
 
