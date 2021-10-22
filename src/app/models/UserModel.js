@@ -11,7 +11,7 @@ const UserSchema = Schema({
         required: true
     },
     data_nascimento: {
-        type: Date,
+        type: String,
         required: true
     },
     email: {
