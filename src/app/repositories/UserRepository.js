@@ -4,6 +4,10 @@ class UserRepository {
     async getAll() {
         return await UserModel.find()
     }
+
+    async getByFilter(offset, limit, filter) {
+        return await UserModel.find(filter).skip(offset).limit(limit)
+    }
     
     async getById(id) {
         return await UserModel.findById(id)
