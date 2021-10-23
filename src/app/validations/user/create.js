@@ -4,6 +4,9 @@ const convertDateFormat = require('../../utils/convertDateFormat')
 
 const createUser = async (req, res, next) => {
     try {
+        const userData = Object.assign({}, req.body)
+        const { reference_date, dob_formated } = convertDateFormat(userData.data_nascimento)
+        userData.data_nascimento = dob_formated
         
         const schema = Joi.object({
             nome: Joi.string().required(),
