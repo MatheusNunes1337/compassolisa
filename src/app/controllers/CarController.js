@@ -22,7 +22,7 @@ class CarController {
         }
     }
 
-    getById(req, res, next) {
+    async getById(req, res, next) {
         try {
             const { id } = req.params 
             const car = await CarService.findById(id)
