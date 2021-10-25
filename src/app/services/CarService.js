@@ -9,6 +9,10 @@ class CarService {
         const car = await CarRepository.getById(id)
         return car
     }
+
+    async create(car) {
+        return await CarRepository.create(car)
+    }
 }
 
 module.exports = new CarService()
