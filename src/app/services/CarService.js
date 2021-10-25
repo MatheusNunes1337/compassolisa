@@ -1,4 +1,5 @@
 const CarRepository = require("../repositories/CarRepository")
+const NotFound = require('../errors/NotFound')
 
 class CarService {
     async findAll({offset, limit}) {
@@ -12,6 +13,14 @@ class CarService {
 
     async create(car) {
         return await CarRepository.create(car)
+    }
+
+    async update(id, carData) {
+        const car = await this.findById(id)
+        if(!car) {
+            throw new NotFound('Car')
+        }
+        return await CarRepository.update(id, carData)
     }
 }
 
