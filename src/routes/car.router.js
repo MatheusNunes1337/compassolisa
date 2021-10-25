@@ -6,5 +6,6 @@ const CarController = require('../app/controllers/CarController')
 
 carRouter.get('/', CarController.getAll)
 carRouter.get('/:id', checkIdFormat, CarController.getById)
+carRouter.post('/', CarController.create)
 
 module.exports = carRouter
