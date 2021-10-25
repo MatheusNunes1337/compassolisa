@@ -8,6 +8,10 @@ class CarRepository {
     async getById(id) {
         return await CarModel.findById(id)
     }
+
+    async create(car) {
+        return await CarModel.create(car)
+    }
 }
 
 module.exports = new CarRepository()

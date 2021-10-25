@@ -34,6 +34,15 @@ class CarController {
             next(err)
         }
     }
+
+    async create(req, res, next) {
+        try {
+            const car = await CarService.create(req.body)
+            return res.status(201).json(car)
+        } catch(err) {
+            next(err)
+        }
+    }
 }
 
 module.exports = new CarController()
