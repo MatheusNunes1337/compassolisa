@@ -21,6 +21,19 @@ class CarController {
             next(err)
         }
     }
+
+    async getById(req, res, next) {
+        try {
+            const { id } = req.params 
+            const car = await CarService.findById(id)
+            if(car)
+                return res.status(200).json(car)
+            else 
+                return res.status(204).end()    
+        } catch(err) {
+            next(err)
+        }
+    }
 }
 
 module.exports = new CarController()
