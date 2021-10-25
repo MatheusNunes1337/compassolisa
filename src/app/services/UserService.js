@@ -8,9 +8,11 @@ class UserService {
     }
 
     async findByFilter({offset, limit, ...filter}) {
-        if(filter.hasOwnProperty('nome')) {
-            filter.nome = replacePlusWithSpace(filter.nome)
-        }    
+  
+        Object.keys(filter).forEach(property => {
+            filter[property] = replacePlusWithSpace(filter[property])
+        })
+
         return await UserRepository.getByFilter(offset, limit, filter)
     }
 
