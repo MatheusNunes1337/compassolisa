@@ -22,6 +22,14 @@ class CarService {
         }
         return await CarRepository.update(id, carData)
     }
+
+    async delete(id) {
+        const car = await this.findById(id)
+        if(!car) {
+            throw new NotFound('Car')
+        }
+        return await CarRepository.delete(id)
+    }
 }
 
 module.exports = new CarService()

@@ -16,7 +16,11 @@ class CarRepository {
     async update(id, carData) {
         const response = await CarModel.findByIdAndUpdate(id, carData, { new: true})
        return response
-   }
+    }
+
+    async delete(id) {
+        return await CarModel.findByIdAndDelete(id)
+    }
 }
 
 module.exports = new CarRepository()
