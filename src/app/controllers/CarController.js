@@ -9,7 +9,7 @@ class CarController {
             req.query.limit = parseInt(req.query.limit)
         
             if(Object.keys(req.query).length == 2) {
-                cars = await UserService.findAll(req.query)
+                cars = await CarService.findAll(req.query)
             }
             /*    
             else {
