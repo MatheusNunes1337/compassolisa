@@ -12,6 +12,11 @@ class CarRepository {
     async create(car) {
         return await CarModel.create(car)
     }
+
+    async update(id, carData) {
+        const response = await CarModel.findByIdAndUpdate(id, carData, { new: true})
+       return response
+   }
 }
 
 module.exports = new CarRepository()
