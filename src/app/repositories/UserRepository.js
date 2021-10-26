@@ -2,7 +2,10 @@ const UserModel = require('../models/UserModel')
 
 class UserRepository {
     async getAll(offset, limit) {
-        return await UserModel.find().skip(offset).limit(limit)
+        const total = await UserModel.find().countDocuments()
+        const pessoas = await UserModel.find().skip(offset).limit(limit)
+        const offsets = pessoas.length
+        return {pessoas, total, offsets}
     }
 
     async getByFilter(offset, limit, filter) {
