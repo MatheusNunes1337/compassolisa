@@ -14,7 +14,6 @@ class UserController {
             else {
                 users = await UserService.findAll(req.query)
             }
-            users.map(user => user.senha = undefined)
             return res.status(200).json(users)
         } catch(err) {
             next(err)
