@@ -1,6 +1,5 @@
 const CarRepository = require("../repositories/CarRepository")
 const NotFound = require('../errors/NotFound')
-const replacePlusWithSpace = require('../utils/replacePlusWithSpace')
 
 class CarService {
     async findAll({offset, limit}) {
@@ -8,10 +7,6 @@ class CarService {
     }
 
     async findByFilter({offset, limit, ...filter}) {
-        Object.keys(filter).forEach(property => {
-            filter[property] = replacePlusWithSpace(filter[property])
-        })
-
         if(filter.descricao) {
             filter.acessorios = { descricao: filter.descricao }
         }
