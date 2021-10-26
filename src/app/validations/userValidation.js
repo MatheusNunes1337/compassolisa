@@ -4,7 +4,6 @@ const convertDateFormat = require('../utils/convertDateFormat')
 
 const userValidation = async (req, res, next) => {
     try {
-        console.log('method', req.method)
         const userData = Object.assign({}, req.body)
         const { reference_date, dob_formated } = convertDateFormat(userData.data_nascimento)
         userData.data_nascimento = dob_formated
@@ -24,4 +23,4 @@ const userValidation = async (req, res, next) => {
     }
 }
 
-module.exports = createUser
+module.exports = userValidation
