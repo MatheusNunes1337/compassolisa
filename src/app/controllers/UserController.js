@@ -15,6 +15,10 @@ class UserController {
                 response = await UserService.findAll(req.query)
             }
 
+            const { pessoas, total, offsets } = response
+            const { offset, limit } = req.query
+
+            response = { pessoas, total, limit, offset, offsets}
             
             return res.status(200).json(response)
         } catch(err) {
