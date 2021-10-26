@@ -43,7 +43,6 @@ class UserController {
     async create(req, res, next) {
         try {
             const user = await UserService.create(req.body)
-            user.senha = undefined
             return res.status(201).json(user)
         } catch(err) {
             next(err)
