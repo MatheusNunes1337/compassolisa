@@ -1,22 +1,23 @@
 const Joi = require('joi')
 
-const convertDateFormat = require('../../utils/convertDateFormat')
+const convertDateFormat = require('../utils/convertDateFormat')
 
-const createUser = async (req, res, next) => {
+const userValidation = async (req, res, next) => {
     try {
+        console.log('method', req.method)
         const userData = Object.assign({}, req.body)
         const { reference_date, dob_formated } = convertDateFormat(userData.data_nascimento)
         userData.data_nascimento = dob_formated
         
         const schema = Joi.object({
-            nome: Joi.string().required(),
-            cpf: Joi.string().pattern(new RegExp(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/)).required(),
-            data_nascimento: Joi.date().max('reference_date').required().label('You must be over 18 to create an account'),
-            email: Joi.string().email().required(),
-            senha: Joi.string().min(6).required(),
-            habilitado: Joi.string().valid('sim', 'não').required()
+            nome: Joi.string().when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional()}),
+            cpf: Joi.string().pattern(new RegExp(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/)).when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional()}),
+            data_nascimento: Joi.date().max(reference_date).when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional()}).label('You must be over 18 to create an account'),
+            email: Joi.string().email().when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional()}),
+            senha: Joi.string().min(6).when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional()}),
+            habilitado: Joi.string().valid('sim', 'não').when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional()})
         })
-        await schema.validateAsync(userData, { reference_date }, {abortEarly: true}) 
+        await schema.validateAsync(userData, { method: req.method }, {abortEarly: true}) 
         return next()    
     } catch(err) {
         return res.status(400).json(err.message)
