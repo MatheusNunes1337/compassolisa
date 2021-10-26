@@ -9,7 +9,10 @@ class UserRepository {
     }
 
     async getByFilter(offset, limit, filter) {
-        return await UserModel.find(filter).skip(offset).limit(limit)
+        const total = await UserModel.find(filter).countDocuments()
+        const pessoas = await UserModel.find(filter).skip(offset).limit(limit)
+        const offsets = pessoas.length
+        return {pessoas, total, offsets}
     }
     
     async getById(id) {
