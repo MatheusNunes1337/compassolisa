@@ -5,9 +5,17 @@ class CarRepository {
         return await CarModel.find().skip(offset).limit(limit)
     }
 
+    async getByFilter(offset, limit, filter) {
+        const total = await CarModel.find(filter).countDocuments()
+        const veiculos = await CarModel.find(filter).skip(offset).limit(limit)
+        const offsets = veiculos.length
+        return { veiculos, total, offsets}
+    }
+
     async getById(id) {
         return await CarModel.findById(id)
     }
+
 
     async create(car) {
         return await CarModel.create(car)
