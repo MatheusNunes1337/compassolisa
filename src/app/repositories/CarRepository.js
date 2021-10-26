@@ -2,7 +2,10 @@ const CarModel = require('../models/CarModel')
 
 class CarRepository {
     async getAll(offset, limit) {
-        return await CarModel.find().skip(offset).limit(limit)
+        const total = await CarModel.find().countDocuments()
+        const veiculos = await CarModel.find().skip(offset).limit(limit)
+        const offsets = veiculos.length
+        return { veiculos, total, offsets}
     }
 
     async getByFilter(offset, limit, filter) {
