@@ -4,7 +4,6 @@ const CarController = require('../app/controllers/CarController')
 const checkIdFormat = require('../app/middlewares/checkIdFormat')
 const carValidation = require('../app/validations/carValidation')
 
-
 carRouter.get('/', CarController.getAll)
 carRouter.get('/:id', checkIdFormat, CarController.getById)
 carRouter.post('/', carValidation, CarController.create)

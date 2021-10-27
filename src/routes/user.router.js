@@ -6,7 +6,7 @@ const checkIdFormat = require('../app/middlewares/checkIdFormat')
 userRouter.get('/', UserController.getAll)
 userRouter.get('/:id', checkIdFormat, UserController.getById)
 userRouter.post('/', userValidation, UserController.create)
-userRouter.put('/:id', userValidation, UserController.update)
-userRouter.delete('/:id', UserController.delete)
+userRouter.put('/:id', checkIdFormat, userValidation, UserController.update)
+userRouter.delete('/:id', checkIdFormat, UserController.delete)
 
 module.exports = userRouter
