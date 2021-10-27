@@ -7,7 +7,7 @@ const carValidation = require('../app/validations/carValidation')
 carRouter.get('/', CarController.getAll)
 carRouter.get('/:id', checkIdFormat, CarController.getById)
 carRouter.post('/', carValidation, CarController.create)
-carRouter.put('/:id', carValidation, CarController.update)
-carRouter.delete('/:id', CarController.delete)
+carRouter.put('/:id', checkIdFormat, carValidation, CarController.update)
+carRouter.delete('/:id', checkIdFormat, CarController.delete)
 
 module.exports = carRouter
