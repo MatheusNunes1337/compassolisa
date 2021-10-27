@@ -26,7 +26,7 @@ const userValidation = async (req, res, next) => {
       .valid('sim', 'não')
       .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
     });
-    await schema.validateAsync(req.body, { method: req.method }, { abortEarly: true });
+    await schema.validateAsync(req.body, { method: req.method }, { abortEarly: false });
     return next();
   } catch (err) {
     return res.status(400).json(err.message);
