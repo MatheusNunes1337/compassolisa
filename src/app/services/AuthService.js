@@ -12,11 +12,11 @@ class AuthService {
 
     const { email, habilitado, _id } = user;
 
-    const token = jwt.sign({ id: _id }, process.env.API_SECRET, {
+    const token = jwt.sign({ email, habilitado }, process.env.API_SECRET, {
       expiresIn: '1d',
     });
 
-    const response = { token, email, habilitado };
+    const response = { token };
 
     return response;
   }
