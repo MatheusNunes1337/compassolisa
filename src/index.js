@@ -1,32 +1,30 @@
-const express = require('express')
+const express = require('express');
 
-const routes = require('./routes')
-const errorHandler = require('./app/middlewares/errorHandler')
-const dbConnection = require('./infra/database')
+const routes = require('./routes');
+const errorHandler = require('./app/middlewares/errorHandler');
+const dbConnection = require('./infra/database');
 
-dbConnection.connect()
+dbConnection.connect();
 
 class App {
-    constructor() {
-        this.express = express()
-        this.middlewares()
-        this.routes()
-        this.errors()
-    }
+  constructor() {
+    this.express = express();
+    this.middlewares();
+    this.routes();
+    this.errors();
+  }
 
-    middlewares() {
-        this.express.use(express.json())
-    }
+  middlewares() {
+    this.express.use(express.json());
+  }
 
-    routes() {
-        this.express.use(routes)
-    }
+  routes() {
+    this.express.use(routes);
+  }
 
-    errors() {
-        this.express.use(errorHandler)
-    }
-
-
+  errors() {
+    this.express.use(errorHandler);
+  }
 }
 
-module.exports = new App().express
+module.exports = new App().express;
