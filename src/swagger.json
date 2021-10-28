@@ -222,7 +222,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "person's name"
+            "description": "car model"
           },
           {
             "in": "query",
@@ -242,19 +242,11 @@
           },
           {
             "in": "query",
-            "name": "acessorios",
+            "name": "descricao",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "descricao": {
-                    "type": "string"
-                  }
-                }
-              },
-              "description": "car accessories"
-            }
+              "type": "string"
+            },
+              "description": "accessory description"
           }
         ],
         "responses": {
@@ -276,19 +268,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Person"
+                "$ref": "#/components/schemas/Car"
               }
             }
           }
         },
-        "description": "At this endpoint, you can create a new person",
+        "description": "At this endpoint, you can create a new car",
         "responses": {
           "201": {
             "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Person"
+                  "$ref": "#/components/schemas/Car"
                 }
               }
             }
