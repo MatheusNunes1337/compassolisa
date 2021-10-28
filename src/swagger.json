@@ -271,7 +271,7 @@
         }
       },
       "post": {
-        "summary": "Create a new person",
+        "summary": "Create a new car",
         "requestBody": {
           "content": {
             "application/json": {
