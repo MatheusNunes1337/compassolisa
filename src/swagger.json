@@ -1,0 +1,235 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Compassolisa",
+    "description": "API para controlar médicos e suas especialidades dentro do consultório",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Suporte a Devs",
+      "email": "contato@example.com",
+      "url": "https://mockapi.io"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "API de teste"
+    }
+  ],
+  "paths": {
+    "/api/v1/people": {
+      "get": {
+        "summary": "Get all people",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The number of people to skip before starting to collect the result set",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The numbers of people to return",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "nome",
+            "schema": {
+              "type": "string"
+            },
+            "description": "person's name"
+          },
+          {
+            "in": "query",
+            "name": "cpf",
+            "schema": {
+              "type": "string"
+            },
+            "description": "person's cpf"
+          },
+          {
+            "in": "query",
+            "name": "data_nascimento",
+            "schema": {
+              "type": "string"
+            },
+            "description": "person's day of birthday"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "schema": {
+              "type": "string"
+            },
+            "description": "person's email"
+          },
+          {
+            "in": "query",
+            "name": "habilitado",
+            "schema": {
+              "type": "string"
+            },
+            "description": "person's status"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/People"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new person",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            }
+          }
+        },
+        "description": "At this endpoint, you can create a new person",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/people/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "schema": {
+            "type": "integer"
+          },
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get people by Id",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a person",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Person not found",
+            "content": {
+              "application/json": {
+                "example": "Person not Found"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a person",
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Person not found",
+            "content": {
+              "application/json": {
+                "example": "Person not Found"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Person": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "data_nascimento": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "senha": {
+            "type": "string"
+          },
+          "habilitado": {
+            "type": "string",
+            "enum": [
+              "sim",
+              "não"
+            ]
+          }
+        }
+      },
+      "People": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Person"
+        }
+      }
+    }
+  }
+}
