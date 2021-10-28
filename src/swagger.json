@@ -193,6 +193,108 @@
           }
         }
       }
+    },
+    "/api/v1/car": {
+      "get": {
+        "summary": "Get all cars",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The number of cars to skip before starting to collect the result set",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The numbers of cars to return",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "modelo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "person's name"
+          },
+          {
+            "in": "query",
+            "name": "cor",
+            "schema": {
+              "type": "string"
+            },
+            "description": "color of car"
+          },
+          {
+            "in": "query",
+            "name": "ano",
+            "schema": {
+              "type": "string"
+            },
+            "description": "year"
+          },
+          {
+            "in": "query",
+            "name": "acessorios",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "descricao": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "car accessories"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cars"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new person",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            }
+          }
+        },
+        "description": "At this endpoint, you can create a new person",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -228,6 +330,40 @@
         "type": "array",
         "items": {
           "$ref": "#/components/schemas/Person"
+        }
+      },
+      "Car": {
+        "type": "object",
+        "properties": {
+          "modelo": {
+            "type": "string"
+          },
+          "cor": {
+            "type": "string"
+          },
+          "ano": {
+            "type": "number"
+          },
+          "acessorios": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "type": "string"
+                }
+              }
+            }  
+          },
+          "quantidadePassageiros": {
+            "type": "number"
+          }
+        }
+      },
+      "Cars": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Car"
         }
       }
     }
