@@ -125,7 +125,7 @@
           "name": "id",
           "in": "path",
           "schema": {
-            "type": "integer"
+            "type": "string"
           },
           "required": true
         }
