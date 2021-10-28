@@ -247,6 +247,14 @@
               "type": "string"
             },
               "description": "accessory description"
+          },
+          {
+            "in": "query",
+            "name": "quantidadePassageiros",
+            "schema": {
+              "type": "number"
+            },
+            "description": "number of passengers"
           }
         ],
         "responses": {
