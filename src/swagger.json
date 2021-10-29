@@ -2,12 +2,10 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Compassolisa",
-    "description": "API para controlar médicos e suas especialidades dentro do consultório",
+    "description": "This API refers to a luxury and semi luxury car rental system",
     "version": "1.0.0",
     "contact": {
-      "name": "Suporte a Devs",
-      "email": "contato@example.com",
-      "url": "https://mockapi.io"
+      "email": "matheusnunesz1337@gmail.com"
     }
   },
   "servers": [
