@@ -140,6 +140,22 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Person not found",
+            "content": {
+              "application/json": {
+                "example": "Person not Found"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id format",
+            "content": {
+              "application/json": {
+                "example": "The id you have submitted has an invalid format"
+              }
+            }
           }
         }
       },
@@ -174,10 +190,10 @@
             }
           },
           "400": {
-            "description": "Invalid id format",
+            "description": "Invalid id or field",
             "content": {
               "application/json": {
-                "example": "The id you have submitted has an invalid format"
+                "example": "Field or id has invalid format or value"
               }
             }
           }
@@ -394,10 +410,10 @@
             }
           },
           "400": {
-            "description": "Invalid id format",
+            "description": "Invalid field or parameter",
             "content": {
               "application/json": {
-                "example": "The id you have submitted has an invalid format"
+                "example": "Field or id has invalid format or value"
               }
             }
           }
