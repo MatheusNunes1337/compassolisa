@@ -8,7 +8,7 @@ class AuthService {
   async login(credentials) {
     const user = await AuthRepository.login(credentials);
 
-    if (!user) throw new Error('Email or password is incorrent. Try Again');
+    if (!user) throw new Error('Email or password is incorrect. Try Again');
 
     const { email, habilitado, _id } = user;
 
