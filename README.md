@@ -71,7 +71,7 @@ To run this project, you will need to add the following environment variables to
 #### Access the documentation
 
 ```http
-  POST /api/v1/api-docs
+  GET /api/v1/api-docs
 ```
 
 
