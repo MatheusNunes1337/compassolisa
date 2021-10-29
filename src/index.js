@@ -18,7 +18,7 @@ class App {
 
   middlewares() {
     this.express.use(express.json());
-    this.express.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+    this.express.use('/api/v1/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
   }
 
   routes() {
