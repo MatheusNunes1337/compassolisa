@@ -466,7 +466,7 @@
         },
         "description": "At this endpoint, you can authenticate",
         "responses": {
-          "201": {
+          "200": {
             "description": "Success",
             "content": {
               "application/json": {
