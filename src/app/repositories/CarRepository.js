@@ -1,20 +1,10 @@
 const CarModel = require('../models/CarModel');
 
 class CarRepository {
-  async getAll(offset, limit) {
-    const total = await CarModel.find().countDocuments();
-    const veiculos = await CarModel.find().skip(offset).limit(limit);
-    const offsets = veiculos.length;
-    return { veiculos, total, offsets };
+  async getAll(offset, limit, filter) {
+    return await CarModel.paginate(filter, { offset, limit })
   }
-
-  async getByFilter(offset, limit, filter) {
-    const total = await CarModel.find(filter).countDocuments();
-    const veiculos = await CarModel.find(filter).skip(offset).limit(limit);
-    const offsets = veiculos.length;
-    return { veiculos, total, offsets };
-  }
-
+  
   async getById(id) {
     return await CarModel.findById(id);
   }

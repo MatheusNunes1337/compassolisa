@@ -3,25 +3,12 @@ const CarService = require('../services/CarService');
 class CarController {
   async getAll(req, res, next) {
     try {
-      let response;
-
       req.query.offset = parseInt(req.query.offset);
       req.query.limit = parseInt(req.query.limit);
 
-      if (Object.keys(req.query).length == 2) {
-        response = await CarService.findAll(req.query);
-      } else {
-        response = await CarService.findByFilter(req.query);
-      }
-
-      const { veiculos, total, offsets } = response;
-      const { offset, limit } = req.query;
-
-      response = {
-        veiculos, total, limit, offset, offsets,
-      };
-
+      const response = await CarService.findAll(req.query);
       return res.status(200).json(response);
+
     } catch (err) {
       next(err);
     }

@@ -1,4 +1,5 @@
 const { model, Schema } = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const UserSchema = Schema({
   nome: {
@@ -21,13 +22,20 @@ const UserSchema = Schema({
   },
   senha: {
     type: String,
+    select: false,
     required: true,
   },
   habilitado: {
     type: String,
     required: true,
   },
+  __v: {
+    type: Number,
+    select: false,
+  },
 });
+
+UserSchema.plugin(mongoosePaginate);
 
 const User = model('User', UserSchema);
 
