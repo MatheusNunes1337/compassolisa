@@ -359,9 +359,33 @@
             }
           }
         }
+      },
+      "delete": {
+        "summary": "Delete a car",
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Car not found",
+            "content": {
+              "application/json": {
+                "example": "Car not Found"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id format",
+            "content": {
+              "application/json": {
+                "example": "The id you have submitted has an invalid format"
+              }
+            }
+          }
+        }
       }
-    }  
-  },
+    }        
+  },  
   "components": {
     "schemas": {
       "Person": {
