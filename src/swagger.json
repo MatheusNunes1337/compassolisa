@@ -172,6 +172,14 @@
                 "example": "Person not Found"
               }
             }
+          },
+          "400": {
+            "description": "Invalid id format",
+            "content": {
+              "application/json": {
+                "example": "The id you have submitted has an invalid format"
+              }
+            }
           }
         }
       },
@@ -186,6 +194,14 @@
             "content": {
               "application/json": {
                 "example": "Person not Found"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id format",
+            "content": {
+              "application/json": {
+                "example": "The id you have submitted has an invalid format"
               }
             }
           }
