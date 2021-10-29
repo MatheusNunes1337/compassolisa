@@ -2,16 +2,21 @@ const CarRepository = require('../repositories/CarRepository');
 const NotFound = require('../errors/NotFound');
 
 class CarService {
-  async findAll({ offset, limit }) {
-    return await CarRepository.getAll(offset, limit);
-  }
-
-  async findByFilter({ offset, limit, ...filter }) {
+  async findAll({ offset, limit, ...filter }) {
     if (filter.descricao) {
       filter.acessorios = { descricao: filter.descricao };
     }
+    const result = await CarRepository.getAll(offset, limit, filter);
+    const { docs, totalDocs } = result
+    
+    const response = {}
+    response.veiculos = docs
+    response.total = totalDocs
+    response.limit = limit
+    response.offset = offset
+    response.offsets = docs.length
 
-    return await CarRepository.getByFilter(offset, limit, filter);
+    return response
   }
 
   async findById(id) {
