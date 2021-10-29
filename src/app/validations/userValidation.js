@@ -12,10 +12,10 @@ const userValidation = async (req, res, next) => {
       .pattern(new RegExp(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/))
       .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
       data_nascimento: Joi.date()
-        .format('DD/MM/YYYY')
-        .max(reference_date)
-        .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() })
-        .label('You must be over 18'),
+      .format('DD/MM/YYYY')
+      .max(reference_date)
+      .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() })
+      .label('You must be over 18'),
       email: Joi.string()
       .email()
       .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
@@ -26,6 +26,7 @@ const userValidation = async (req, res, next) => {
       .valid('sim', 'não')
       .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
     });
+    
     await schema.validateAsync(req.body, { method: req.method }, { abortEarly: false });
     return next();
   } catch (err) {

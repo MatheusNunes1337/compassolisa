@@ -8,15 +8,16 @@ const carValidation = async (req, res, next) => {
       cor: Joi.string()
       .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
       ano: Joi.number()
-        .min(1950)
-        .max(2022)
-        .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
+      .min(1950)
+      .max(2022)
+      .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
       acessorios: Joi.array().min(1).unique('descricao')
-        .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() })
-        .label('You must to add 1 acessorio at least and they must be unique'),
+      .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() })
+      .label('You must to add 1 acessorio at least and they must be unique'),
       quantidadePassageiros: Joi.number()
-        .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
+      .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
     });
+    
     await schema.validateAsync(req.body, { method: req.method }, { abortEarly: false });
     return next();
   } catch (err) {
