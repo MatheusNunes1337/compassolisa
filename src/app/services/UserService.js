@@ -2,12 +2,12 @@ const UserRepository = require('../repositories/UserRepository');
 const NotFound = require('../errors/NotFound');
 
 class UserService {
-  async findAll({ offset, limit }) {
-    const result = await UserRepository.getAll(offset, limit);
+  async findAll({ offset, limit, ...filter }) {
+    const result = await UserRepository.getAll(offset, limit, filter);
     const { docs, totalDocs } = result
-    
+
     const response = {}
-    response.veiculos = docs
+    response.pessoas = docs
     response.total = totalDocs
     response.limit = limit
     response.offset = offset
