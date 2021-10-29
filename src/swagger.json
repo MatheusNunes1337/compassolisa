@@ -1,0 +1,562 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Compassolisa",
+    "description": "This API refers to a luxury and semi luxury car rental system",
+    "version": "1.0.0",
+    "contact": {
+      "email": "matheusnunesz1337@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "API de teste"
+    }
+  ],
+  "paths": {
+    "/api/v1/people": {
+      "get": {
+        "summary": "Get all people",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The number of people to skip before starting to collect the result set",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The numbers of people to return",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "nome",
+            "schema": {
+              "type": "string"
+            },
+            "description": "person's name"
+          },
+          {
+            "in": "query",
+            "name": "cpf",
+            "schema": {
+              "type": "string"
+            },
+            "description": "person's cpf"
+          },
+          {
+            "in": "query",
+            "name": "data_nascimento",
+            "schema": {
+              "type": "string"
+            },
+            "description": "person's day of birthday"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "schema": {
+              "type": "string"
+            },
+            "description": "person's email"
+          },
+          {
+            "in": "query",
+            "name": "habilitado",
+            "schema": {
+              "type": "string"
+            },
+            "description": "person's status"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/People"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new person",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            }
+          }
+        },
+        "description": "At this endpoint, you can create a new person",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/people/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get people by Id",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Person not found",
+            "content": {
+              "application/json": {
+                "example": "Person not Found"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id format",
+            "content": {
+              "application/json": {
+                "example": "The id you have submitted has an invalid format"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a person",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Person"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Person not found",
+            "content": {
+              "application/json": {
+                "example": "Person not Found"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id or field",
+            "content": {
+              "application/json": {
+                "example": "Field or id has invalid format or value"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a person",
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Person not found",
+            "content": {
+              "application/json": {
+                "example": "Person not Found"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id format",
+            "content": {
+              "application/json": {
+                "example": "The id you have submitted has an invalid format"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/car": {
+      "get": {
+        "summary": "Get all cars",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The number of cars to skip before starting to collect the result set",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The numbers of cars to return",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "modelo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "car model"
+          },
+          {
+            "in": "query",
+            "name": "cor",
+            "schema": {
+              "type": "string"
+            },
+            "description": "color of car"
+          },
+          {
+            "in": "query",
+            "name": "ano",
+            "schema": {
+              "type": "string"
+            },
+            "description": "year"
+          },
+          {
+            "in": "query",
+            "name": "descricao",
+            "schema": {
+              "type": "string"
+            },
+              "description": "accessory description"
+          },
+          {
+            "in": "query",
+            "name": "quantidadePassageiros",
+            "schema": {
+              "type": "number"
+            },
+            "description": "number of passengers"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cars"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new car",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
+              }
+            }
+          }
+        },
+        "description": "At this endpoint, you can create a new car",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Car"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid field",
+            "content": {
+              "application/json": {
+                "example": "There are some field with invalid value or format"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/car/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get car by Id",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Car"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Car not found",
+            "content": {
+              "application/json": {
+                "example": "Car not Found"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id format",
+            "content": {
+              "application/json": {
+                "example": "The id you have submitted has an invalid format"
+              }
+            }
+          }
+        }
+      }, 
+      "put": {
+        "summary": "Update a car",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Car not found",
+            "content": {
+              "application/json": {
+                "example": "Car not Found"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid field or parameter",
+            "content": {
+              "application/json": {
+                "example": "Field or id has invalid format or value"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a car",
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Car not found",
+            "content": {
+              "application/json": {
+                "example": "Car not Found"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id format",
+            "content": {
+              "application/json": {
+                "example": "The id you have submitted has an invalid format"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/authenticate": {
+      "post": {
+        "summary": "Authenticate a person",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "senha": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "At this endpoint, you can authenticate",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Incorret credentials",
+            "content": {
+              "application/json": {
+                "example": "Email or password is incorrect"
+              }
+            }
+          } 
+        }
+      }
+    }        
+  },  
+  "components": {
+    "schemas": {
+      "Person": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "data_nascimento": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "senha": {
+            "type": "string"
+          },
+          "habilitado": {
+            "type": "string",
+            "enum": [
+              "sim",
+              "não"
+            ]
+          }
+        }
+      },
+      "People": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Person"
+        }
+      },
+      "Car": {
+        "type": "object",
+        "properties": {
+          "modelo": {
+            "type": "string"
+          },
+          "cor": {
+            "type": "string"
+          },
+          "ano": {
+            "type": "number"
+          },
+          "acessorios": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "type": "string"
+                }
+              }
+            }  
+          },
+          "quantidadePassageiros": {
+            "type": "number"
+          }
+        }
+      },
+      "Cars": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Car"
+        }
+      }
+    }
+  }
+}
