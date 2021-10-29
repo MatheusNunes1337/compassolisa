@@ -384,6 +384,49 @@
           }
         }
       }
+    },
+    "/api/v1/authenticate": {
+      "post": {
+        "summary": "Authenticate a person",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "senha": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "At this endpoint, you can authenticate",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Incorret credentials",
+            "content": {
+              "application/json": {
+                "example": "Email or password is incorrect"
+              }
+            }
+          } 
+        }
+      }
     }        
   },  
   "components": {
