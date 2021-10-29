@@ -21,6 +21,10 @@ const CarSchema = Schema({
     type: Number,
     required: true,
   },
+  __v: {
+    type: Number,
+    select: false,
+  },
 });
 
 CarSchema.plugin(mongoosePaginate);
