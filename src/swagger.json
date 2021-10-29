@@ -290,6 +290,14 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Invalid field",
+            "content": {
+              "application/json": {
+                "example": "There are some field with invalid value or format"
+              }
+            }
           }
         }
       }
