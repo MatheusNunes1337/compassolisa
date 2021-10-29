@@ -1,14 +1,14 @@
 {
   "name": "compassolisa",
   "version": "1.0.0",
-  "description": "",
+  "description": "This API refers to a luxury and semi luxury car rental system",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["cars", "luxury cars", "car rent"],
+  "author": "Matheus Nunes",
   "license": "ISC",
   "dependencies": {
     "@joi/date": "^2.1.0",
