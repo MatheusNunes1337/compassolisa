@@ -8,18 +8,14 @@ class CarController {
       req.query.offset = parseInt(req.query.offset);
       req.query.limit = parseInt(req.query.limit);
 
-      if (Object.keys(req.query).length == 2) {
-        response = await CarService.findAll(req.query);
-      } else {
-        response = await CarService.findByFilter(req.query);
-      }
-
-      const { veiculos, total, offsets } = response;
-      const { offset, limit } = req.query;
-
+      response = await CarService.findAll(req.query);
+       
+      console.log(response)
+      /*
       response = {
         veiculos, total, limit, offset, offsets,
       };
+      */
 
       return res.status(200).json(response);
     } catch (err) {
