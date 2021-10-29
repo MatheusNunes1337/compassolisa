@@ -12,13 +12,13 @@ class App {
   constructor() {
     this.express = express();
     this.middlewares();
-    this.swagger();
     this.routes();
     this.errors();
   }
 
   middlewares() {
     this.express.use(express.json());
+    this.express.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
   }
 
   routes() {
@@ -27,10 +27,6 @@ class App {
 
   errors() {
     this.express.use(errorHandler);
-  }
-
-  swagger() {
-    this.express.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
   }
 }
 
