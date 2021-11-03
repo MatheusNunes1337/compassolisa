@@ -26,7 +26,9 @@ const carValidation = async (req, res, next) => {
     if(error) throw error
     return next();
   } catch (err) {
-    return res.status(400).json(err);
+    const {message, path} = err.details[0]
+    const error = {description: path[0], name: message}
+    return res.status(400).json(error);
   }
 };
 
