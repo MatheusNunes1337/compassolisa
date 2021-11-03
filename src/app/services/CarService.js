@@ -18,17 +18,8 @@ class CarService {
       filter.acessorios = { descricao: filter.descricao };
     }
 
-    const result = await CarRepository.getAll(offset, limit, filter);
-    const { docs, totalDocs } = result
-    
-    const response = {}
-    response.veiculos = docs
-    response.total = totalDocs
-    response.limit = limit
-    response.offset = offset
-    response.offsets = docs.length
-
-    return response
+    return await CarRepository.getAll(offset, limit, filter);
+  
   }
 
   async findById(id) {
