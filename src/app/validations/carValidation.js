@@ -11,8 +11,13 @@ const carValidation = async (req, res, next) => {
       .min(1950)
       .max(2022)
       .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
-      acessorios: Joi.array().min(1).unique('descricao')
-      .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
+      acessorios: Joi.array().items(Joi.object({descricao: Joi.string().trim().min(3)}))
+      .min(1).unique('descricao')
+      .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() })
+      .messages({
+        "string.empty": `Descrição is not allowed to be empty`,
+        "string.min": `Descrição length must be at least 3 characters long`,
+      }),
       quantidadePassageiros: Joi.number()
       .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
     });
