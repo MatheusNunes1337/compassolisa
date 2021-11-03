@@ -34,12 +34,11 @@ const userValidation = async (req, res, next) => {
     });
     
     const { error } = await schema.validateAsync(req.body, { method: req.method }, { abortEarly: false });
-    console.log(error)
     if(error) throw error
     return next();
   } catch (err) {
-    const {message, context} = err.details[0]
-    const error = {description: context.label, name: message}
+    const {message, path} = err.details[0]
+    const error = {description: path[0], name: message}
     return res.status(400).json(error);
   }
 };
