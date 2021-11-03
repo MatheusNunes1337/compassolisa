@@ -1,6 +1,7 @@
 const UserRepository = require('../repositories/UserRepository');
 const NotFound = require('../errors/NotFound');
 const cpfVerification = require('../validations/cpfVerification')
+const emailVerification = require('../validations/emailVerification')
 
 class UserService {
   async findAll({ offset, limit, ...filter }) {
@@ -24,6 +25,7 @@ class UserService {
 
   async create(user) {
     await cpfVerification(user.cpf)
+    await emailVerification(user.email)
     return await UserRepository.create(user);
   }
 
