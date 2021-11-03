@@ -6,7 +6,7 @@ const userValidation = async (req, res, next) => {
     const reference_date = moment().subtract(18, 'years').format('MM-DD-YYYY');
 
     const schema = Joi.object({
-      nome: Joi.string()
+      nome: Joi.string().trim().min(3)
       .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
       cpf: Joi.string()
       .pattern(new RegExp(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/))
@@ -27,10 +27,14 @@ const userValidation = async (req, res, next) => {
       .when('method', { is: 'POST', then: Joi.required(), otherwise: Joi.optional() }),
     });
     
-    await schema.validateAsync(req.body, { method: req.method }, { abortEarly: false });
+    const { error } = await schema.validateAsync(req.body, { method: req.method }, { abortEarly: false });
+    console.log(error)
+    if(error) throw error
     return next();
   } catch (err) {
-    return res.status(400).json(err.message);
+    const {message, context} = err.details[0]
+    const error = {description: context.label, name: message}
+    return res.status(400).json(error);
   }
 };
 
