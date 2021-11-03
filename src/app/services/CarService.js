@@ -3,9 +3,21 @@ const NotFound = require('../errors/NotFound');
 
 class CarService {
   async findAll({ offset, limit, ...filter }) {
+    if(!offset && !limit) {
+       offset = 1
+       limit = 100
+    } else {
+      offset = parseInt(offset);
+      limit = parseInt(limit);
+      
+      if(offset < 0 || limit < 0) 
+        throw new Error('Limit and offset cannot have nagative values')
+    }
+
     if (filter.descricao) {
       filter.acessorios = { descricao: filter.descricao };
     }
+
     const result = await CarRepository.getAll(offset, limit, filter);
     const { docs, totalDocs } = result
     
