@@ -3,10 +3,6 @@ const UserService = require('../services/UserService');
 class UserController {
   async getAll(req, res, next) {
     try {
-      
-      req.query.offset = parseInt(req.query.offset);
-      req.query.limit = parseInt(req.query.limit);
-
       const response = await UserService.findAll(req.query);
 
       return res.status(200).json(response);
