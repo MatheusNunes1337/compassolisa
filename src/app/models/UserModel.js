@@ -22,7 +22,6 @@ const UserSchema = Schema({
   },
   senha: {
     type: String,
-    select: false,
     required: true,
   },
   habilitado: {
@@ -31,7 +30,6 @@ const UserSchema = Schema({
   },
   __v: {
     type: Number,
-    select: false,
   },
 });
 
