@@ -11,11 +11,10 @@ const checkIdFormat = async (req, res, next) => {
         })
     });
     const { error } = await schema.validate(req.params, { abortEarly: false });
-    console.log('error', error)
     if(error) throw error
     return next();
   } catch (err) {
-    const error = {descrption: 'invalid param', name: err.message}
+    const error = {description: 'invalid param', name: err.message}
     return res.status(400).json(error);
   }
 };
