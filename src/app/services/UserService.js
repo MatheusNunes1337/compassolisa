@@ -16,17 +16,7 @@ class UserService {
         throw new Error('Limit and offset cannot have nagative values')
     }
 
-    const result = await UserRepository.getAll(offset, limit, filter);
-    const { docs, totalDocs } = result
-
-    const response = {}
-    response.pessoas = docs
-    response.total = totalDocs
-    response.limit = limit
-    response.offset = offset
-    response.offsets = docs.length
-
-    return response
+    return await UserRepository.getAll(offset, limit, filter);
   }
 
   async findById(id) {
