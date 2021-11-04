@@ -1,5 +1,5 @@
-const Conflict = require('../errors/Conflict')
-const UserModel = require('../models/UserModel');
+const Conflict = require('../../errors/Conflict')
+const UserModel = require('../../models/UserModel');
 
 const emailVerification = async (email) => {
     const user = await UserModel.findOne({email})

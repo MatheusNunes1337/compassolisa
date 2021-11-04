@@ -36,6 +36,13 @@ class UserService {
     if (!user) {
       throw new NotFound('User');
     }
+    const {cpf, email} = userData
+    if(cpf) {
+      await cpfVerification(cpf)
+    }
+    if(email) {
+      await emailVerification(email)
+    }
     return await UserRepository.update(id, userData);
   }
 
