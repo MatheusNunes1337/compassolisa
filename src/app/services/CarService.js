@@ -3,20 +3,20 @@ const NotFound = require('../errors/NotFound');
 
 class CarService {
   async findAll({ offset, limit, ...filter }) {
-    if(!offset && !limit) {
-       offset = 1
-       limit = 100
-    } else {
-      offset = parseInt(offset);
-      limit = parseInt(limit);
+   
+    offset ? parseInt(offset): undefined;
+    limit ? parseInt(limit) : undefined;
+    
+    if(offset < 0 || limit < 0) 
+      throw new BadRequest('Limit and offset cannot be negative')
       
-      if(offset < 0 || limit < 0) 
-        throw new Error('Limit and offset cannot have nagative values')
-    }
+    if(offset < 0 || limit < 0) 
+      throw new Error('Limit and offset cannot have nagative values')
+    
 
-    if (filter.descricao) {
+    if (filter.descricao) 
       filter.acessorios = { descricao: filter.descricao };
-    }
+    
 
     return await CarRepository.getAll(offset, limit, filter);
   
