@@ -2,6 +2,7 @@ const UserRepository = require('../repositories/UserRepository');
 const NotFound = require('../errors/NotFound');
 const cpfVerification = require('../validations/cpfVerification')
 const emailVerification = require('../validations/emailVerification')
+const BadRequest = require('../errors/BadRequest')
 
 class UserService {
   async findAll({ offset, limit, ...filter }) {
@@ -13,7 +14,7 @@ class UserService {
       limit = parseInt(limit);
       
       if(offset < 0 || limit < 0) 
-        throw new Error('Limit and offset cannot have nagative values')
+        throw new BadRequest('Limit and offset cannot have nagative values')
     }
 
     return await UserRepository.getAll(offset, limit, filter);
