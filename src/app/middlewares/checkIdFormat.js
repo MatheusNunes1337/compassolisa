@@ -1,4 +1,6 @@
 const Joi = require('joi');
+const errorSerialize = require('../serialize/errorSerialize')
+const InvalidParam = require('../errors/InvalidParam')
 
 const checkIdFormat = async (req, res, next) => {
   try {
@@ -11,11 +13,11 @@ const checkIdFormat = async (req, res, next) => {
         })
     });
     const { error } = await schema.validate(req.params, { abortEarly: false });
-    if(error) throw error
+    console.log(error)
+    if(error) throw new InvalidParam(error.message)
     return next();
   } catch (err) {
-    const error = {description: 'invalid param', name: err.message}
-    return res.status(400).json(error);
+    return res.status(400).json(errorSerialize(err));
   }
 };
 
