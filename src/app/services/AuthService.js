@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const AuthRepository = require('../repositories/AuthRepository');
+const InvalidCredentials = require('../errors/InvalidCredentials')
 
 dotenv.config();
 
@@ -8,7 +9,7 @@ class AuthService {
   async login(credentials) {
     const user = await AuthRepository.login(credentials);
 
-    if (!user) throw new Error('Email or password is incorrect. Try Again');
+    if (!user) throw new InvalidCredentials('Email or password is incorrect. Try Again');
 
     const { email, habilitado, _id } = user;
 
