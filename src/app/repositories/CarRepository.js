@@ -1,7 +1,7 @@
 const CarModel = require('../models/CarModel');
 
 class CarRepository {
-  async getAll(offset, limit, filter) {
+  async getAll(offset = 0, limit = 100, filter) {
     return await CarModel.paginate(filter, { offset, limit })
   }
   
