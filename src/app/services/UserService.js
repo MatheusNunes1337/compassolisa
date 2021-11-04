@@ -6,16 +6,13 @@ const BadRequest = require('../errors/BadRequest')
 
 class UserService {
   async findAll({ offset, limit, ...filter }) {
-    if(!offset && !limit) {
-       offset = 1
-       limit = 100
-    } else {
-      offset = parseInt(offset);
-      limit = parseInt(limit);
+    
+      offset ? parseInt(offset): undefined;
+      limit ? parseInt(limit) : undefined;
       
       if(offset < 0 || limit < 0) 
-        throw new BadRequest('Limit and offset cannot have nagative values')
-    }
+        throw new BadRequest('Limit and offset cannot be negative')
+      
 
     return await UserRepository.getAll(offset, limit, filter);
   }
