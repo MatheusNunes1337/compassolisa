@@ -1,7 +1,7 @@
 const UserModel = require('../models/UserModel');
 
 class UserRepository {
-  async getAll(offset, limit, filter) {
+  async getAll(offset = 0, limit = 100, filter) {
     return await UserModel.paginate(filter, { offset, limit })
   }
 
