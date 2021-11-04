@@ -10,10 +10,6 @@ class CarService {
     if(offset < 0 || limit < 0) 
       throw new BadRequest('Limit and offset cannot be negative')
       
-    if(offset < 0 || limit < 0) 
-      throw new Error('Limit and offset cannot have nagative values')
-    
-
     if (filter.descricao) 
       filter.acessorios = { descricao: filter.descricao };
     
