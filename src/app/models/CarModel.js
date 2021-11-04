@@ -15,15 +15,11 @@ const CarSchema = Schema({
     required: true,
   },
   acessorios: [
-    { descricao: String, _id: false },
+    { descricao: String },
   ],
   quantidadePassageiros: {
     type: Number,
     required: true,
-  },
-  __v: {
-    type: Number,
-    select: false,
   },
 });
 
