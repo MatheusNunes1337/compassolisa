@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const errorSerialize = require('../../serialize/errorSerialize')
 
 const loginValidation = async (req, res, next) => {
   try {
@@ -11,9 +12,7 @@ const loginValidation = async (req, res, next) => {
     if(error) throw error
     return next();
   } catch (err) {
-    const {message, path} = err.details[0]
-    const error = {description: path[0], name: message}
-    return res.status(400).json(error);
+    return res.status(400).json(errorSerialize(err));
   }
 };
 
