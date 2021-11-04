@@ -1,7 +1,7 @@
 const UserRepository = require('../repositories/UserRepository');
 const NotFound = require('../errors/NotFound');
-const cpfVerification = require('../validations/cpfVerification')
-const emailVerification = require('../validations/emailVerification')
+const cpfVerification = require('../validations/user/cpfVerification')
+const emailVerification = require('../validations/user/emailVerification')
 const BadRequest = require('../errors/BadRequest')
 
 class UserService {
