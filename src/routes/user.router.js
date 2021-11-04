@@ -1,6 +1,6 @@
 const userRouter = require('express').Router();
 const UserController = require('../app/controllers/UserController');
-const userValidation = require('../app/validations/userValidation');
+const userValidation = require('../app/validations/user/userValidation');
 const checkIdFormat = require('../app/middlewares/checkIdFormat');
 
 userRouter.get('/', UserController.getAll);
