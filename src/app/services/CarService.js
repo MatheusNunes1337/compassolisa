@@ -1,5 +1,6 @@
 const CarRepository = require('../repositories/CarRepository');
 const NotFound = require('../errors/NotFound');
+const BadRequest = require('../errors/BadRequest')
 
 class CarService {
   async findAll({ offset, limit, ...filter }) {
@@ -33,6 +34,25 @@ class CarService {
       throw new NotFound('Car');
     }
     return await CarRepository.update(id, carData);
+  }
+
+  async updateAccessory({id, accessoryId}, {descricao}) {
+    const car = await this.findById(id);
+    if (!car) {
+      throw new NotFound('Car');
+    }
+    
+    const accessoriesId = car.acessorios.filter(acessorio => acessorio._id.toString() === accessoryId)
+    if(accessoriesId.length === 0) {
+      throw new NotFound('Accessory');
+    }
+
+    const accessoriesDescription = car.acessorios.filter(acessorio => acessorio.descricao === descricao)
+    if(accessoriesDescription.length > 0) {
+      throw new BadRequest(`This car already has an accessory called ${descricao}`);
+    }
+
+    return await CarRepository.updateAccessory(id, accessoryId, descricao)
   }
 
   async delete(id) {
