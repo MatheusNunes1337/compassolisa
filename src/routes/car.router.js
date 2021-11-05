@@ -10,6 +10,7 @@ carRouter.get('/', CarController.getAll);
 carRouter.get('/:id', checkIdFormat, CarController.getById);
 carRouter.post('/', carValidation, CarController.create);
 carRouter.put('/:id', checkIdFormat, carValidation, CarController.update);
+carRouter.patch('/:id/acessorios/:accessoryId', CarController.updateAccessory);
 carRouter.delete('/:id', checkIdFormat, CarController.delete);
 
 module.exports = carRouter;
