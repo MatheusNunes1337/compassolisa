@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs')
-const AuthRepository = require('../repositories/AuthRepository');
 const UserRepository = require('../repositories/UserRepository')
 const InvalidCredentials = require('../errors/InvalidCredentials')
 
