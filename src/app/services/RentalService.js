@@ -17,6 +17,14 @@ class RentalService {
   async getById(id) {
     return await RentalRepository.getById(id)
   }
+
+  async delete(id) {
+    const rental = await this.getById(id)
+    if (!rental) {
+      throw new NotFound('Rental');
+    }
+    return await RentalRepository.delete(id)
+  }
 }
 
 module.exports = new RentalService();
