@@ -21,6 +21,16 @@ class RentalController {
             next(err);
         }
     }
+
+    async delete(req, res, next) {
+        try {
+            const { id } = req.params;
+            await RentalService.delete(id)
+            return res.status(204).end();
+        } catch (err) {
+            next(err);
+        }
+    }
 }
 
 module.exports = new RentalController()
