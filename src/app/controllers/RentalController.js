@@ -9,7 +9,18 @@ class RentalController {
         } catch (err) {
           next(err);
         }
-      }
+    }
+
+    async getById(req, res, next) {
+        try {
+            const { id } = req.params;
+            const rental = await RentalService.getById(id)
+            if (rental) return res.status(200).json(serialize(rental));
+            return res.status(204).end();
+        } catch (err) {
+            next(err);
+        }
+    }
 }
 
 module.exports = new RentalController()
