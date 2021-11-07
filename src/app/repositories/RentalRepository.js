@@ -8,6 +8,10 @@ class RentalRepository {
     async getById(id) {
         return await RentalModel.findById(id)
     }
+
+    async delete(id) {
+        return await RentalModel.findByIdAndDelete(id)
+    }
 }
 
 module.exports = new RentalRepository();
