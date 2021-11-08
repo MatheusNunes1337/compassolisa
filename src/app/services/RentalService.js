@@ -4,6 +4,7 @@ const BadRequest = require('../errors/BadRequest');
 const NotFound = require('../errors/NotFound');
 const serialize = require('../serialize/addressSerialize');
 const cnpjVerification = require('../validations/rental/cnpjVerification');
+const filialVerification = require('../validations/rental/filialVerification')
 
 class RentalService {
   async getAll({ offset, limit, ...filter }) {
@@ -26,15 +27,7 @@ class RentalService {
 
     await cnpjVerification(cnpj)
 
-    const matriz = endereco.filter(e => {
-      return e.isFilial === false
-    })
-
-    if(matriz.length === 0) 
-      throw new BadRequest('A rental must have a head office')
-    
-    if(matriz.length > 1) 
-      throw new BadRequest('A rental must have only one head office')
+    filialVerification(endereco)
     
     payload.endereco = await Promise.all(endereco.map(async e => {
       const response = await AddressProvider.getAddress(e.cep)
