@@ -4,6 +4,7 @@ const checkIdFormat = require('../app/middlewares/checkIdFormat');
 
 rentalRouter.get('/', RentalController.getAll);
 rentalRouter.get('/:id', checkIdFormat, RentalController.getById);
+rentalRouter.post('/', RentalController.create);
 rentalRouter.delete('/:id', checkIdFormat, RentalController.delete);
 
 module.exports = rentalRouter;
