@@ -2,7 +2,8 @@ const RentalRepository = require('../repositories/RentalRepository');
 const AddressProvider = require('../providers/AddressProvider')
 const BadRequest = require('../errors/BadRequest');
 const NotFound = require('../errors/NotFound');
-const serialize = require('../serialize/addressSerialize')
+const serialize = require('../serialize/addressSerialize');
+const cnpjVerification = require('../validations/rental/cnpjVerification');
 
 class RentalService {
   async getAll({ offset, limit, ...filter }) {
@@ -21,7 +22,9 @@ class RentalService {
   }
 
   async create(payload) {
-    const {endereco} = payload
+    const {endereco, cnpj} = payload
+
+    await cnpjVerification(cnpj)
 
     const matriz = endereco.filter(e => {
       return e.isFilial === false
