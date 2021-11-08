@@ -1,5 +1,5 @@
 const RentalService = require('../services/RentalService')
-const {paginateSerialize, serialize} = require('../serialize/rentalSerialize')
+const {paginateSerialize, serialize} = require('../serialize/rentalSerialize');
 
 class RentalController {
     async getAll(req, res, next) {
@@ -19,6 +19,15 @@ class RentalController {
             return res.status(204).end();
         } catch (err) {
             next(err);
+        }
+    }
+
+    async create(req, res, next) {
+        try {
+            const payload = await RentalService.create(req.body)
+            return res.status(201).json(payload)
+        } catch(err) {
+            next(err)
         }
     }
 

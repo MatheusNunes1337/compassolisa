@@ -15,17 +15,17 @@ const RentalSchema = Schema({
     type: String,
     required: true,
   },
-  endereco: [
-    { cep: { type: String, required: true } },
-    { logradouro: { type: String, required: true } },
-    { cep: { type: String, required: true } },
-    { complemento: String },
-    { bairro: { type: String, required: true } },
-    { number: { type: Number, required: true } },
-    { localidade: { type: String, required: true } },
-    { uf: { type: String, required: true } },
-    { is_filial: { type: Boolean, required: true } },
-  ],
+  endereco: [{
+    _id: false,
+    cep: { type: String, required: true },
+    logradouro: { type: String, required: true },
+    complemento: String,
+    bairro: { type: String, required: true },
+    number: { type: Number, required: true },
+    localidade: { type: String, required: true },
+    uf: { type: String, required: true },
+    isFilial: { type: Boolean, required: true },
+  }],
 });
 
 RentalSchema.plugin(mongoosePaginate);

@@ -3,11 +3,10 @@ const axios = require('axios');
 class AddressProvider {
     async getAddress(cep) {
         const {data} = await axios.get(`https://viacep.com.br/ws/${cep}/json`)
-        console.log(data)
+        const {logradouro, bairro, localidade, uf} = data
+        
+        return {logradouro, bairro, localidade, uf}
     }
 }
 
-const adressProvider = new AddressProvider()
-adressProvider.getAddress('96055-740')
-
-//module.exports = new AdressProvider();
+module.exports = new AddressProvider();
