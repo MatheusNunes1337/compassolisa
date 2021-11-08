@@ -11,9 +11,10 @@ class CarService {
     if(offset < 0 || limit < 0) 
       throw new BadRequest('Limit and offset cannot be negative')
       
-    if (filter.descricao) 
-      filter.acessorios = { descricao: filter.descricao };
-    
+    if (filter.descricao) {
+      filter['acessorios.descricao'] = filter.descricao
+      delete filter.descricao
+    }
 
     return await CarRepository.getAll(offset, limit, filter);
   
