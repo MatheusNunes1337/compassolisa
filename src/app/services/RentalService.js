@@ -8,13 +8,22 @@ const filialVerification = require('../validations/rental/filialVerification')
 
 class RentalService {
   async getAll({ offset, limit, ...filter }) {
-  
+      const addressFields = ['cep', 'logradouro', 'complemento', 'bairro', 
+      'number', 'localidade', 'uf', 'isFilial']
+    
       offset ? parseInt(offset): undefined;
       limit ? parseInt(limit) : undefined;
       
       if(offset < 0 || limit < 0) 
         throw new BadRequest('Limit and offset cannot be negative')
-      
+
+      Object.keys(filter).forEach(field => {
+          if(addressFields.includes(field)) {
+            filter[`endereco.${field}`] = filter[field]
+            delete filter[field]
+          }
+      })
+  
       return await RentalRepository.getAll(offset, limit, filter);
   }
 
