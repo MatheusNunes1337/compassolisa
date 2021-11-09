@@ -24,8 +24,17 @@ class RentalController {
 
     async create(req, res, next) {
         try {
-            const payload = await RentalService.create(req.body)
-            return res.status(201).json(payload)
+            const response = await RentalService.create(req.body)
+            return res.status(201).json(response)
+        } catch(err) {
+            next(err)
+        }
+    }
+
+    async update(req, res, next) {
+        try {
+            const response = await RentalService.update(req.params, req.body)
+            return res.status(200).json(response)
         } catch(err) {
             next(err)
         }
