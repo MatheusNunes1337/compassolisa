@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const errorSerialize = require('../../serialize/errorSerialize')
 
-const carValidation = async (req, res, next) => {
+const createAndUpdate = async (req, res, next) => {
   try {
     const schema = Joi.object({
       modelo: Joi.string().trim().min(3)
@@ -31,4 +31,4 @@ const carValidation = async (req, res, next) => {
   }
 };
 
-module.exports = carValidation;
+module.exports = createAndUpdate;
