@@ -3,11 +3,12 @@ const carRouter = require('express').Router();
 const CarController = require('../app/controllers/CarController');
 const checkIdFormat = require('../app/middlewares/checkIdFormat');
 const bodyValidation = require('../app/validations/car/createAndUpdate');
+const filterValidation = require('../app/validations/car/getAll');
 const accessoryValidation = require('../app/validations/car/accessoryValidation');
 const userAuthentication = require('../app/middlewares/userAuthentication');
 
 carRouter.use(userAuthentication);
-carRouter.get('/', CarController.getAll);
+carRouter.get('/', filterValidation, CarController.getAll);
 carRouter.get('/:id', checkIdFormat, CarController.getById);
 carRouter.post('/', bodyValidation, CarController.create);
 carRouter.put('/:id', checkIdFormat, bodyValidation, CarController.update);
