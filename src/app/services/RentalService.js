@@ -51,6 +51,35 @@ class RentalService {
     return await RentalRepository.create(payload)
   }
 
+  async update({id}, payload) {
+    const rental = await this.getById(id)
+
+    if (!rental) 
+      throw new NotFound('Rental');
+  
+    if(payload.cnpj)
+      await cnpjVerification(payload.cnpj)
+
+    if(payload.endereco) {
+      const {endereco} = payload
+      filialVerification(endereco)
+    
+      payload.endereco = await Promise.all(endereco.map(async address => {
+        const response = await AddressProvider.getAddress(address.cep)
+
+        if(response.hasOwnProperty('erro'))
+          throw new BadRequest(`The cep ${address.cep} does not exist`)
+
+        const fullAddress = Object.assign({}, address, response)
+
+        return serialize(fullAddress, false)
+      }))
+    }
+    
+    return await RentalRepository.update(id, payload)
+
+  }
+
   async delete(id) {
     const rental = await this.getById(id)
     if (!rental) {
