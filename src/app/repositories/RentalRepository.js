@@ -13,6 +13,10 @@ class RentalRepository {
         return await RentalModel.create(payload)
     }
 
+    async update(id, payload) {
+       return await RentalModel.findByIdAndUpdate(id, payload, { new: true });
+    }
+
     async delete(id) {
         return await RentalModel.findByIdAndDelete(id)
     }
