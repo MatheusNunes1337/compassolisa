@@ -38,13 +38,13 @@ class RentalService {
 
     filialVerification(endereco)
     
-    payload.endereco = await Promise.all(endereco.map(async e => {
-      const response = await AddressProvider.getAddress(e.cep)
+    payload.endereco = await Promise.all(endereco.map(async address => {
+      const response = await AddressProvider.getAddress(address.cep)
 
       if(response.hasOwnProperty('erro'))
-        throw new BadRequest(`The cep ${e.cep} does not exist`)
+        throw new BadRequest(`The cep ${address.cep} does not exist`)
 
-      const fullAddress = Object.assign({}, e, response)
+      const fullAddress = Object.assign({}, address, response)
 
       return serialize(fullAddress, false)
     }))
