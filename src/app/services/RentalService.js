@@ -51,7 +51,7 @@ class RentalService {
 
       const fullAddress = Object.assign({}, address, response)
 
-      return serialize(fullAddress, false)
+      return serialize(fullAddress)
     }))
 
     return await RentalRepository.create(payload)
@@ -82,7 +82,7 @@ class RentalService {
 
         const fullAddress = Object.assign({}, address, response)
 
-        return serialize(fullAddress, false)
+        return serialize(fullAddress)
       }))
     }
     
