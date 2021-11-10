@@ -1,8 +1,11 @@
-const serialize = ({
+function serialize({
   _id, nome, cnpj, atividades, endereco,
-}) => ({
-  _id, nome, cnpj, atividades, endereco,
-});
+}) {
+  endereco.map((address) => address.isFilial = undefined);
+  return {
+    _id, nome, cnpj, atividades, endereco,
+  };
+}
 
 const paginateSerialize = ({
   docs, limit, totalDocs, pagingCounter, totalPages,
