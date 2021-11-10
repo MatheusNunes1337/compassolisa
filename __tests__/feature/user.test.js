@@ -197,5 +197,50 @@ describe('user', () => {
     expect(pessoas[0].habilitado).toBe(userMock.habilitado)
     
   })
+
+  it('should get users by their names', async() => {
+    const userMock01 = {
+      nome: "Regina",
+      cpf: "111.209.345-01",
+      data_nascimento: "12/05/1981",
+      email: "reginamagalhaes@gmail.com",
+      senha: "123456",
+      habilitado: "sim"
+    }
+
+    const userMock02 = {
+      nome: "Regina",
+      cpf: "192.239.111-07",
+      data_nascimento: "09/08/2000",
+      email: "regina005@gmail.com",
+      senha: "123456",
+      habilitado: "não"
+    }
+
+    await UserModel.create(userMock01)
+    await UserModel.create(userMock02)
+
+    const response = await request(app)
+    .get('/api/v1/people?nome=Regina')
+
+    const {body, status} = response
+    const {pessoas} = body
+    
+    expect(status).toBe(200)
+
+    expect(pessoas).toHaveLength(2)
+    expect(pessoas[0].nome).toBe(userMock01.nome)
+    expect(pessoas[0].cpf).toBe(userMock01.cpf)
+    expect(pessoas[0].data_nascimento).toBe(userMock01.data_nascimento)
+    expect(pessoas[0].email).toBe(userMock01.email)
+    expect(pessoas[0].habilitado).toBe(userMock01.habilitado)
+
+    expect(pessoas[1].nome).toBe(userMock02.nome)
+    expect(pessoas[1].cpf).toBe(userMock02.cpf)
+    expect(pessoas[1].data_nascimento).toBe(userMock02.data_nascimento)
+    expect(pessoas[1].email).toBe(userMock02.email)
+    expect(pessoas[1].habilitado).toBe(userMock02.habilitado)
+    
+  })
     
 })
