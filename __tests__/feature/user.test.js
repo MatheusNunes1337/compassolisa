@@ -123,5 +123,28 @@ describe('user', () => {
     expect(body.name).toBe('You must be over 18')
     
   })
+
+  it('should not create a user with invalid email format', async() => {
+
+    const userMock = {
+        nome: "Matheus Cardoso",
+        cpf: "104.018.561-04",
+        data_nascimento: "14/12/1998",
+        email: "matheus",
+        senha: "123456",
+        habilitado: "sim"
+    }
+
+    const response = await request(app)
+    .post('/api/v1/people/')
+    .send(userMock)
+
+    const {body, status} = response
+    expect(status).toBe(400)
+
+    expect(body.description).toBe('email')
+    expect(body.name).toBe('\"email\" must be a valid email')
+    
+  })
     
 })
