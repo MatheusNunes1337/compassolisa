@@ -146,5 +146,28 @@ describe('user', () => {
     expect(body.name).toBe('\"email\" must be a valid email')
     
   })
+
+  it('should not create a user with blank field', async() => {
+
+    const userMock = {
+        nome: "",
+        cpf: "104.018.561-04",
+        data_nascimento: "14/11/1997",
+        email: "jorge@gmail.com",
+        senha: "123456",
+        habilitado: "sim"
+    }
+
+    const response = await request(app)
+    .post('/api/v1/people/')
+    .send(userMock)
+
+    const {body, status} = response
+    expect(status).toBe(400)
+
+    expect(body.description).toBe('nome')
+    expect(body.name).toBe('\"nome\" is not allowed to be empty')
+    
+  })
     
 })
