@@ -245,7 +245,7 @@ describe('user', () => {
     
   })
 
-  it('should get a user by ', async() => {
+  it('should get a user by id', async() => {
     const userMock = {
       nome: "Cristiano Ronaldo",
       cpf: "111.209.345-01",
@@ -269,6 +269,27 @@ describe('user', () => {
     expect(body.data_nascimento).toBe(userMock.data_nascimento)
     expect(body.email).toBe(userMock.email)
     expect(body.habilitado).toBe(userMock.habilitado)
+  })
+
+  it('should delete a user', async() => {
+    const userMock = {
+      nome: "Neymar",
+      cpf: "111.209.345-01",
+      data_nascimento: "17/12/1990",
+      email: "neymarjr10@gmail.com",
+      senha: "123456",
+      habilitado: "não"
+    }
+
+    let {_id} = await UserModel.create(userMock)
+   
+    const response = await request(app)
+    .delete(`/api/v1/people/${_id.toString()}`)
+
+    const {body, status} = response
+  
+    expect(status).toBe(204)
+    expect(body).toEqual({})
   })
     
 })
