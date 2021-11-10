@@ -68,7 +68,37 @@ describe('user', () => {
       expect(body.description).toBe('Conflict')
       expect(body.name).toBe(`CPF ${userMock.cpf} already in use`)
       
-
   })
+
+  it('should not create a user with a existing email', async() => {
+    await UserModel.create({
+        nome: "Joana Maria",
+        cpf: "013.650.291-03",
+        data_nascimento: "12/09/1991",
+        email: "joana@outlook.com",
+        senha: "123456",
+        habilitado: "não"
+    })
+
+    const userMock = {
+        nome: "Joana Fernandes",
+        cpf: "031.904.514-04",
+        data_nascimento: "11/11/1997",
+        email: "joana@outlook.com",
+        senha: "1234567",
+        habilitado: "sim"
+    }
+
+    const response = await request(app)
+    .post('/api/v1/people/')
+    .send(userMock)
+
+    const {body, status} = response
+    expect(status).toBe(400)
+
+    expect(body.description).toBe('Conflict')
+    expect(body.name).toBe(`Email ${userMock.email} already in use`)
+    
+})
     
 })
