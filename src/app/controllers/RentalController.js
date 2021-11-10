@@ -25,7 +25,7 @@ class RentalController {
     async create(req, res, next) {
         try {
             const response = await RentalService.create(req.body)
-            return res.status(201).json(response)
+            return res.status(201).json(serialize(response))
         } catch(err) {
             next(err)
         }
@@ -34,7 +34,7 @@ class RentalController {
     async update(req, res, next) {
         try {
             const response = await RentalService.update(req.params, req.body)
-            return res.status(200).json(response)
+            return res.status(200).json(serialize(response))
         } catch(err) {
             next(err)
         }
