@@ -5,6 +5,8 @@ const NotFound = require('../errors/NotFound');
 const serialize = require('../serialize/addressSerialize');
 const cnpjVerification = require('../validations/rental/cnpjVerification');
 const filialVerification = require('../validations/rental/filialVerification')
+const checkAddressExistence = require('../validations/rental/addressExistence')
+const duplicatedAddress = require('../validations/rental/duplicatedAddress')
 
 class RentalService {
   async getAll({ offset, limit, ...filter }) {
@@ -37,8 +39,11 @@ class RentalService {
     await cnpjVerification(cnpj)
 
     filialVerification(endereco)
+    duplicatedAddress(endereco)
     
     payload.endereco = await Promise.all(endereco.map(async address => {
+      await checkAddressExistence(address.cep, address.number)
+
       const response = await AddressProvider.getAddress(address.cep)
 
       if(response.hasOwnProperty('erro'))
@@ -48,6 +53,7 @@ class RentalService {
 
       return serialize(fullAddress, false)
     }))
+
     return await RentalRepository.create(payload)
   }
 
@@ -62,9 +68,13 @@ class RentalService {
 
     if(payload.endereco) {
       const {endereco} = payload
+      
       filialVerification(endereco)
+      duplicatedAddress(endereco)
     
       payload.endereco = await Promise.all(endereco.map(async address => {
+        await checkAddressExistence(address.cep, address.number)
+
         const response = await AddressProvider.getAddress(address.cep)
 
         if(response.hasOwnProperty('erro'))
