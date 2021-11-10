@@ -14,7 +14,7 @@ beforeAll(async () => {
 
 describe('user', () => {
     it('should create a new user', async() => {
-        const payload = {
+        const userMock = {
             nome: "Marina",
             cpf: "081.163.313-15",
             data_nascimento: "29/10/2002",
@@ -25,10 +25,19 @@ describe('user', () => {
 
         const response = await request(app)
         .post('/api/v1/people/')
-        .send(payload)
+        .send(userMock)
 
-        console.log('response', response.body)
-        expect(response.status).toBe(201)
+        const {body, status} = response
+        console.log(body)
+        expect(status).toBe(201)
+
+        expect(body).toHaveProperty('_id')
+        expect(body.nome).toBe(userMock.nome)
+        expect(body.cpf).toBe(userMock.cpf)
+        expect(body.data_nascimento).toBe(userMock.data_nascimento)
+        expect(body.email).toBe(userMock.email)
+        expect(body.habilitado).toBe(userMock.habilitado)
 
     })
+    
 })
