@@ -99,6 +99,29 @@ describe('user', () => {
     expect(body.description).toBe('Conflict')
     expect(body.name).toBe(`Email ${userMock.email} already in use`)
     
-})
+  })
+
+  it('should not create a user under 18', async() => {
+
+    const userMock = {
+        nome: "Júlia Riter",
+        cpf: "091.123.896-01",
+        data_nascimento: "14/12/2004",
+        email: "juliariter@outlook.com",
+        senha: "123456",
+        habilitado: "sim"
+    }
+
+    const response = await request(app)
+    .post('/api/v1/people/')
+    .send(userMock)
+
+    const {body, status} = response
+    expect(status).toBe(400)
+
+    expect(body.description).toBe('data_nascimento')
+    expect(body.name).toBe('You must be over 18')
+    
+  })
     
 })
