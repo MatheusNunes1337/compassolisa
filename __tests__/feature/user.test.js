@@ -217,30 +217,58 @@ describe('user', () => {
       habilitado: "não"
     }
 
-    await UserModel.create(userMock01)
-    await UserModel.create(userMock02)
+    const user1 = await UserModel.create(userMock01)
+    const user2 = await UserModel.create(userMock02)
 
     const response = await request(app)
     .get('/api/v1/people?nome=Regina')
 
     const {body, status} = response
     const {pessoas} = body
-    
+
     expect(status).toBe(200)
 
     expect(pessoas).toHaveLength(2)
+    expect(pessoas[0]._id).toBe(user1._id.toString())
     expect(pessoas[0].nome).toBe(userMock01.nome)
     expect(pessoas[0].cpf).toBe(userMock01.cpf)
     expect(pessoas[0].data_nascimento).toBe(userMock01.data_nascimento)
     expect(pessoas[0].email).toBe(userMock01.email)
     expect(pessoas[0].habilitado).toBe(userMock01.habilitado)
 
+    expect(pessoas[1]._id).toBe(user2._id.toString())
     expect(pessoas[1].nome).toBe(userMock02.nome)
     expect(pessoas[1].cpf).toBe(userMock02.cpf)
     expect(pessoas[1].data_nascimento).toBe(userMock02.data_nascimento)
     expect(pessoas[1].email).toBe(userMock02.email)
     expect(pessoas[1].habilitado).toBe(userMock02.habilitado)
     
+  })
+
+  it('should get a user by ', async() => {
+    const userMock = {
+      nome: "Cristiano Ronaldo",
+      cpf: "111.209.345-01",
+      data_nascimento: "12/05/1981",
+      email: "cristiano7@gmail.com",
+      senha: "123456",
+      habilitado: "sim"
+    }
+
+    let {_id} = await UserModel.create(userMock)
+   
+    const response = await request(app)
+    .get(`/api/v1/people/${_id.toString()}`)
+
+    const {body, status} = response
+    expect(status).toBe(200)
+
+    expect(body._id).toBe(_id.toString())
+    expect(body.nome).toBe(userMock.nome)
+    expect(body.cpf).toBe(userMock.cpf)
+    expect(body.data_nascimento).toBe(userMock.data_nascimento)
+    expect(body.email).toBe(userMock.email)
+    expect(body.habilitado).toBe(userMock.habilitado)
   })
     
 })
