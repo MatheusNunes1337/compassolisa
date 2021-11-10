@@ -169,5 +169,33 @@ describe('user', () => {
     expect(body.name).toBe('\"nome\" is not allowed to be empty')
     
   })
+
+  it('should get all users', async() => {
+    const userMock = {
+      nome: "Cristiano Ronaldo",
+      cpf: "111.209.345-01",
+      data_nascimento: "12/05/1981",
+      email: "cristiano7@gmail.com",
+      senha: "123456",
+      habilitado: "sim"
+    }
+
+    await UserModel.create(userMock)
+
+    const response = await request(app)
+    .get('/api/v1/people/')
+
+    const {body, status} = response
+    const {pessoas} = body
+    expect(status).toBe(200)
+
+    expect(pessoas).toHaveLength(1)
+    expect(pessoas[0].nome).toBe(userMock.nome)
+    expect(pessoas[0].cpf).toBe(userMock.cpf)
+    expect(pessoas[0].data_nascimento).toBe(userMock.data_nascimento)
+    expect(pessoas[0].email).toBe(userMock.email)
+    expect(pessoas[0].habilitado).toBe(userMock.habilitado)
+    
+  })
     
 })
