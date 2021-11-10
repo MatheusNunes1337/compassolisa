@@ -28,7 +28,6 @@ describe('user', () => {
         .send(userMock)
 
         const {body, status} = response
-        console.log(body)
         expect(status).toBe(201)
 
         expect(body).toHaveProperty('_id')
@@ -39,5 +38,37 @@ describe('user', () => {
         expect(body.habilitado).toBe(userMock.habilitado)
 
     })
+
+    it('should not create a user with a existing cpf', async() => {
+      await UserModel.create({
+          nome: "Travis",
+          cpf: "081.163.313-15",
+          data_nascimento: "18/04/1996",
+          email: "travis09@outlook.com",
+          senha: "123456",
+          habilitado: "não"
+      })
+
+      const userMock = {
+          nome: "John Doe",
+          cpf: "081.163.313-15",
+          data_nascimento: "18/04/1995",
+          email: "johndoe@outlook.com",
+          senha: "123456",
+          habilitado: "sim"
+      }
+
+      const response = await request(app)
+      .post('/api/v1/people/')
+      .send(userMock)
+
+      const {body, status} = response
+      expect(status).toBe(400)
+
+      expect(body.description).toBe('Conflict')
+      expect(body.name).toBe(`CPF ${userMock.cpf} already in use`)
+      
+
+  })
     
 })
