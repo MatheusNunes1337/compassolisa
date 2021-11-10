@@ -10,24 +10,24 @@ const duplicatedAddress = require('../validations/rental/duplicatedAddress')
 
 class RentalService {
   async getAll({ offset, limit, ...filter }) {
-      const addressFields = ['cep', 'logradouro', 'complemento', 'bairro', 
-      'number', 'localidade', 'uf', 'isFilial']
-    
-      offset ? parseInt(offset): undefined;
-      limit ? parseInt(limit) : undefined;
-      
-      if(offset < 0 || limit < 0) 
-        throw new BadRequest('Limit and offset cannot be negative')
-
-      Object.keys(filter).forEach(field => {
-          if(addressFields.includes(field)) {
-            filter[`endereco.${field}`] = filter[field]
-            delete filter[field]
-          }
-      })
+    const addressFields = ['cep', 'logradouro', 'complemento', 'bairro', 
+    'number', 'localidade', 'uf', 'isFilial']
   
-      return await RentalRepository.getAll(offset, limit, filter);
-  }
+    offset ? parseInt(offset): undefined;
+    limit ? parseInt(limit) : undefined;
+    
+    if(offset < 0 || limit < 0) 
+      throw new BadRequest('Limit and offset cannot be negative')
+
+    Object.keys(filter).forEach(field => {
+        if(addressFields.includes(field)) {
+          filter[`endereco.${field}`] = filter[field]
+          delete filter[field]
+        }
+    })
+
+    return await RentalRepository.getAll(offset, limit, filter);
+}
 
   async getById(id) {
     return await RentalRepository.getById(id)
@@ -68,7 +68,7 @@ class RentalService {
 
     if(payload.endereco) {
       const {endereco} = payload
-      
+
       filialVerification(endereco)
       duplicatedAddress(endereco)
     
