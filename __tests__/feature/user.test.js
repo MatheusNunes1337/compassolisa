@@ -745,7 +745,7 @@ describe('delete a user', () => {
   })
 })
 
-describe('Do not delete that not exists', () => {
+describe('Do not delete a user that not exists', () => {
         
   it('should return status code 204', async() => {
     const idMock = '4edd40c86762e0fb12000003'
@@ -781,6 +781,107 @@ describe('Do not delete that not exists', () => {
     expect(typeof body).toBe('object')
     expect(typeof body.name).toBe('string')
     expect(typeof body.description).toBe('string')  
+  })
+})
+
+describe("update a user's password", () => {
+        
+  it('should return status code 200', async() => {
+    const userMock = {
+      nome: "Mariana",
+      cpf: "098.163.024-05",
+      data_nascimento: "03/12/1996",
+      email: "marianagomes@gmail.com",
+      senha: "123456",
+      habilitado: "não"
+    }
+
+    const senha = {
+      senha: 'mariagomes137'
+    }
+
+    const {text} = await request(app)
+    .post('/api/v1/people/')
+    .send(userMock)
+
+    const {_id} = JSON.parse(text)
+ 
+    const response = await request(app)
+    .put(`/api/v1/people/${_id.toString()}`)
+    .send(senha)
+
+    const {status} = response
+    expect(status).toBe(200)
+  })
+
+  it('should return a object without the updated password', async() => {
+    const userMock = {
+      nome: "Mariana",
+      cpf: "098.163.024-05",
+      data_nascimento: "03/12/1996",
+      email: "marianagomes@gmail.com",
+      senha: "123456",
+      habilitado: "não"
+    }
+
+    const senha = {
+      senha: 'mariagomes137'
+    }
+
+    const {text} = await request(app)
+    .post('/api/v1/people/')
+    .send(userMock)
+
+    const {_id} = JSON.parse(text)
+ 
+    const response = await request(app)
+    .put(`/api/v1/people/${_id.toString()}`)
+    .send(senha)
+
+    const {body} = response
+  
+    expect(body._id).toBe(_id)
+    expect(body.nome).toBe(userMock.nome)
+    expect(body.cpf).toBe(userMock.cpf)
+    expect(body.data_nascimento).toBe(userMock.data_nascimento)
+    expect(body.email).toBe(userMock.email)
+    expect(body.senha).toBeUndefined()
+    expect(body.habilitado).toBe(userMock.habilitado)
+
+  })
+
+  it('should return a body with properties values type string', async() => {
+    const userMock = {
+      nome: "Mariana",
+      cpf: "098.163.024-05",
+      data_nascimento: "03/12/1996",
+      email: "marianagomes@gmail.com",
+      senha: "123456",
+      habilitado: "não"
+    }
+
+    const senha = {
+      senha: 'mariagomes137'
+    }
+
+    const {text} = await request(app)
+    .post('/api/v1/people/')
+    .send(userMock)
+
+    const {_id} = JSON.parse(text)
+ 
+    const response = await request(app)
+    .put(`/api/v1/people/${_id.toString()}`)
+    .send(senha)
+
+    const {body} = response
+    
+    expect(typeof body).toBe('object')
+    expect(typeof body.nome).toBe('string') 
+    expect(typeof body.cpf).toBe('string') 
+    expect(typeof body.data_nascimento).toBe('string') 
+    expect(typeof body.email).toBe('string') 
+    expect(typeof body.habilitado).toBe('string')  
   })
 })
 
