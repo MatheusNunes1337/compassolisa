@@ -26,9 +26,7 @@ class CarRepository {
       }
     )
     const car = await this.getById(id)
-    const accessory = car.acessorios.filter(acessorio => acessorio.descricao === descricao )
-
-    return accessory  
+    return car.acessorios
   }
   
 
