@@ -5,6 +5,10 @@ const UserModel = require('../../src/app/models/UserModel');
 
 beforeAll(async () => {
     await UserModel.deleteMany();
+});
+
+beforeEach(async () => {
+    await UserModel.deleteMany();
 
     const userMock = {
         nome: "James winston",
@@ -99,6 +103,54 @@ describe('Do not authenticate a user with invalid email', () => {
       const credentialsMock = {
           email: "james1900@outlook.com",
           senha: "paradise003",
+      }
+  
+      const response = await request(app)
+      .post('/api/v1/authenticate/')
+      .send(credentialsMock)
+  
+      const {body} = response
+      expect(typeof body.token).toBe('undefined')
+      expect(typeof body.name).toBe('string')
+      expect(typeof body.name).toBe('string')
+    })
+  })
+
+  describe('Do not authenticate a user with invalid password', () => {      
+    it('should return status code 200', async() => {
+      const credentialsMock = {
+        email: "james1945@outlook.com",
+        senha: "paradise",
+      }
+  
+      const response = await request(app)
+      .post('/api/v1/authenticate/')
+      .send(credentialsMock)
+  
+      const {status} = response
+      expect(status).toBe(400)
+    })
+  
+    it('should return a body with name and description error properties', async() => {
+      const credentialsMock = {
+        email: "james1945@outlook.com",
+        senha: "paradise",
+      }
+  
+      const response = await request(app)
+      .post('/api/v1/authenticate/')
+      .send(credentialsMock)
+  
+      const {body} = response
+      expect(body.token).toBeUndefined()
+      expect(body.name).toBe('The password is incorrect. Try again')
+      expect(body.description).toBe('Invalid credentials')
+    })
+  
+    it('should return a body with a string token undefined and name and description type string', async() => {
+      const credentialsMock = {
+          email: "james1945@outlook.com",
+          senha: "paradise",
       }
   
       const response = await request(app)
