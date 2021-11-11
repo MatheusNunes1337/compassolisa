@@ -1,8 +1,9 @@
+const bcrypt = require('bcryptjs');
 const UserRepository = require('../repositories/UserRepository');
 const NotFound = require('../errors/NotFound');
-const cpfVerification = require('../validations/user/cpfVerification')
-const emailVerification = require('../validations/user/emailVerification')
-const BadRequest = require('../errors/BadRequest')
+const cpfVerification = require('../validations/user/cpfVerification');
+const emailVerification = require('../validations/user/emailVerification');
+const BadRequest = require('../errors/BadRequest');
 
 class UserService {
   async findAll({ offset, limit, ...filter }) {
@@ -22,25 +23,31 @@ class UserService {
     return user;
   }
 
-  async create(user) {
-    await cpfVerification(user.cpf)
-    await emailVerification(user.email)
-    return await UserRepository.create(user);
+  async create(payload) {
+    await cpfVerification(payload.cpf)
+    await emailVerification(payload.email)
+    return await UserRepository.create(payload);
   }
 
-  async update(id, userData) {
+  async update(id, payload) {
     const user = await this.findById(id);
     if (!user) {
       throw new NotFound('User');
     }
-    const {cpf, email} = userData
-    if(cpf) {
+    const {cpf, email, senha} = payload
+    if(cpf) 
       await cpfVerification(cpf)
-    }
-    if(email) {
+
+    if(email) 
       await emailVerification(email)
+  
+    if(senha) {
+      const encriptedPassword = await bcrypt.hash(senha, 10)
+      payload.senha = encriptedPassword
     }
-    return await UserRepository.update(id, userData);
+
+
+    return await UserRepository.update(id, payload);
   }
 
   async delete(id) {
