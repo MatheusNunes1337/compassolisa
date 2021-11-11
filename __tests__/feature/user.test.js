@@ -31,7 +31,7 @@ describe('create a new user', () => {
     expect(status).toBe(201)
   })
 
-  it('should return a body with content same as userMock', async() => {
+  it('should return a body with _id and the same properties from userMock expect password', async() => {
     const userMock = {
       nome: "James winston",
       cpf: "182.931.371-08",
@@ -435,7 +435,7 @@ describe('get all users', () => {
       expect(status).toBe(200)
   })
 
-  it('should return a body with properties same as userMock', async() => {
+  it('should return a body with _id and the same properties from userMock expect password', async() => {
     const userMock = {
       nome: "Matheus",
       cpf: "192.168.010-02",
@@ -504,7 +504,7 @@ describe('get users by their names', () => {
       cpf: "183.103.187-04",
       data_nascimento: "20/11/2001",
       email: "pedrooo@outlook.com",
-      senha: "banana123",
+      senha: "onlined134",
       habilitado: "não"
     }
 
@@ -519,7 +519,7 @@ describe('get users by their names', () => {
       expect(status).toBe(200)
   })
 
-  it('should return a body with properties same as userMock', async() => {
+  it('should return a body with _id and the same properties from userMock expect password', async() => {
     const userMock = {
       nome: "Pedro",
       cpf: "183.103.187-04",
@@ -605,7 +605,7 @@ describe('get users by their id', () => {
       expect(status).toBe(200)
   })
 
-  it('should return a object with properties same as userMock', async() => {
+  it('should return a body with _id and the same properties from userMock expect password', async() => {
     const userMock = {
       nome: "Lucas Morais",
       cpf: "467.127.189-07",
@@ -747,7 +747,7 @@ describe('delete a user', () => {
 
 describe('Do not delete a user that not exists', () => {
         
-  it('should return status code 204', async() => {
+  it('should return status code 404', async() => {
     const idMock = '4edd40c86762e0fb12000003'
 
     const response = await request(app)
@@ -882,6 +882,44 @@ describe("update a user's password", () => {
     expect(typeof body.data_nascimento).toBe('string') 
     expect(typeof body.email).toBe('string') 
     expect(typeof body.habilitado).toBe('string')  
+  })
+})
+
+describe('Do not update a password of a user that not exists', () => { 
+  it('should return status code 404', async() => {
+    const idMock = '4edd40c86762e0fb12000003'
+
+    const response = await request(app)
+    .put(`/api/v1/people/${idMock}`)
+
+    const {status} = response
+    expect(status).toBe(404)
+  })
+
+  it('should return an object with name and description properties', async() => {
+    const idMock = '4edd40c86762e0fb12000003'
+
+    const response = await request(app)
+    .put(`/api/v1/people/${idMock}`)
+ 
+    const {body} = response
+  
+    expect(body.name).toBe('User not found')
+    expect(body.description).toBe('Not Found')
+
+  })
+
+  it('should return a object with properties type string', async() => {
+    const idMock = '4edd40c86762e0fb12000003'
+
+    const response = await request(app)
+    .put(`/api/v1/people/${idMock}`)
+ 
+    const {body} = response
+    
+    expect(typeof body).toBe('object')
+    expect(typeof body.name).toBe('string')
+    expect(typeof body.description).toBe('string')  
   })
 })
 
