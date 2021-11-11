@@ -104,3 +104,80 @@ describe('create a new rental', () => {
     
   })
 })
+
+describe('Do not create a rental with cep that not exists', () => {
+        
+    it('should return status code 400', async() => {
+      const rentalMock = {
+          nome: "Locadora do mock",
+          cnpj: "16.760.085/0920-10",
+          atividades: "Alugel de carros e gestão de frotas",
+          endereco: [
+              {
+                  cep: "12455-000",
+                  number: 201,
+                  complemento: "ao lado da havan",
+                  isFilial: false
+              },
+          ]
+      }
+  
+      const response = await request(app)
+      .post('/api/v1/rental/')
+      .send(rentalMock)
+  
+      const {status} = response
+      expect(status).toBe(400)
+    })
+  
+    it('should return a body with name and description error properties', async() => {
+      const rentalMock = {
+          nome: "Locadora do mock",
+          cnpj: "16.760.085/0920-10",
+          atividades: "Alugel de carros e gestão de frotas",
+          endereco: [
+              {
+                  cep: "12455-000",
+                  number: 201,
+                  complemento: "ao lado da havan",
+                  isFilial: false
+              },
+          ]
+      }
+  
+      const response = await request(app)
+      .post('/api/v1/rental/')
+      .send(rentalMock)
+  
+      const {body} = response
+  
+      expect(body.name).toBe(`The cep ${rentalMock.endereco[0].cep} does not exist`)
+      expect(body.description).toBe('Bad Request')
+    })
+  
+    it('should return a body with values type string', async() => {
+      const rentalMock = {
+          nome: "Locadora do mock",
+          cnpj: "16.760.085/0920-10",
+          atividades: "Alugel de carros e gestão de frotas",
+          endereco: [
+              {
+                  cep: "12455-000",
+                  number: 201,
+                  complemento: "ao lado da havan",
+                  isFilial: false
+              },
+          ]
+      }
+  
+      const response = await request(app)
+      .post('/api/v1/rental/')
+      .send(rentalMock)
+  
+      const {body} = response
+  
+      expect(typeof body).toBe('object')
+      expect(typeof body.name).toBe('string')
+      expect(typeof body.description).toBe('string')
+    })
+  })
