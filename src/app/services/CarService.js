@@ -53,7 +53,7 @@ class CarService {
       throw new BadRequest(`This car already has an accessory called ${descricao}`);
     }
 
-    return await CarRepository.updateAccessory(id, accessoryId, descricao)
+    return await CarRepository.updateAccessory(accessoryId, descricao)
   }
 
   async delete(id) {
