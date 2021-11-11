@@ -1,13 +1,17 @@
 const errorSerialize = (error) => {
-  let description = error.name;
-  let name = error.message;
+  let errors = { description: error.name, name: error.message };
 
   if (error.hasOwnProperty('details')) {
-    const { message, path } = error.details[0];
-    description = path[0];
-    name = message;
+    errors = error.details.map((e) => {
+      const erro = {
+        description: e.path[0],
+        name: e.message,
+      };
+
+      return erro;
+    });
   }
-  return { description, name };
+  return errors;
 };
 
 module.exports = errorSerialize;
