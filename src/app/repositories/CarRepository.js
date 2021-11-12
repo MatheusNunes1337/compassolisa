@@ -18,17 +18,17 @@ class CarRepository {
     return response;
   }
 
-  async updateAccessory(accessoryId, descricao) {
-    const acessoriesUpdated = await CarModel.findOneAndUpdate(
-        { 'acessorios._id': accessoryId },
+  async updateAccessory(carId, accessoryId, descricao) {
+    const car = await CarModel.findOneAndUpdate(
+        {_id: carId, 'acessorios._id': accessoryId },
         {
           $set: {
             'acessorios.$.descricao': descricao
           }
         },
-        { new: true, safe: true, upsert: true }
-    )    
-    return acessoriesUpdated;
+        { new: true }
+    )  
+    return car;
   }
   
 
