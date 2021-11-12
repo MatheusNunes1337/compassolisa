@@ -681,6 +681,41 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Create a new rental",
+        "description": "at this endpoint you can create a new rental",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Rental"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RentalReturn"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/authenticate": {
@@ -807,9 +842,6 @@
       "Rental": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string"
-          },
           "nome": {
             "type": "string"
           },
@@ -834,7 +866,7 @@
                   "type": "number"
                 },
                 "isFilial": {
-                  "type": "string"
+                  "type": "boolean"
                 }
               }
             }  
