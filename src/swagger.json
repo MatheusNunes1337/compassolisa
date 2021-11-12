@@ -332,6 +332,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Error status 401 - Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
           }
         }
       },
@@ -360,6 +370,16 @@
           },
           "400": {
             "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error status 401 - Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
@@ -417,6 +437,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Error status 401 - Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
           }
         }
       }, 
@@ -461,6 +491,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Error status 401 - Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
           }
         }
       },
@@ -482,6 +522,16 @@
           },
           "400": {
             "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error status 401 - Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
