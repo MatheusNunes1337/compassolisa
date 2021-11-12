@@ -1,24 +1,25 @@
 const CarRepository = require('../repositories/CarRepository');
 const NotFound = require('../errors/NotFound');
-const BadRequest = require('../errors/BadRequest')
-const Conflict = require('../errors/Conflict')
+const BadRequest = require('../errors/BadRequest');
+const Conflict = require('../errors/Conflict');
 
 class CarService {
   async findAll({ offset, limit, ...filter }) {
-   
-    offset ? parseInt(offset): undefined;
-    limit ? parseInt(limit) : undefined;
-    
-    if(offset < 0 || limit < 0) 
-      throw new BadRequest('Limit and offset cannot be negative')
-      
-    if (filter.descricao) {
-      filter['acessorios.descricao'] = filter.descricao
-      delete filter.descricao
+    if (offset) {
+      Number(offset);
+    }
+    if (limit) {
+      Number(limit);
     }
 
-    return await CarRepository.getAll(offset, limit, filter);
-  
+    if (offset < 0 || limit < 0) throw new BadRequest('Limit and offset cannot be negative');
+
+    if (filter.descricao) {
+      filter['acessorios.descricao'] = filter.descricao;
+      delete filter.descricao;
+    }
+
+    return CarRepository.getAll(offset, limit, filter);
   }
 
   async findById(id) {
@@ -27,7 +28,7 @@ class CarService {
   }
 
   async create(car) {
-    return await CarRepository.create(car);
+    return CarRepository.create(car);
   }
 
   async update(id, carData) {
@@ -35,25 +36,23 @@ class CarService {
     if (!car) {
       throw new NotFound('Car');
     }
-    return await CarRepository.update(id, carData);
+    return CarRepository.update(id, carData);
   }
 
-  async updateAccessory({id, accessoryId}, {descricao}) {
+  async updateAccessory({ id, accessoryId }, { descricao }) {
     const car = await this.findById(id);
-    if (!car) 
-      throw new NotFound('Car');
+    if (!car) throw new NotFound('Car');
 
-    const accessoriesDescription = car.acessorios.filter(acessorio => acessorio.descricao === descricao)
-    if(accessoriesDescription.length > 0) {
+    const accessoriesDescription = car.acessorios.filter((acessorio) => acessorio.descricao === descricao);
+    if (accessoriesDescription.length > 0) {
       throw new Conflict(`This car already has an accessory called ${descricao}`);
     }
 
-    const response = await CarRepository.updateAccessory(id, accessoryId, descricao)
+    const response = await CarRepository.updateAccessory(id, accessoryId, descricao);
 
-    if(!response) 
-      throw new NotFound('Accessory')
+    if (!response) throw new NotFound('Accessory');
 
-    return response
+    return response;
   }
 
   async delete(id) {
@@ -61,7 +60,7 @@ class CarService {
     if (!car) {
       throw new NotFound('Car');
     }
-    return await CarRepository.delete(id);
+    return CarRepository.delete(id);
   }
 }
 

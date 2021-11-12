@@ -1,5 +1,5 @@
 const getCnpjPattern = () => {
-  const pattern = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/;
+  const pattern = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
   return pattern;
 };
 
@@ -9,7 +9,7 @@ const getCepPattern = () => {
 };
 
 const getCpfPattern = () => {
-  const pattern = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/;
+  const pattern = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
   return pattern;
 };
 
@@ -19,5 +19,8 @@ const getObjectIdPattern = () => {
 };
 
 module.exports = {
-  getCnpjPattern, getCepPattern, getCpfPattern, getObjectIdPattern,
+  getCnpjPattern,
+  getCepPattern,
+  getCpfPattern,
+  getObjectIdPattern
 };
