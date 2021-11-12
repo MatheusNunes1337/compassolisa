@@ -1,16 +1,16 @@
 const Joi = require('joi');
 const errorSerialize = require('../serialize/errorSerialize')
 const InvalidParam = require('../errors/InvalidParam')
+const {getObjectIdPattern} = require('../utils/getPatterns')
 
 const checkIdFormat = async (req, res, next) => {
   try {
     const params = Object.values(req.params)
-    const pattern = /[0-9a-fA-F]{24}/;
-
+  
     const schema = Joi.object({
-      id: Joi.array().items(Joi.string().regex(pattern))
+      id: Joi.array().items(Joi.string().regex(getObjectIdPattern()))
         .messages({
-          "string.pattern.base": `id must be 24 hexadecimal numbers`,
+          "string.pattern.base": `id must be have 24 hexadecimal characters`,
         })
       });
 
