@@ -26,7 +26,7 @@
               "type": "integer"
             },
             "description": "The number of people to skip before starting to collect the result set",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -35,7 +35,7 @@
               "type": "integer"
             },
             "description": "The numbers of people to return",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -235,7 +235,7 @@
               "type": "integer"
             },
             "description": "The number of cars to skip before starting to collect the result set",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -244,7 +244,7 @@
               "type": "integer"
             },
             "description": "The numbers of cars to return",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
