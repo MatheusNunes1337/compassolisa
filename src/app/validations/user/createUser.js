@@ -1,12 +1,13 @@
 const Joi = require('joi').extend(require('@joi/date'));
 const errorSerialize = require('../../serialize/errorSerialize')
 const getReferenceDate = require('../../utils/getReferenceDate')
+const {getCpfPattern} = require('../../utils/getPatterns')
 
 const createUser = async (req, res, next) => {
   try {
     const schema = Joi.object({
       nome: Joi.string().trim().required(),
-      cpf: Joi.string().regex(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/).required()
+      cpf: Joi.string().regex(getCpfPattern()).required()
       .messages({
         "string.pattern.base": `cpf must have the xxx.xxx.xxx-xx format`,
       }),  
