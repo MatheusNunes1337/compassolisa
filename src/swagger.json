@@ -594,6 +594,9 @@
       "Person": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "string"
+          },
           "nome": {
             "type": "string"
           },
@@ -627,6 +630,9 @@
       "Car": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "string"
+          },
           "modelo": {
             "type": "string"
           },
