@@ -16,7 +16,7 @@ class UserService {
 
     if (offset < 0 || limit < 0) throw new BadRequest('Limit and offset cannot be negative');
 
-    return UserRepository.getAll(offset, limit, filter);
+    return UserRepository.getAll(filter, offset, limit);
   }
 
   async findById(id) {
