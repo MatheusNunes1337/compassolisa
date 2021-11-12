@@ -420,10 +420,8 @@ describe('delete a rental', () => {
     };
 
     const { text } = await request(app).post('/api/v1/rental/').send(rentalMock);
-    console.log('text', text);
 
     const { _id } = JSON.parse(text);
-    console.log('id', _id);
 
     const response = await request(app).delete(`/api/v1/rental/${_id.toString()}`);
 
