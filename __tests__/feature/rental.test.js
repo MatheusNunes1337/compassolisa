@@ -306,3 +306,93 @@ describe('Do not create a rental with no head office', () => {
     expect(typeof body.description).toBe('string');
   });
 });
+
+describe('Do not create a rental with duplicated adresses', () => {
+  it('should return status code 400', async () => {
+    const rentalMock = {
+      nome: 'Locadora 01',
+      cnpj: '16.123.213/7291-19',
+      atividades: 'Aluguel de carros de luxo',
+      endereco: [
+        {
+          cep: '96055-740',
+          number: 745,
+          complemento: 'ao lado da havan',
+          isFilial: true
+        },
+        {
+          cep: '96055-740',
+          number: 745,
+          complemento: 'ao lado da havan',
+          isFilial: false
+        }
+      ]
+    };
+
+    const response = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    const { status } = response;
+    expect(status).toBe(400);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const rentalMock = {
+      nome: 'Locadora 01',
+      cnpj: '16.123.213/7291-19',
+      atividades: 'Aluguel de carros de luxo',
+      endereco: [
+        {
+          cep: '96055-740',
+          number: 745,
+          complemento: 'ao lado da havan',
+          isFilial: true
+        },
+        {
+          cep: '96055-740',
+          number: 745,
+          complemento: 'ao lado da havan',
+          isFilial: false
+        }
+      ]
+    };
+
+    const response = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    const { body } = response;
+
+    expect(body.name).toBe(
+      `It seems you trying to register duplicated adresses with cep ${rentalMock.endereco[0].cep} and number ${rentalMock.endereco[0].number}`
+    );
+    expect(body.description).toBe('Conflict');
+  });
+
+  it('should return a body with values type string', async () => {
+    const rentalMock = {
+      nome: 'Locadora 01',
+      cnpj: '16.123.213/7291-19',
+      atividades: 'Aluguel de carros de luxo',
+      endereco: [
+        {
+          cep: '96055-740',
+          number: 745,
+          complemento: 'ao lado da havan',
+          isFilial: true
+        },
+        {
+          cep: '96055-740',
+          number: 745,
+          complemento: 'ao lado da havan',
+          isFilial: false
+        }
+      ]
+    };
+
+    const response = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    const { body } = response;
+
+    expect(typeof body).toBe('object');
+    expect(typeof body.name).toBe('string');
+    expect(typeof body.description).toBe('string');
+  });
+});
