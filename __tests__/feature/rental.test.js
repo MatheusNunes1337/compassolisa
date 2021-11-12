@@ -396,3 +396,105 @@ describe('Do not create a rental with duplicated adresses', () => {
     expect(typeof body.description).toBe('string');
   });
 });
+
+describe('delete a rental', () => {
+  it('should return status code 204', async () => {
+    const rentalMock = {
+      nome: 'Moonlight',
+      cnpj: '12.567.124/1039-11',
+      atividades: 'Aluguel de ferraris',
+      endereco: [
+        {
+          cep: '20050-000',
+          number: 201,
+          complemento: '',
+          isFilial: false
+        },
+        {
+          cep: '20050-000',
+          number: 467,
+          complemento: 'Na frente da padaria do Jorge',
+          isFilial: true
+        }
+      ]
+    };
+
+    const { text } = await request(app).post('/api/v1/rental/').send(rentalMock);
+    console.log('text', text);
+
+    const { _id } = JSON.parse(text);
+    console.log('id', _id);
+
+    const response = await request(app).delete(`/api/v1/rental/${_id.toString()}`);
+
+    const { status } = response;
+    expect(status).toBe(204);
+  });
+
+  it('should return a empty object', async () => {
+    const rentalMock = {
+      nome: 'Moonlight',
+      cnpj: '12.567.124/1039-11',
+      atividades: 'Aluguel de ferraris',
+      endereco: [
+        {
+          cep: '20050-000',
+          number: 201,
+          complemento: '',
+          isFilial: false
+        },
+        {
+          cep: '20050-000',
+          number: 467,
+          complemento: 'Na frente da padaria do Jorge',
+          isFilial: true
+        }
+      ]
+    };
+
+    const { text } = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app).delete(`/api/v1/rental/${_id.toString()}`);
+
+    const { body } = response;
+
+    expect(body.nome).toBeUndefined();
+    expect(body.cnpj).toBeUndefined();
+    expect(body.atividades).toBeUndefined();
+    expect(body.endereco).toBeUndefined();
+  });
+
+  it('should return a body type object', async () => {
+    const rentalMock = {
+      nome: 'Moonlight',
+      cnpj: '12.567.124/1039-11',
+      atividades: 'Aluguel de ferraris',
+      endereco: [
+        {
+          cep: '20050-000',
+          number: 201,
+          complemento: '',
+          isFilial: false
+        },
+        {
+          cep: '20050-000',
+          number: 467,
+          complemento: 'Na frente da padaria do Jorge',
+          isFilial: true
+        }
+      ]
+    };
+
+    const { text } = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app).delete(`/api/v1/rental/${_id.toString()}`);
+
+    const { body } = response;
+
+    expect(typeof body).toBe('object');
+  });
+});
