@@ -236,3 +236,73 @@ describe('Do not create a rental with cep that not exists', () => {
     expect(typeof body.description).toBe('string');
   });
 });
+
+describe('Do not create a rental with no head office', () => {
+  it('should return status code 400', async () => {
+    const rentalMock = {
+      nome: 'Compassolisa',
+      cnpj: '18.172.927/0920-15',
+      atividades: 'Alugel de carros',
+      endereco: [
+        {
+          cep: '12455-000',
+          number: 201,
+          complemento: 'ao lado da havan',
+          isFilial: true
+        }
+      ]
+    };
+
+    const response = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    const { status } = response;
+    expect(status).toBe(400);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const rentalMock = {
+      nome: 'Compassolisa',
+      cnpj: '18.172.927/0920-15',
+      atividades: 'Alugel de carros',
+      endereco: [
+        {
+          cep: '12455-000',
+          number: 201,
+          complemento: 'ao lado da havan',
+          isFilial: true
+        }
+      ]
+    };
+
+    const response = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    const { body } = response;
+
+    expect(body.name).toBe('A rental must have a head office');
+    expect(body.description).toBe('Bad Request');
+  });
+
+  it('should return a body with values type string', async () => {
+    const rentalMock = {
+      nome: 'Compassolisa',
+      cnpj: '18.172.927/0920-15',
+      atividades: 'Alugel de carros',
+      endereco: [
+        {
+          cep: '12455-000',
+          number: 201,
+          complemento: 'ao lado da havan',
+          isFilial: true
+        }
+      ]
+    };
+
+    const response = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    const { body } = response;
+
+    expect(typeof body).toBe('object');
+    expect(typeof body.name).toBe('string');
+    expect(typeof body.description).toBe('string');
+  });
+});
