@@ -7,15 +7,16 @@ const BadRequest = require('../errors/BadRequest');
 
 class UserService {
   async findAll({ offset, limit, ...filter }) {
-    
-      offset ? parseInt(offset): undefined;
-      limit ? parseInt(limit) : undefined;
-      
-      if(offset < 0 || limit < 0) 
-        throw new BadRequest('Limit and offset cannot be negative')
-      
+    if (offset) {
+      Number(offset);
+    }
+    if (limit) {
+      Number(limit);
+    }
 
-    return await UserRepository.getAll(offset, limit, filter);
+    if (offset < 0 || limit < 0) throw new BadRequest('Limit and offset cannot be negative');
+
+    return UserRepository.getAll(offset, limit, filter);
   }
 
   async findById(id) {
@@ -24,9 +25,9 @@ class UserService {
   }
 
   async create(payload) {
-    await cpfVerification(payload.cpf)
-    await emailVerification(payload.email)
-    return await UserRepository.create(payload);
+    await cpfVerification(payload.cpf);
+    await emailVerification(payload.email);
+    return UserRepository.create(payload);
   }
 
   async update(id, payload) {
@@ -34,20 +35,17 @@ class UserService {
     if (!user) {
       throw new NotFound('User');
     }
-    const {cpf, email, senha} = payload
-    if(cpf) 
-      await cpfVerification(cpf)
+    const { cpf, email, senha } = payload;
+    if (cpf) await cpfVerification(cpf);
 
-    if(email) 
-      await emailVerification(email)
-  
-    if(senha) {
-      const encriptedPassword = await bcrypt.hash(senha, 10)
-      payload.senha = encriptedPassword
+    if (email) await emailVerification(email);
+
+    if (senha) {
+      const encriptedPassword = await bcrypt.hash(senha, 10);
+      payload.senha = encriptedPassword;
     }
 
-
-    return await UserRepository.update(id, payload);
+    return UserRepository.update(id, payload);
   }
 
   async delete(id) {
@@ -55,7 +53,7 @@ class UserService {
     if (!user) {
       throw new NotFound('User');
     }
-    return await UserRepository.delete(id);
+    return UserRepository.delete(id);
   }
 }
 
