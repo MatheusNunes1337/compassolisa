@@ -3,7 +3,7 @@
   "info": {
     "title": "Compassolisa",
     "description": "This API refers to a luxury and semi luxury car rental system",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "contact": {
       "email": "matheusnunesz1337@gmail.com"
     }
@@ -103,6 +103,7 @@
       },
       "post": {
         "summary": "Create a new person",
+        "description": "At this endpoint, you can create a person",
         "requestBody": {
           "content": {
             "application/json": {
@@ -112,7 +113,6 @@
             }
           }
         },
-        "description": "At this endpoint, you can create a new person",
         "responses": {
           "201": {
             "description": "Success",
@@ -150,6 +150,7 @@
       ],
       "get": {
         "summary": "Get people by Id",
+        "description": "At this endpoint, you can get a person by id",
         "responses": {
           "200": {
             "description": "Success",
@@ -178,6 +179,7 @@
       },
       "put": {
         "summary": "Update a person",
+        "description": "At this endpoint, you can update a person",
         "requestBody": {
           "content": {
             "application/json": {
@@ -222,6 +224,7 @@
       },
       "delete": {
         "summary": "Delete a person",
+        "description": "At this endpoint, you can delete a person",
         "responses": {
           "204": {
             "description": "Success"
@@ -252,6 +255,7 @@
     "/api/v1/car": {
       "get": {
         "summary": "Get all cars",
+        "description": "At this endpoint, you can get all cars",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
@@ -348,6 +352,7 @@
       },
       "post": {
         "summary": "Create a new car",
+        "description": "At this endpoint, you can create a car",
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
@@ -358,7 +363,6 @@
             }
           }
         },
-        "description": "At this endpoint, you can create a new car",
         "responses": {
           "201": {
             "description": "Success",
@@ -406,6 +410,7 @@
       ],
       "get": {
         "summary": "Get car by Id",
+        "description": "At this endpoint, you can get a car by id",
         "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
@@ -455,6 +460,7 @@
       }, 
       "put": {
         "summary": "Update a car",
+        "description": "At this endpoint, you can update a car",
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
@@ -510,6 +516,7 @@
       },
       "delete": {
         "summary": "Delete a car",
+        "description": "At this endpoint, you can delete a car",
         "security": [{ "bearerAuth": [] }],
         "responses": {
           "204": {
@@ -836,6 +843,7 @@
     "/api/v1/authenticate": {
       "post": {
         "summary": "Authenticate a person",
+        "description": "At this endpoint, you can authenticate",
         "requestBody": {
           "content": {
             "application/json": {
@@ -853,7 +861,6 @@
             }
           }
         },
-        "description": "At this endpoint, you can authenticate",
         "responses": {
           "200": {
             "description": "Success",
