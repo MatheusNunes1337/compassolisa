@@ -162,7 +162,7 @@
             }
           },
           "204": {
-            "description": "Any person was found"
+            "description": "Any person were found"
           },
           "400": {
             "description": "Error status 400",
@@ -322,6 +322,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
           }
         }
       },
@@ -349,10 +359,12 @@
             }
           },
           "400": {
-            "description": "Invalid field",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "There are some field with invalid value or format"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
@@ -384,21 +396,25 @@
             }
           },
           "204": {
-            "description": "Success"
+            "description": "Any car were found"
           },
           "404": {
             "description": "Car not found",
             "content": {
               "application/json": {
-                "example": "Car not Found"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           },
           "400": {
-            "description": "Invalid id format",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "The id you have submitted has an invalid format"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
@@ -430,15 +446,19 @@
             "description": "Car not found",
             "content": {
               "application/json": {
-                "example": "Car not Found"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           },
           "400": {
-            "description": "Invalid field or parameter",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "Field or id has invalid format or value"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
@@ -454,15 +474,19 @@
             "description": "Car not found",
             "content": {
               "application/json": {
-                "example": "Car not Found"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           },
           "400": {
-            "description": "Invalid id format",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "The id you have submitted has an invalid format"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
@@ -502,10 +526,12 @@
             }
           },
           "400": {
-            "description": "Incorret credentials",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "Email or password is incorrect"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           } 
