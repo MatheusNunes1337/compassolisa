@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const errorSerialize = require('../../serialize/errorSerialize');
+const {getCnpjPattern, getCepPattern} = require('../../utils/getPatterns')
 
 const getAll = async(req, res, next) => {
     try {
@@ -7,12 +8,12 @@ const getAll = async(req, res, next) => {
             offset: Joi.number().min(0),
             limit: Joi.number().min(0),
             nome: Joi.string().trim(),
-            cnpj: Joi.string().trim().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/)
+            cnpj: Joi.string().trim().regex(getCnpjPattern())
             .messages({
                 "string.pattern.base": `cpnj must have the xx.xxx.xxx/xxxx-xx format`,
             }),
             atividades: Joi.string().trim(),
-            cep: Joi.string().trim().regex(/^\d{5}-\d{3}$/)
+            cep: Joi.string().trim().regex(getCepPattern())
             .messages({
                 "string.pattern.base": `cep must have the xxxxx-xxx format`,
             }),
@@ -28,7 +29,7 @@ const getAll = async(req, res, next) => {
             uf: Joi.string().trim(),     
         });
 
-        const { error } = await schema.validateAsync(req.query, { abortEarly: false });
+        const { error } = await schema.validate(req.query, { abortEarly: false });
         if(error) throw error
         return next();
     } catch(err) {
