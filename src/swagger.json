@@ -802,6 +802,35 @@
             }
           }
         }
+      },
+      "delete": {
+        "summary": "Delete a rental",
+        "description": "at this endpoint you can delete a rental",
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Rental not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          }
+        }  
       }  
     },
     "/api/v1/authenticate": {
