@@ -718,6 +718,92 @@
         }
       }
     },
+    "/api/v1/rental/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get rental by Id",
+        "description": "at this endpoint you can get a rental by id",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RentalReturn"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Any rental were found"
+          },
+          "400": {
+            "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a rental",
+        "description": "at this endpoint you can update a rental",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Rental"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RentalReturn"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Rental not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          }
+        }
+      }  
+    },
     "/api/v1/authenticate": {
       "post": {
         "summary": "Authenticate a person",
