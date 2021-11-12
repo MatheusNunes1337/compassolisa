@@ -1,20 +1,20 @@
 const UserModel = require('../models/UserModel');
 
 class UserRepository {
-  async getAll(offset = 0, limit = 100, filter) {
-    return await UserModel.paginate(filter, { offset, limit })
+  async getAll(filter, offset = 0, limit = 100) {
+    return UserModel.paginate(filter, { offset, limit });
   }
 
   async getById(id) {
-    return await UserModel.findById(id);
+    return UserModel.findById(id);
   }
 
   async getByEmail(email) {
-    return await UserModel.findOne({email})
+    return UserModel.findOne({ email });
   }
 
   async create(user) {
-    return await UserModel.create(user);
+    return UserModel.create(user);
   }
 
   async update(id, userData) {
@@ -23,7 +23,7 @@ class UserRepository {
   }
 
   async delete(id) {
-    return await UserModel.findByIdAndDelete(id);
+    return UserModel.findByIdAndDelete(id);
   }
 }
 
