@@ -272,3 +272,67 @@ describe('Get all cars', () => {
     expect(typeof veiculos[1].quantidadePassageiros).toBe('number');
   });
 });
+
+describe('Get car by ID', () => {
+  beforeEach(async () => {
+    await CarModel.deleteMany();
+
+    carMock = {
+      modelo: 'Mustang',
+      cor: 'Preto',
+      ano: 2002,
+      acessorios: [
+        {
+          descricao: 'Banco de couro'
+        }
+      ],
+      quantidadePassageiros: 5
+    };
+  });
+
+  it('should return status code 200', async () => {
+    const { text } = await request(app).post('/api/v1/car/').send(carMock).set('Authorization', `Bearer ${token}`);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app).get(`/api/v1/car/${_id.toString()}`).set('Authorization', `Bearer ${token}`);
+
+    const { status } = response;
+    expect(status).toBe(200);
+  });
+
+  it('should return a car object plus _id field', async () => {
+    const { text } = await request(app).post('/api/v1/car/').send(carMock).set('Authorization', `Bearer ${token}`);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app).get(`/api/v1/car/${_id.toString()}`).set('Authorization', `Bearer ${token}`);
+
+    const { body } = response;
+
+    expect(body).toHaveProperty('_id');
+    expect(body.modelo).toBe(carMock.modelo);
+    expect(body.cor).toBe(carMock.cor);
+    expect(body.ano).toBe(carMock.ano);
+    expect(body.acessorios[0].descricao).toBe(carMock.acessorios[0].descricao);
+    expect(body.quantidadePassageiros).toBe(carMock.quantidadePassageiros);
+  });
+
+  it('should return a object with values type string, number and object', async () => {
+    const { text } = await request(app).post('/api/v1/car/').send(carMock).set('Authorization', `Bearer ${token}`);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app).get(`/api/v1/car/${_id.toString()}`).set('Authorization', `Bearer ${token}`);
+
+    const { body } = response;
+
+    expect(typeof body).toBe('object');
+    expect(typeof body._id).toBe('string');
+    expect(typeof body.modelo).toBe('string');
+    expect(typeof body.cor).toBe('string');
+    expect(typeof body.ano).toBe('number');
+    expect(typeof body.acessorios).toBe('object');
+    expect(typeof body.quantidadePassageiros).toBe('number');
+  });
+});
