@@ -1,5 +1,6 @@
 const Joi = require('joi').extend(require('@joi/date'));
 const errorSerialize = require('../../serialize/errorSerialize');
+const {getCpfPattern} = require('../../utils/getPatterns')
 
 const getAll = async(req, res, next) => {
     try {
@@ -7,7 +8,7 @@ const getAll = async(req, res, next) => {
             offset: Joi.number().min(0),
             limit: Joi.number().min(0),
             nome: Joi.string().trim(),
-            cpf: Joi.string().trim().regex(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/)
+            cpf: Joi.string().trim().regex(getCpfPattern())
             .messages({
                 "string.pattern.base": `cpf must have the xxx.xxx.xxx-xx format`,
             }),
@@ -19,7 +20,7 @@ const getAll = async(req, res, next) => {
             habilitado: Joi.string().valid('sim', 'não')    
         });
 
-        const { error } = await schema.validateAsync(req.query, { abortEarly: false });
+        const { error } = await schema.validate(req.query, { abortEarly: false });
         if(error) throw error
         return next();
     } catch(err) {
