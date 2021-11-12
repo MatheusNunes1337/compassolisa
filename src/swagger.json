@@ -817,7 +817,7 @@
             "type": "string"
           },
           "atividades": {
-            "type": "number"
+            "type": "string"
           },
           "endereco": {
             "type": "array",
@@ -854,7 +854,7 @@
             "type": "string"
           },
           "atividades": {
-            "type": "number"
+            "type": "string"
           },
           "endereco": {
             "type": "array",
