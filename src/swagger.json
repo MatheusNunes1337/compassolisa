@@ -547,7 +547,142 @@
           }
         }
       }
-    },    
+    },
+    "/api/v1/rental": {
+      "get": {
+        "summary": "Get all rentals",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The number of rentals to skip before starting to collect the result set",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The numbers of rentals to return",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "nome",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental name"
+          },
+          {
+            "in": "query",
+            "name": "cnpj",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental cnpj"
+          },
+          {
+            "in": "query",
+            "name": "atividades",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental activities"
+          },
+          {
+            "in": "query",
+            "name": "cep",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental cep"
+          },
+          {
+            "in": "query",
+            "name": "number",
+            "schema": {
+              "type": "number"
+            },
+            "description": "rental number"
+          },
+          {
+            "in": "query",
+            "name": "complemento",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental complement"
+          },
+          {
+            "in": "query",
+            "name": "logradouro",
+            "schema": {
+              "type": "string"
+            },
+            "description": "public place"
+          },
+          {
+            "in": "query",
+            "name": "bairro",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental district"
+          },
+          {
+            "in": "query",
+            "name": "localidade",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental city"
+          },
+          {
+            "in": "query",
+            "name": "uf",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental state"
+          },
+          {
+            "in": "query",
+            "name": "isFilial",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental type"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rentals"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid filter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/authenticate": {
       "post": {
         "summary": "Authenticate a person",
