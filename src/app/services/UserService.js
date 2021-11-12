@@ -1,8 +1,8 @@
 const bcrypt = require('bcryptjs');
 const UserRepository = require('../repositories/UserRepository');
 const NotFound = require('../errors/NotFound');
-const cpfVerification = require('../validations/user/cpfVerification');
-const emailVerification = require('../validations/user/emailVerification');
+const cpfVerification = require('../helpers/user/cpfVerification');
+const emailVerification = require('../helpers/user/emailVerification');
 const BadRequest = require('../errors/BadRequest');
 
 class UserService {
