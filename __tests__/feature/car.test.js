@@ -1,6 +1,5 @@
 const request = require('supertest');
 
-const { Linter } = require('eslint');
 const app = require('../../src/index');
 const CarModel = require('../../src/app/models/CarModel');
 const UserModel = require('../../src/app/models/UserModel');
@@ -36,6 +35,9 @@ beforeEach(async () => {
 
 let carMock = {};
 let carMock02 = {};
+const cor = {
+  cor: 'vermelho'
+};
 
 describe('create a new car', () => {
   beforeEach(async () => {
@@ -333,6 +335,79 @@ describe('Get car by ID', () => {
     expect(typeof body.cor).toBe('string');
     expect(typeof body.ano).toBe('number');
     expect(typeof body.acessorios).toBe('object');
+    expect(typeof body.quantidadePassageiros).toBe('number');
+  });
+});
+
+describe('Update a car color', () => {
+  beforeEach(async () => {
+    await CarModel.deleteMany();
+
+    carMock = {
+      modelo: 'Modelo 02',
+      cor: 'Cinza',
+      ano: 2020,
+      acessorios: [
+        {
+          descricao: 'Ar-condicionado'
+        }
+      ],
+      quantidadePassageiros: 4
+    };
+  });
+
+  it('should return status code 200', async () => {
+    const { text } = await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app)
+      .put(`/api/v1/car/${_id.toString()}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(cor);
+
+    const { status } = response;
+    expect(status).toBe(200);
+  });
+
+  it('should return a body with carMock properties e values updated plus _id', async () => {
+    const { text } = await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app)
+      .put(`/api/v1/car/${_id.toString()}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(cor);
+
+    const { body } = response;
+
+    expect(body).toHaveProperty('_id');
+    expect(body.modelo).toBe(carMock.modelo);
+    expect(body.cor).toBe(cor.cor);
+    expect(body.ano).toBe(carMock.ano);
+    expect(body.acessorios[0].descricao).toBe(carMock.acessorios[0].descricao);
+    expect(body.quantidadePassageiros).toBe(carMock.quantidadePassageiros);
+  });
+
+  it('should return a body with values of type string, number and object', async () => {
+    const { text } = await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app)
+      .put(`/api/v1/car/${_id.toString()}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(cor);
+
+    const { body } = response;
+
+    expect(typeof body).toBe('object');
+    expect(typeof body.modelo).toBe('string');
+    expect(typeof body.cor).toBe('string');
+    expect(typeof body.ano).toBe('number');
+    expect(typeof body.acessorios).toBe('object');
+    expect(typeof body.acessorios[0].descricao).toBe('string');
     expect(typeof body.quantidadePassageiros).toBe('number');
   });
 });
