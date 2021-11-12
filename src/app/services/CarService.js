@@ -19,7 +19,7 @@ class CarService {
       delete filter.descricao;
     }
 
-    return CarRepository.getAll(offset, limit, filter);
+    return CarRepository.getAll(filter, offset, limit);
   }
 
   async findById(id) {
