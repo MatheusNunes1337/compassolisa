@@ -28,7 +28,7 @@ class RentalService {
       }
     });
 
-    return RentalRepository.getAll(offset, limit, filter);
+    return RentalRepository.getAll(filter, offset, limit);
   }
 
   async getById(id) {
