@@ -468,3 +468,41 @@ describe('delete a car', () => {
     expect(typeof body).toBe('object');
   });
 });
+
+describe('Do not delete a car that not exists', () => {
+  beforeEach(async () => {
+    await CarModel.deleteMany();
+  });
+
+  it('should return status code 404', async () => {
+    const idMock = '4eed60c86632e0ab11012303';
+
+    const response = await request(app).delete(`/api/v1/car/${idMock}`).set('Authorization', `Bearer ${token}`);
+
+    const { status } = response;
+    expect(status).toBe(404);
+  });
+
+  it('should return an object error with description and name properties', async () => {
+    const idMock = '4eed60c86632e0ab11012303';
+
+    const response = await request(app).delete(`/api/v1/car/${idMock}`).set('Authorization', `Bearer ${token}`);
+
+    const { body } = response;
+
+    expect(body.name).toBe('Car not found');
+    expect(body.description).toBe('Not Found');
+  });
+
+  it('should return a object with values type string', async () => {
+    const idMock = '4eed60c86632e0ab11012303';
+
+    const response = await request(app).delete(`/api/v1/car/${idMock}`).set('Authorization', `Bearer ${token}`);
+
+    const { body } = response;
+
+    expect(typeof body).toBe('object');
+    expect(typeof body.name).toBe('string');
+    expect(typeof body.description).toBe('string');
+  });
+});
