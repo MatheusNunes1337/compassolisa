@@ -547,7 +547,7 @@
           }
         }
       }
-    },
+    },    
     "/api/v1/authenticate": {
       "post": {
         "summary": "Authenticate a person",
