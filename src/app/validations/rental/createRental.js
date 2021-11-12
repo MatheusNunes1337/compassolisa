@@ -31,7 +31,7 @@ const createRental = async (req, res, next) => {
               })
           })
       )
-      .min(1).unique().required()
+      .min(1).required()
       .messages({
           "array.min": `a rental must have one address at least`,
       })
