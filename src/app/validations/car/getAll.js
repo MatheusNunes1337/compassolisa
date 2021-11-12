@@ -13,7 +13,7 @@ const getAll = async(req, res, next) => {
             quantidadePassageiros: Joi.number()  
         });
 
-        const { error } = await schema.validateAsync(req.query, { abortEarly: false });
+        const { error } = await schema.validate(req.query, { abortEarly: false });
         if(error) throw error
         return next();
     } catch(err) {
