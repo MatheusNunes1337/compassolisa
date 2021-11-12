@@ -88,6 +88,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Invalid filter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
           }
         }
       },
@@ -556,7 +566,24 @@
         "items": {
           "$ref": "#/components/schemas/Car"
         }
-      }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },  
+      "Errors": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Error"
+        }
+      }  
     }
   }
 }
