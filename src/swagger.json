@@ -669,6 +669,95 @@
           "$ref": "#/components/schemas/Car"
         }
       },
+      "Rental": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "cnpj": {
+            "type": "string"
+          },
+          "atividades": {
+            "type": "number"
+          },
+          "endereco": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cep": {
+                  "type": "string"
+                },
+                "complemento": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "isFilial": {
+                  "type": "string"
+                }
+              }
+            }  
+          }
+        }
+      },
+      "RentalReturn": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "cnpj": {
+            "type": "string"
+          },
+          "atividades": {
+            "type": "number"
+          },
+          "endereco": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cep": {
+                  "type": "string"
+                },
+                "logradouro": {
+                  "type": "string"
+                },
+                "complemento": {
+                  "type": "string"
+                },
+                "bairro": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "localidade": {
+                  "type": "string"
+                },
+                "uf": {
+                  "type": "string"
+                }
+              }
+            }  
+          }
+        }
+      },
+      "Rentals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/RentalReturn"
+        }
+      },
       "Error": {
         "type": "object",
         "properties": {
