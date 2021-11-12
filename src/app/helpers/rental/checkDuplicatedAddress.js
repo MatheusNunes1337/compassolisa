@@ -1,6 +1,6 @@
 const Conflict = require('../../errors/Conflict');
 
-const duplicatedAddress = (adresses) => {
+const checkDuplicatedAddress = (adresses) => {
   const adressesArray = [];
 
   adresses.map((address) => {
@@ -10,4 +10,4 @@ const duplicatedAddress = (adresses) => {
   });
 };
 
-module.exports = duplicatedAddress;
+module.exports = checkDuplicatedAddress;

@@ -3,10 +3,10 @@ const AddressProvider = require('../providers/AddressProvider')
 const BadRequest = require('../errors/BadRequest');
 const NotFound = require('../errors/NotFound');
 const serialize = require('../serialize/addressSerialize');
-const cnpjVerification = require('../validations/rental/cnpjVerification');
-const filialVerification = require('../validations/rental/filialVerification')
-const checkAddressExistence = require('../validations/rental/addressExistence')
-const duplicatedAddress = require('../validations/rental/duplicatedAddress')
+const checkCnpjUsage = require('../helpers/rental/checkCnpjUsage')
+const headOfficeVerification = require('../helpers/rental/headOfficeVerification')
+const checkAddressExistence = require('../helpers/rental/checkAddressExistence')
+const checkDuplicatedAddress = require('../helpers/rental/checkDuplicatedAddress')
 
 class RentalService {
   async getAll({ offset, limit, ...filter }) {
@@ -36,10 +36,10 @@ class RentalService {
   async create(payload) {
     const {endereco, cnpj} = payload
 
-    await cnpjVerification(cnpj)
+    await checkCnpjUsage(cnpj)
 
-    filialVerification(endereco)
-    duplicatedAddress(endereco)
+    headOfficeVerification(endereco)
+    checkDuplicatedAddress(endereco)
     
     payload.endereco = await Promise.all(endereco.map(async address => {
       await checkAddressExistence(address.cep, address.number)
@@ -64,13 +64,13 @@ class RentalService {
       throw new NotFound('Rental');
   
     if(payload.cnpj)
-      await cnpjVerification(payload.cnpj)
+      await checkCnpjUsage(payload.cnpj)
 
     if(payload.endereco) {
       const {endereco} = payload
 
-      filialVerification(endereco)
-      duplicatedAddress(endereco)
+      headOfficeVerification(endereco)
+      checkDuplicatedAddress(endereco)
     
       payload.endereco = await Promise.all(endereco.map(async address => {
         await checkAddressExistence(address.cep, address.number)
