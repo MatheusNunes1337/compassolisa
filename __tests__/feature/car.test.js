@@ -411,3 +411,60 @@ describe('Update a car color', () => {
     expect(typeof body.quantidadePassageiros).toBe('number');
   });
 });
+
+describe('delete a car', () => {
+  beforeEach(async () => {
+    await CarModel.deleteMany();
+
+    carMock = {
+      modelo: 'Ferrari 99',
+      cor: 'vermelho',
+      ano: 1999,
+      acessorios: [
+        {
+          descricao: 'Ar-condicionado'
+        }
+      ],
+      quantidadePassageiros: 2
+    };
+  });
+
+  it('should return status code 204', async () => {
+    const { text } = await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app).delete(`/api/v1/car/${_id.toString()}`).set('Authorization', `Bearer ${token}`);
+
+    const { status } = response;
+    expect(status).toBe(204);
+  });
+
+  it('should return an empty object', async () => {
+    const { text } = await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app).delete(`/api/v1/car/${_id.toString()}`).set('Authorization', `Bearer ${token}`);
+
+    const { body } = response;
+
+    expect(body.modelo).toBeUndefined();
+    expect(body.cor).toBeUndefined();
+    expect(body.ano).toBeUndefined();
+    expect(body.acessorios).toBeUndefined();
+    expect(body.quantidadePassageiros).toBeUndefined();
+  });
+
+  it('should return a body type object', async () => {
+    const { text } = await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app).delete(`/api/v1/car/${_id.toString()}`).set('Authorization', `Bearer ${token}`);
+
+    const { body } = response;
+
+    expect(typeof body).toBe('object');
+  });
+});
