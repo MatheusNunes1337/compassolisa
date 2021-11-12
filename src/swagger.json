@@ -123,6 +123,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
           }
         }
       }
@@ -151,19 +161,16 @@
               }
             }
           },
-          "404": {
-            "description": "Person not found",
-            "content": {
-              "application/json": {
-                "example": "Person not Found"
-              }
-            }
+          "204": {
+            "description": "Any person was found"
           },
           "400": {
-            "description": "Invalid id format",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "The id you have submitted has an invalid format"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
@@ -195,15 +202,19 @@
             "description": "Person not found",
             "content": {
               "application/json": {
-                "example": "Person not Found"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           },
           "400": {
-            "description": "Invalid id or field",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "Field or id has invalid format or value"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
@@ -219,7 +230,9 @@
             "description": "Person not found",
             "content": {
               "application/json": {
-                "example": "Person not Found"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           },
@@ -227,7 +240,9 @@
             "description": "Invalid id format",
             "content": {
               "application/json": {
-                "example": "The id you have submitted has an invalid format"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
