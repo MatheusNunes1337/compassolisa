@@ -13,6 +13,9 @@ beforeEach(async () => {
 
 let rentalMock = {};
 let rentalMock02 = {};
+const rentalName = {
+  nome: 'Moonlight locadora'
+};
 
 describe('create a new rental', () => {
   beforeEach(async () => {
@@ -323,6 +326,76 @@ describe('get all rentals', () => {
     expect(typeof locadoras[1].endereco[0].number).toBe('number');
     expect(typeof locadoras[1].endereco[0].complemento).toBe('string');
     expect(typeof locadoras[1].endereco[0].isFilial).toBe('undefined');
+  });
+});
+
+describe('update a rental name', () => {
+  beforeEach(async () => {
+    await RentalModel.deleteMany();
+
+    rentalMock = {
+      nome: 'Moonlight',
+      cnpj: '12.567.124/1039-11',
+      atividades: 'Aluguel de ferraris',
+      endereco: [
+        {
+          cep: '20050-000',
+          number: 201,
+          complemento: 'Ao lado do shopping',
+          isFilial: false
+        }
+      ]
+    };
+  });
+
+  it('should return status code 200', async () => {
+    const { text } = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app).put(`/api/v1/rental/${_id.toString()}`).send(rentalName);
+
+    const { status } = response;
+    expect(status).toBe(200);
+  });
+
+  it('should return a body with rentalMock properties and nome field updated plus _id', async () => {
+    const { text } = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app).put(`/api/v1/rental/${_id.toString()}`).send(rentalName);
+
+    const { body } = response;
+
+    expect(body).toHaveProperty('_id');
+    expect(body.nome).toBe(rentalName.nome);
+    expect(body.cnpj).toBe(rentalMock.cnpj);
+    expect(body.atividades).toBe(rentalMock.atividades);
+    expect(body.endereco[0].cep).toBe(rentalMock.endereco[0].cep);
+    expect(body.endereco[0].number).toBe(rentalMock.endereco[0].number);
+    expect(body.endereco[0].complemento).toBe(rentalMock.endereco[0].complemento);
+    expect(body.endereco[0].isFilial).toBeUndefined();
+  });
+
+  it('should return a body with values of type string, number and object', async () => {
+    const { text } = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    const { _id } = JSON.parse(text);
+
+    const response = await request(app).put(`/api/v1/rental/${_id.toString()}`).send(rentalName);
+
+    const { body } = response;
+
+    expect(typeof body).toBe('object');
+    expect(typeof body.nome).toBe('string');
+    expect(typeof body.cnpj).toBe('string');
+    expect(typeof body.atividades).toBe('string');
+    expect(typeof body.endereco).toBe('object');
+    expect(typeof body.endereco[0].cep).toBe('string');
+    expect(typeof body.endereco[0].number).toBe('number');
+    expect(typeof body.endereco[0].complemento).toBe('string');
+    expect(typeof body.endereco[0].isFilial).toBe('undefined');
   });
 });
 
