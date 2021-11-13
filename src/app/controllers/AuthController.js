@@ -6,7 +6,7 @@ class AuthController {
       const response = await AuthService.login(req.body);
       return res.status(200).json(response);
     } catch (err) {
-      next(err);
+      return next(err);
     }
   }
 }

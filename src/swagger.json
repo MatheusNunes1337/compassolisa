@@ -3,7 +3,7 @@
   "info": {
     "title": "Compassolisa",
     "description": "This API refers to a luxury and semi luxury car rental system",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "contact": {
       "email": "matheusnunesz1337@gmail.com"
     }
@@ -26,7 +26,7 @@
               "type": "integer"
             },
             "description": "The number of people to skip before starting to collect the result set",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -35,7 +35,7 @@
               "type": "integer"
             },
             "description": "The numbers of people to return",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -88,11 +88,22 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Invalid filter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
           }
         }
       },
       "post": {
         "summary": "Create a new person",
+        "description": "At this endpoint, you can create a person",
         "requestBody": {
           "content": {
             "application/json": {
@@ -102,7 +113,6 @@
             }
           }
         },
-        "description": "At this endpoint, you can create a new person",
         "responses": {
           "201": {
             "description": "Success",
@@ -110,6 +120,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Person"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
                 }
               }
             }
@@ -130,6 +150,7 @@
       ],
       "get": {
         "summary": "Get people by Id",
+        "description": "At this endpoint, you can get a person by id",
         "responses": {
           "200": {
             "description": "Success",
@@ -141,19 +162,16 @@
               }
             }
           },
-          "404": {
-            "description": "Person not found",
-            "content": {
-              "application/json": {
-                "example": "Person not Found"
-              }
-            }
+          "204": {
+            "description": "Any person were found"
           },
           "400": {
-            "description": "Invalid id format",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "The id you have submitted has an invalid format"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
@@ -161,6 +179,7 @@
       },
       "put": {
         "summary": "Update a person",
+        "description": "At this endpoint, you can update a person",
         "requestBody": {
           "content": {
             "application/json": {
@@ -185,15 +204,19 @@
             "description": "Person not found",
             "content": {
               "application/json": {
-                "example": "Person not Found"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           },
           "400": {
-            "description": "Invalid id or field",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "Field or id has invalid format or value"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
@@ -201,6 +224,7 @@
       },
       "delete": {
         "summary": "Delete a person",
+        "description": "At this endpoint, you can delete a person",
         "responses": {
           "204": {
             "description": "Success"
@@ -209,7 +233,9 @@
             "description": "Person not found",
             "content": {
               "application/json": {
-                "example": "Person not Found"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           },
@@ -217,7 +243,9 @@
             "description": "Invalid id format",
             "content": {
               "application/json": {
-                "example": "The id you have submitted has an invalid format"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
@@ -227,6 +255,8 @@
     "/api/v1/car": {
       "get": {
         "summary": "Get all cars",
+        "description": "At this endpoint, you can get all cars",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
             "in": "query",
@@ -235,7 +265,7 @@
               "type": "integer"
             },
             "description": "The number of cars to skip before starting to collect the result set",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -244,7 +274,7 @@
               "type": "integer"
             },
             "description": "The numbers of cars to return",
-            "required": true
+            "required": false
           },
           {
             "in": "query",
@@ -297,11 +327,33 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error status 401 - Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
           }
         }
       },
       "post": {
         "summary": "Create a new car",
+        "description": "At this endpoint, you can create a car",
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -311,7 +363,6 @@
             }
           }
         },
-        "description": "At this endpoint, you can create a new car",
         "responses": {
           "201": {
             "description": "Success",
@@ -324,10 +375,22 @@
             }
           },
           "400": {
-            "description": "Invalid field",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "There are some field with invalid value or format"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error status 401 - Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
@@ -347,6 +410,8 @@
       ],
       "get": {
         "summary": "Get car by Id",
+        "description": "At this endpoint, you can get a car by id",
+        "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
             "description": "Success",
@@ -359,21 +424,35 @@
             }
           },
           "204": {
-            "description": "Success"
+            "description": "Any car were found"
           },
           "404": {
             "description": "Car not found",
             "content": {
               "application/json": {
-                "example": "Car not Found"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           },
           "400": {
-            "description": "Invalid id format",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "The id you have submitted has an invalid format"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error status 401 - Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
@@ -381,6 +460,8 @@
       }, 
       "put": {
         "summary": "Update a car",
+        "description": "At this endpoint, you can update a car",
+        "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -405,15 +486,29 @@
             "description": "Car not found",
             "content": {
               "application/json": {
-                "example": "Car not Found"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           },
           "400": {
-            "description": "Invalid field or parameter",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "Field or id has invalid format or value"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error status 401 - Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
@@ -421,6 +516,8 @@
       },
       "delete": {
         "summary": "Delete a car",
+        "description": "At this endpoint, you can delete a car",
+        "security": [{ "bearerAuth": [] }],
         "responses": {
           "204": {
             "description": "Success"
@@ -429,7 +526,304 @@
             "description": "Car not found",
             "content": {
               "application/json": {
-                "example": "Car not Found"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error status 401 - Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/rental": {
+      "get": {
+        "summary": "Get all rentals",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The number of rentals to skip before starting to collect the result set",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The numbers of rentals to return",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "nome",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental name"
+          },
+          {
+            "in": "query",
+            "name": "cnpj",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental cnpj"
+          },
+          {
+            "in": "query",
+            "name": "atividades",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental activities"
+          },
+          {
+            "in": "query",
+            "name": "cep",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental cep"
+          },
+          {
+            "in": "query",
+            "name": "number",
+            "schema": {
+              "type": "number"
+            },
+            "description": "rental number"
+          },
+          {
+            "in": "query",
+            "name": "complemento",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental complement"
+          },
+          {
+            "in": "query",
+            "name": "logradouro",
+            "schema": {
+              "type": "string"
+            },
+            "description": "public place"
+          },
+          {
+            "in": "query",
+            "name": "bairro",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental district"
+          },
+          {
+            "in": "query",
+            "name": "localidade",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental city"
+          },
+          {
+            "in": "query",
+            "name": "uf",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental state"
+          },
+          {
+            "in": "query",
+            "name": "isFilial",
+            "schema": {
+              "type": "string"
+            },
+            "description": "rental type"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rentals"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid filter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new rental",
+        "description": "at this endpoint you can create a new rental",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Rental"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RentalReturn"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/rental/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get rental by Id",
+        "description": "at this endpoint you can get a rental by id",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RentalReturn"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Any rental were found"
+          },
+          "400": {
+            "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a rental",
+        "description": "at this endpoint you can update a rental",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Rental"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RentalReturn"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Rental not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a rental",
+        "description": "at this endpoint you can delete a rental",
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Rental not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           },
@@ -437,16 +831,19 @@
             "description": "Invalid id format",
             "content": {
               "application/json": {
-                "example": "The id you have submitted has an invalid format"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           }
-        }
-      }
+        }  
+      }  
     },
     "/api/v1/authenticate": {
       "post": {
         "summary": "Authenticate a person",
+        "description": "At this endpoint, you can authenticate",
         "requestBody": {
           "content": {
             "application/json": {
@@ -464,7 +861,6 @@
             }
           }
         },
-        "description": "At this endpoint, you can authenticate",
         "responses": {
           "200": {
             "description": "Success",
@@ -477,10 +873,12 @@
             }
           },
           "400": {
-            "description": "Incorret credentials",
+            "description": "Error status 400",
             "content": {
               "application/json": {
-                "example": "Email or password is incorrect"
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
               }
             }
           } 
@@ -493,6 +891,9 @@
       "Person": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "string"
+          },
           "nome": {
             "type": "string"
           },
@@ -526,6 +927,9 @@
       "Car": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "string"
+          },
           "modelo": {
             "type": "string"
           },
@@ -556,6 +960,116 @@
         "items": {
           "$ref": "#/components/schemas/Car"
         }
+      },
+      "Rental": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "cnpj": {
+            "type": "string"
+          },
+          "atividades": {
+            "type": "string"
+          },
+          "endereco": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cep": {
+                  "type": "string"
+                },
+                "complemento": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "isFilial": {
+                  "type": "boolean"
+                }
+              }
+            }  
+          }
+        }
+      },
+      "RentalReturn": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "cnpj": {
+            "type": "string"
+          },
+          "atividades": {
+            "type": "string"
+          },
+          "endereco": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cep": {
+                  "type": "string"
+                },
+                "logradouro": {
+                  "type": "string"
+                },
+                "complemento": {
+                  "type": "string"
+                },
+                "bairro": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "localidade": {
+                  "type": "string"
+                },
+                "uf": {
+                  "type": "string"
+                }
+              }
+            }  
+          }
+        }
+      },
+      "Rentals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/RentalReturn"
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },  
+      "Errors": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Error"
+        }
+      }  
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

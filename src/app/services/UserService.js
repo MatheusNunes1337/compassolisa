@@ -1,19 +1,22 @@
+const bcrypt = require('bcryptjs');
 const UserRepository = require('../repositories/UserRepository');
 const NotFound = require('../errors/NotFound');
+const cpfVerification = require('../helpers/user/cpfVerification');
+const emailVerification = require('../helpers/user/emailVerification');
+const BadRequest = require('../errors/BadRequest');
 
 class UserService {
   async findAll({ offset, limit, ...filter }) {
-    const result = await UserRepository.getAll(offset, limit, filter);
-    const { docs, totalDocs } = result
+    if (offset) {
+      Number(offset);
+    }
+    if (limit) {
+      Number(limit);
+    }
 
-    const response = {}
-    response.pessoas = docs
-    response.total = totalDocs
-    response.limit = limit
-    response.offset = offset
-    response.offsets = docs.length
+    if (offset < 0 || limit < 0) throw new BadRequest('Limit and offset cannot be negative');
 
-    return response
+    return UserRepository.getAll(filter, offset, limit);
   }
 
   async findById(id) {
@@ -21,16 +24,28 @@ class UserService {
     return user;
   }
 
-  async create(user) {
-    return await UserRepository.create(user);
+  async create(payload) {
+    await cpfVerification(payload.cpf);
+    await emailVerification(payload.email);
+    return UserRepository.create(payload);
   }
 
-  async update(id, userData) {
+  async update(id, payload) {
     const user = await this.findById(id);
     if (!user) {
       throw new NotFound('User');
     }
-    return await UserRepository.update(id, userData);
+    const { cpf, email, senha } = payload;
+    if (cpf) await cpfVerification(cpf);
+
+    if (email) await emailVerification(email);
+
+    if (senha) {
+      const encriptedPassword = await bcrypt.hash(senha, 10);
+      payload.senha = encriptedPassword;
+    }
+
+    return UserRepository.update(id, payload);
   }
 
   async delete(id) {
@@ -38,7 +53,7 @@ class UserService {
     if (!user) {
       throw new NotFound('User');
     }
-    return await UserRepository.delete(id);
+    return UserRepository.delete(id);
   }
 }
 
