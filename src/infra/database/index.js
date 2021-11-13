@@ -5,7 +5,7 @@ dotenv.config();
 let databaseUrl;
 
 if (process.env.NODE_ENV === 'test') {
-  databaseUrl = 'mongodb://localhost:27017/test';
+  databaseUrl = process.env.MONGO_URL_TEST;
 } else {
   databaseUrl = process.env.MONGO_URL;
 }
