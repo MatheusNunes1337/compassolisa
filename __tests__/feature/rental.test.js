@@ -12,7 +12,7 @@ beforeEach(async () => {
 });
 
 let rentalMock = {};
-const rentalMock02 = {};
+let rentalMock02 = {};
 
 describe('create a new rental', () => {
   beforeEach(async () => {
@@ -219,6 +219,110 @@ describe('Do not create a rental with duplicated adresses', () => {
     expect(typeof body).toBe('object');
     expect(typeof body.name).toBe('string');
     expect(typeof body.description).toBe('string');
+  });
+});
+
+describe('get all rentals', () => {
+  beforeEach(async () => {
+    await RentalModel.deleteMany();
+
+    rentalMock = {
+      nome: 'Moonlight',
+      cnpj: '12.567.124/1039-11',
+      atividades: 'Aluguel de ferraris',
+      endereco: [
+        {
+          cep: '20050-000',
+          number: 201,
+          complemento: 'Ao lado do shopping',
+          isFilial: false
+        }
+      ]
+    };
+
+    rentalMock02 = {
+      nome: 'Locadora do Marcos',
+      cnpj: '12.481.813/1735-13',
+      atividades: 'Aluguel de fuscas',
+      endereco: [
+        {
+          cep: '96055-740',
+          number: 390,
+          complemento: 'Na frente do Aeroporto internacional',
+          isFilial: false
+        }
+      ]
+    };
+  });
+
+  it('should return status code 200', async () => {
+    await request(app).post('/api/v1/rental/').send(rentalMock);
+    await request(app).post('/api/v1/rental/').send(rentalMock02);
+
+    const response = await request(app).get('/api/v1/rental/');
+
+    const { status } = response;
+    expect(status).toBe(200);
+  });
+
+  it('should return an array of rentals with same properties of mocks plus _id and full address', async () => {
+    await request(app).post('/api/v1/rental/').send(rentalMock);
+    await request(app).post('/api/v1/rental/').send(rentalMock02);
+
+    const response = await request(app).get('/api/v1/rental/');
+
+    const { body } = response;
+    const { locadoras } = body;
+
+    expect(locadoras).toHaveLength(2);
+
+    expect(locadoras[0]).toHaveProperty('_id');
+    expect(locadoras[0].nome).toBe(rentalMock.nome);
+    expect(locadoras[0].cnpj).toBe(rentalMock.cnpj);
+    expect(locadoras[0].atividades).toBe(rentalMock.atividades);
+    expect(locadoras[0].endereco[0].cep).toBe(rentalMock.endereco[0].cep);
+    expect(locadoras[0].endereco[0].number).toBe(rentalMock.endereco[0].number);
+    expect(locadoras[0].endereco[0].complemento).toBe(rentalMock.endereco[0].complemento);
+    expect(locadoras[0].endereco[0].isFilial).toBeUndefined();
+
+    expect(locadoras[1]).toHaveProperty('_id');
+    expect(locadoras[1].nome).toBe(rentalMock02.nome);
+    expect(locadoras[1].cnpj).toBe(rentalMock02.cnpj);
+    expect(locadoras[1].atividades).toBe(rentalMock02.atividades);
+    expect(locadoras[1].endereco[0].cep).toBe(rentalMock02.endereco[0].cep);
+    expect(locadoras[1].endereco[0].number).toBe(rentalMock02.endereco[0].number);
+    expect(locadoras[1].endereco[0].complemento).toBe(rentalMock02.endereco[0].complemento);
+    expect(locadoras[1].endereco[0].isFilial).toBeUndefined();
+  });
+
+  it('should return an array of rental objects with values type string, number an object', async () => {
+    await request(app).post('/api/v1/rental/').send(rentalMock);
+    await request(app).post('/api/v1/rental/').send(rentalMock02);
+
+    const response = await request(app).get('/api/v1/rental/');
+
+    const { body } = response;
+    const { locadoras } = body;
+
+    expect(typeof body).toBe('object');
+
+    expect(typeof locadoras[0].nome).toBe('string');
+    expect(typeof locadoras[0].cnpj).toBe('string');
+    expect(typeof locadoras[0].atividades).toBe('string');
+    expect(typeof locadoras[0].endereco).toBe('object');
+    expect(typeof locadoras[0].endereco[0].cep).toBe('string');
+    expect(typeof locadoras[0].endereco[0].number).toBe('number');
+    expect(typeof locadoras[0].endereco[0].complemento).toBe('string');
+    expect(typeof locadoras[0].endereco[0].isFilial).toBe('undefined');
+
+    expect(typeof locadoras[1].nome).toBe('string');
+    expect(typeof locadoras[1].cnpj).toBe('string');
+    expect(typeof locadoras[1].atividades).toBe('string');
+    expect(typeof locadoras[1].endereco).toBe('object');
+    expect(typeof locadoras[1].endereco[0].cep).toBe('string');
+    expect(typeof locadoras[1].endereco[0].number).toBe('number');
+    expect(typeof locadoras[1].endereco[0].complemento).toBe('string');
+    expect(typeof locadoras[1].endereco[0].isFilial).toBe('undefined');
   });
 });
 
