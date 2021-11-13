@@ -8,7 +8,8 @@ This API refers to a luxury and semi luxury car rental system
 
 - People CRUD
 - Cars CRUD
-- Filter people or cars by their attributes
+- Rentals CRUD
+- Filter people/cars/rentals by their attributes
 - Offset-based pagination
 - User authentication
 
@@ -20,6 +21,7 @@ This API refers to a luxury and semi luxury car rental system
 - MongoDB v.4.4.9
 - Mongoose v.6.0.11
 - Joi validator v.17.4.2
+- Jest v.27.3.1
 
 
 ## Run Locally
@@ -54,6 +56,16 @@ Start the server
   yarn dev
 ```
 
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+  npm run test
+```
+```bash
+  yarn test
+```
 
 ## Environment Variables
 
@@ -62,6 +74,8 @@ To run this project, you will need to add the following environment variables to
 `PORT`
 
 `MONGO_URL`
+
+`MONGO_URL_TEST`
 
 `API_SECRET`
 
