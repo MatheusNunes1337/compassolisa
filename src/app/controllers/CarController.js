@@ -1,14 +1,13 @@
 const CarService = require('../services/CarService');
-const {serialize, paginateSerialize} = require('../serialize/carSerialize')
+const { serialize, paginateSerialize } = require('../serialize/carSerialize');
 
 class CarController {
   async getAll(req, res, next) {
     try {
       const response = await CarService.findAll(req.query);
       return res.status(200).json(paginateSerialize(response));
-
     } catch (err) {
-      next(err);
+      return next(err);
     }
   }
 
@@ -19,7 +18,7 @@ class CarController {
       if (car) return res.status(200).json(serialize(car));
       return res.status(204).end();
     } catch (err) {
-      next(err);
+      return next(err);
     }
   }
 
@@ -28,7 +27,7 @@ class CarController {
       const car = await CarService.create(req.body);
       return res.status(201).json(serialize(car));
     } catch (err) {
-      next(err);
+      return next(err);
     }
   }
 
@@ -38,16 +37,16 @@ class CarController {
       const response = await CarService.update(id, req.body);
       return res.status(200).json(serialize(response));
     } catch (err) {
-      next(err);
+      return next(err);
     }
   }
 
   async updateAccessory(req, res, next) {
     try {
       const response = await CarService.updateAccessory(req.params, req.body);
-      return res.status(200).json(response)
+      return res.status(200).json(response);
     } catch (err) {
-      next(err);
+      return next(err);
     }
   }
 
@@ -57,7 +56,7 @@ class CarController {
       await CarService.delete(id);
       return res.status(204).end();
     } catch (err) {
-      next(err);
+      return next(err);
     }
   }
 }

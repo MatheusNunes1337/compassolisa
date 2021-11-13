@@ -5,7 +5,7 @@ const errorSerialize = (error) => {
     errors = error.details.map((e) => {
       const erro = {
         description: e.path[0],
-        name: e.message,
+        name: e.message
       };
 
       return erro;

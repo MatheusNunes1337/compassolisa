@@ -4,23 +4,21 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const CarSchema = Schema({
   modelo: {
     type: String,
-    required: true,
+    required: true
   },
   cor: {
     type: String,
-    required: true,
+    required: true
   },
   ano: {
     type: Number,
-    required: true,
+    required: true
   },
-  acessorios: [
-    { descricao: String },
-  ],
+  acessorios: [{ descricao: String }],
   quantidadePassageiros: {
     type: Number,
-    required: true,
-  },
+    required: true
+  }
 });
 
 CarSchema.plugin(mongoosePaginate);
