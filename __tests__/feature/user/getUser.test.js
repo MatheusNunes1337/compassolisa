@@ -135,7 +135,7 @@ describe('get users by their names', () => {
   });
 });
 
-describe('get users by their id', () => {
+describe('get users by id', () => {
   beforeEach(() => {
     userMock = {
       nome: 'Lucas Morais',
@@ -186,5 +186,35 @@ describe('get users by their id', () => {
       email: expect.any(String),
       habilitado: expect.any(String)
     });
+  });
+});
+
+describe('get no user by id', () => {
+  it('should return status code 204', async () => {
+    const id = '61718ad8c7cc0116a68800a6';
+
+    const { status } = await request(app).get(`/api/v1/people/${id}`);
+    expect(status).toBe(204);
+  });
+
+  it('should return a body with empty object', async () => {
+    const id = '61718ad8c7cc0116a68800a6';
+
+    const { body } = await request(app).get(`/api/v1/people/${id}`);
+
+    expect(body._id).toBeUndefined();
+    expect(body.nome).toBeUndefined();
+    expect(body.cpf).toBeUndefined();
+    expect(body.data_nascimento).toBeUndefined();
+    expect(body.email).toBeUndefined();
+    expect(body.habilitado).toBeUndefined();
+  });
+
+  it('should return a body with any property', async () => {
+    const id = '61718ad8c7cc0116a68800a6';
+
+    const { body } = await request(app).get(`/api/v1/people/${id}`);
+
+    expect(body).toEqual({});
   });
 });
