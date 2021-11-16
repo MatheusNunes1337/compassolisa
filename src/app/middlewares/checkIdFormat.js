@@ -12,7 +12,7 @@ const checkIdFormat = async (req, res, next) => {
       })
     });
 
-    const { error } = await schema.validateAsync({ id: params }, { abortEarly: false });
+    const { error } = await schema.validate({ id: params }, { abortEarly: false });
 
     if (error) throw error;
     return next();
