@@ -1,15 +1,6 @@
 const request = require('supertest');
 
 const app = require('../../../src/index');
-const UserModel = require('../../../src/app/models/UserModel');
-
-beforeAll(async () => {
-  await UserModel.deleteMany();
-});
-
-beforeEach(async () => {
-  await UserModel.deleteMany();
-});
 
 let userMock = {};
 
@@ -62,6 +53,30 @@ describe('get all users', () => {
       data_nascimento: expect.any(String),
       email: expect.any(String),
       habilitado: expect.any(String)
+    });
+  });
+});
+
+describe('Do not get users when limit is invalid', () => {
+  it('should return status code 400', async () => {
+    const { status } = await request(app).get('/api/v1/people/?limit=-200');
+
+    expect(status).toBe(400);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { body } = await request(app).get('/api/v1/people/?limit=-200');
+
+    expect(body[0].description).toBe('limit');
+    expect(body[0].name).toBe('"limit" must be greater than or equal to 0');
+  });
+
+  it('should return a body with values type string', async () => {
+    const { body } = await request(app).get('/api/v1/people/?limit=-200');
+
+    expect(body[0]).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
     });
   });
 });
