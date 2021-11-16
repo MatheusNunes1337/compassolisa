@@ -4,8 +4,8 @@ require('dotenv').config({
 });
 
 class DatabaseConnection {
-  connect() {
-    mongoose.connect(process.env.MONGO_URL);
+  async connect() {
+    return mongoose.connect(process.env.MONGO_URL);
   }
 }
 

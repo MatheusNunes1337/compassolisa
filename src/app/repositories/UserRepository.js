@@ -2,6 +2,9 @@ const UserModel = require('../models/UserModel');
 
 class UserRepository {
   async getAll(filter, offset = 0, limit = 100) {
+    Number(offset);
+    Number(limit);
+
     return UserModel.paginate(filter, { offset, limit });
   }
 

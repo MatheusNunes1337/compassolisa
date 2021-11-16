@@ -3,19 +3,9 @@ const UserRepository = require('../repositories/UserRepository');
 const NotFound = require('../errors/NotFound');
 const cpfVerification = require('../helpers/user/cpfVerification');
 const emailVerification = require('../helpers/user/emailVerification');
-const BadRequest = require('../errors/BadRequest');
 
 class UserService {
   async findAll({ offset, limit, ...filter }) {
-    if (offset) {
-      Number(offset);
-    }
-    if (limit) {
-      Number(limit);
-    }
-
-    if (offset < 0 || limit < 0) throw new BadRequest('Limit and offset cannot be negative');
-
     return UserRepository.getAll(filter, offset, limit);
   }
 
