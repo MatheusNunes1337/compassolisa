@@ -1,15 +1,6 @@
 const request = require('supertest');
 
 const app = require('../../../src/index');
-const UserModel = require('../../../src/app/models/UserModel');
-
-beforeAll(async () => {
-  await UserModel.deleteMany();
-});
-
-beforeEach(async () => {
-  await UserModel.deleteMany();
-});
 
 let userMock = {};
 let userMock02 = {};
@@ -27,9 +18,7 @@ describe('create a new user', () => {
   });
 
   it('should return status code 201', async () => {
-    const response = await request(app).post('/api/v1/people/').send(userMock);
-
-    const { status } = response;
+    const { status } = await request(app).post('/api/v1/people/').send(userMock);
     expect(status).toBe(201);
   });
 
