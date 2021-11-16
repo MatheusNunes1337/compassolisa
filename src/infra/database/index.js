@@ -1,23 +1,12 @@
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-
-dotenv.config();
-let databaseUrl;
-
-if (process.env.NODE_ENV === 'test') {
-  databaseUrl = process.env.MONGO_URL_TEST;
-} else {
-  databaseUrl = process.env.MONGO_URL;
-}
+require('dotenv').config({
+  path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+});
 
 class DatabaseConnection {
-  constructor() {
-    this.connect();
-  }
-
   connect() {
-    mongoose.connect(databaseUrl);
+    mongoose.connect(process.env.MONGO_URL);
   }
 }
 
-module.exports = new DatabaseConnection();
+module.exports = new DatabaseConnection().connect();
