@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1636768552047" clover="3.2.0">
-  <project timestamp="1636768552047" name="All files">
+<coverage generated="1637077414843" clover="3.2.0">
+  <project timestamp="1637077414843" name="All files">
     <metrics statements="620" coveredstatements="538" conditionals="128" coveredconditionals="77" methods="107" coveredmethods="96" elements="855" coveredelements="711" complexity="0" loc="620" ncloc="620" packages="18" files="56" classes="56"/>
     <package name="src">
       <metrics statements="21" coveredstatements="16" conditionals="2" coveredconditionals="0" methods="5" coveredmethods="4"/>
       <file name="index.js" path="/home/matheus/Documentos/compassolisa/src/index.js">
         <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="20" count="4" type="stmt"/>
-        <line num="21" count="4" type="stmt"/>
-        <line num="25" count="4" type="stmt"/>
-        <line num="29" count="4" type="stmt"/>
-        <line num="33" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="20" count="5" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="25" count="5" type="stmt"/>
+        <line num="29" count="5" type="stmt"/>
+        <line num="33" count="5" type="stmt"/>
       </file>
       <file name="server.js" path="/home/matheus/Documentos/compassolisa/src/server.js">
         <metrics statements="5" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -36,17 +36,17 @@
       <metrics statements="91" coveredstatements="70" conditionals="6" coveredconditionals="2" methods="17" coveredmethods="15"/>
       <file name="AuthController.js" path="/home/matheus/Documentos/compassolisa/src/app/controllers/AuthController.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
         <line num="5" count="10" type="stmt"/>
         <line num="6" count="10" type="stmt"/>
         <line num="7" count="4" type="stmt"/>
         <line num="9" count="6" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
       </file>
       <file name="CarController.js" path="/home/matheus/Documentos/compassolisa/src/app/controllers/CarController.js">
         <metrics statements="31" coveredstatements="22" conditionals="2" coveredconditionals="1" methods="6" coveredmethods="5"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
         <line num="8" count="3" type="stmt"/>
@@ -75,12 +75,12 @@
         <line num="56" count="6" type="stmt"/>
         <line num="57" count="3" type="stmt"/>
         <line num="59" count="3" type="stmt"/>
-        <line num="64" count="4" type="stmt"/>
+        <line num="64" count="5" type="stmt"/>
       </file>
       <file name="RentalController.js" path="/home/matheus/Documentos/compassolisa/src/app/controllers/RentalController.js">
         <metrics statements="26" coveredstatements="17" conditionals="2" coveredconditionals="0" methods="5" coveredmethods="4"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
         <line num="8" count="3" type="stmt"/>
@@ -104,12 +104,12 @@
         <line num="46" count="3" type="stmt"/>
         <line num="47" count="3" type="stmt"/>
         <line num="49" count="0" type="stmt"/>
-        <line num="54" count="4" type="stmt"/>
+        <line num="54" count="5" type="stmt"/>
       </file>
       <file name="UserController.js" path="/home/matheus/Documentos/compassolisa/src/app/controllers/UserController.js">
         <metrics statements="28" coveredstatements="25" conditionals="2" coveredconditionals="1" methods="5" coveredmethods="5"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
         <line num="6" count="6" type="stmt"/>
         <line num="7" count="6" type="stmt"/>
         <line num="8" count="6" type="stmt"/>
@@ -120,11 +120,11 @@
         <line num="18" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="19" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
-        <line num="26" count="40" type="stmt"/>
-        <line num="27" count="40" type="stmt"/>
-        <line num="28" count="34" type="stmt"/>
-        <line num="29" count="34" type="stmt"/>
-        <line num="31" count="6" type="stmt"/>
+        <line num="26" count="55" type="stmt"/>
+        <line num="27" count="55" type="stmt"/>
+        <line num="28" count="43" type="stmt"/>
+        <line num="29" count="43" type="stmt"/>
+        <line num="31" count="12" type="stmt"/>
         <line num="36" count="6" type="stmt"/>
         <line num="37" count="6" type="stmt"/>
         <line num="38" count="6" type="stmt"/>
@@ -135,7 +135,7 @@
         <line num="48" count="6" type="stmt"/>
         <line num="49" count="3" type="stmt"/>
         <line num="51" count="3" type="stmt"/>
-        <line num="56" count="4" type="stmt"/>
+        <line num="56" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.errors">
@@ -144,25 +144,25 @@
         <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="3" count="0" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
       </file>
       <file name="BadRequest.js" path="/home/matheus/Documentos/compassolisa/src/app/errors/BadRequest.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="6" type="stmt"/>
         <line num="4" count="6" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
       </file>
       <file name="Conflict.js" path="/home/matheus/Documentos/compassolisa/src/app/errors/Conflict.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="3" count="9" type="stmt"/>
-        <line num="4" count="9" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
+        <line num="3" count="15" type="stmt"/>
+        <line num="4" count="15" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
       </file>
       <file name="InvalidCredentials.js" path="/home/matheus/Documentos/compassolisa/src/app/errors/InvalidCredentials.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="6" type="stmt"/>
         <line num="4" count="6" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
       </file>
       <file name="InvalidParam.js" path="/home/matheus/Documentos/compassolisa/src/app/errors/InvalidParam.js">
         <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -174,88 +174,88 @@
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="9" type="stmt"/>
         <line num="4" count="9" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.helpers.rental">
       <metrics statements="35" coveredstatements="33" conditionals="10" coveredconditionals="7" methods="6" coveredmethods="6"/>
       <file name="checkAddressExistence.js" path="/home/matheus/Documentos/compassolisa/src/app/helpers/rental/checkAddressExistence.js">
         <metrics statements="11" coveredstatements="10" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
         <line num="6" count="21" type="stmt"/>
         <line num="7" count="21" type="stmt"/>
         <line num="8" count="21" type="stmt"/>
         <line num="10" count="21" type="stmt"/>
         <line num="12" count="21" type="cond" truecount="1" falsecount="1"/>
         <line num="13" count="0" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
       </file>
       <file name="checkCnpjUsage.js" path="/home/matheus/Documentos/compassolisa/src/app/helpers/rental/checkCnpjUsage.js">
         <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
         <line num="6" count="24" type="stmt"/>
         <line num="8" count="24" type="cond" truecount="1" falsecount="1"/>
-        <line num="11" count="4" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
       </file>
       <file name="checkDuplicatedAddress.js" path="/home/matheus/Documentos/compassolisa/src/app/helpers/rental/checkDuplicatedAddress.js">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
         <line num="4" count="21" type="stmt"/>
         <line num="6" count="21" type="stmt"/>
         <line num="7" count="27" type="stmt"/>
         <line num="8" count="27" type="cond" truecount="2" falsecount="0"/>
         <line num="9" count="3" type="stmt"/>
         <line num="11" count="24" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
       </file>
       <file name="headOfficeVerification.js" path="/home/matheus/Documentos/compassolisa/src/app/helpers/rental/headOfficeVerification.js">
         <metrics statements="8" coveredstatements="7" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="2"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
         <line num="4" count="30" type="stmt"/>
         <line num="6" count="24" type="cond" truecount="2" falsecount="0"/>
         <line num="7" count="3" type="stmt"/>
         <line num="10" count="21" type="cond" truecount="1" falsecount="1"/>
         <line num="11" count="0" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.helpers.user">
       <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
       <file name="cpfVerification.js" path="/home/matheus/Documentos/compassolisa/src/app/helpers/user/cpfVerification.js">
         <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="40" type="stmt"/>
-        <line num="6" count="40" type="cond" truecount="2" falsecount="0"/>
-        <line num="9" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="55" type="stmt"/>
+        <line num="6" count="55" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="5" type="stmt"/>
       </file>
       <file name="emailVerification.js" path="/home/matheus/Documentos/compassolisa/src/app/helpers/user/emailVerification.js">
         <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="37" type="stmt"/>
-        <line num="6" count="37" type="cond" truecount="2" falsecount="0"/>
-        <line num="9" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="49" type="stmt"/>
+        <line num="6" count="49" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.middlewares">
       <metrics statements="36" coveredstatements="34" conditionals="8" coveredconditionals="5" methods="3" coveredmethods="3"/>
       <file name="checkIdFormat.js" path="/home/matheus/Documentos/compassolisa/src/app/middlewares/checkIdFormat.js">
         <metrics statements="12" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
         <line num="6" count="33" type="stmt"/>
         <line num="7" count="33" type="stmt"/>
         <line num="9" count="33" type="stmt"/>
@@ -263,27 +263,27 @@
         <line num="17" count="33" type="cond" truecount="1" falsecount="1"/>
         <line num="18" count="33" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
-        <line num="24" count="4" type="stmt"/>
+        <line num="24" count="5" type="stmt"/>
       </file>
       <file name="errorHandler.js" path="/home/matheus/Documentos/compassolisa/src/app/middlewares/errorHandler.js">
         <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="30" type="stmt"/>
-        <line num="7" count="30" type="cond" truecount="2" falsecount="0"/>
-        <line num="8" count="21" type="stmt"/>
-        <line num="10" count="30" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="36" type="stmt"/>
+        <line num="7" count="36" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="27" type="stmt"/>
+        <line num="10" count="36" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
       </file>
       <file name="userAuthentication.js" path="/home/matheus/Documentos/compassolisa/src/app/middlewares/userAuthentication.js">
         <metrics statements="16" coveredstatements="15" conditionals="4" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
         <line num="10" count="39" type="stmt"/>
         <line num="11" count="39" type="stmt"/>
         <line num="12" count="39" type="cond" truecount="1" falsecount="1"/>
@@ -293,61 +293,61 @@
         <line num="18" count="39" type="stmt"/>
         <line num="19" count="39" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
-        <line num="25" count="4" type="stmt"/>
+        <line num="25" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.models">
       <metrics statements="23" coveredstatements="23" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="CarModel.js" path="/home/matheus/Documentos/compassolisa/src/app/models/CarModel.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="24" count="4" type="stmt"/>
-        <line num="26" count="4" type="stmt"/>
-        <line num="28" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="24" count="5" type="stmt"/>
+        <line num="26" count="5" type="stmt"/>
+        <line num="28" count="5" type="stmt"/>
       </file>
       <file name="RentalModel.js" path="/home/matheus/Documentos/compassolisa/src/app/models/RentalModel.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="33" count="4" type="stmt"/>
-        <line num="35" count="4" type="stmt"/>
-        <line num="37" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="33" count="5" type="stmt"/>
+        <line num="35" count="5" type="stmt"/>
+        <line num="37" count="5" type="stmt"/>
       </file>
       <file name="UserModel.js" path="/home/matheus/Documentos/compassolisa/src/app/models/UserModel.js">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="37" count="4" type="stmt"/>
-        <line num="38" count="34" type="stmt"/>
-        <line num="39" count="34" type="stmt"/>
-        <line num="40" count="34" type="stmt"/>
-        <line num="43" count="4" type="stmt"/>
-        <line num="45" count="4" type="stmt"/>
-        <line num="47" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="37" count="5" type="stmt"/>
+        <line num="38" count="43" type="stmt"/>
+        <line num="39" count="43" type="stmt"/>
+        <line num="40" count="43" type="stmt"/>
+        <line num="43" count="5" type="stmt"/>
+        <line num="45" count="5" type="stmt"/>
+        <line num="47" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.providers">
       <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
       <file name="AddressProvider.js" path="/home/matheus/Documentos/compassolisa/src/app/providers/AddressProvider.js">
         <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
         <line num="5" count="21" type="stmt"/>
         <line num="6" count="21" type="stmt"/>
         <line num="8" count="21" type="cond" truecount="2" falsecount="0"/>
         <line num="10" count="18" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.repositories">
       <metrics statements="26" coveredstatements="24" conditionals="6" coveredconditionals="6" methods="17" coveredmethods="16"/>
       <file name="CarRepository.js" path="/home/matheus/Documentos/compassolisa/src/app/repositories/CarRepository.js">
         <metrics statements="10" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="5"/>
-        <line num="1" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
         <line num="5" count="3" type="stmt"/>
         <line num="9" count="12" type="stmt"/>
         <line num="13" count="18" type="stmt"/>
@@ -356,29 +356,29 @@
         <line num="22" count="0" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
         <line num="35" count="3" type="stmt"/>
-        <line num="39" count="4" type="stmt"/>
+        <line num="39" count="5" type="stmt"/>
       </file>
       <file name="RentalRepository.js" path="/home/matheus/Documentos/compassolisa/src/app/repositories/RentalRepository.js">
         <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="5" coveredmethods="5"/>
-        <line num="1" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
         <line num="5" count="48" type="stmt"/>
         <line num="9" count="6" type="stmt"/>
         <line num="13" count="15" type="stmt"/>
         <line num="17" count="3" type="stmt"/>
         <line num="21" count="3" type="stmt"/>
-        <line num="25" count="4" type="stmt"/>
+        <line num="25" count="5" type="stmt"/>
       </file>
       <file name="UserRepository.js" path="/home/matheus/Documentos/compassolisa/src/app/repositories/UserRepository.js">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="6"/>
-        <line num="1" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
         <line num="5" count="6" type="stmt"/>
         <line num="9" count="15" type="stmt"/>
         <line num="13" count="10" type="stmt"/>
-        <line num="17" count="34" type="stmt"/>
+        <line num="17" count="43" type="stmt"/>
         <line num="21" count="3" type="stmt"/>
         <line num="22" count="3" type="stmt"/>
         <line num="26" count="3" type="stmt"/>
-        <line num="30" count="4" type="stmt"/>
+        <line num="30" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.serialize">
@@ -386,49 +386,49 @@
       <file name="addressSerialize.js" path="/home/matheus/Documentos/compassolisa/src/app/serialize/addressSerialize.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="18" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
       </file>
       <file name="carSerialize.js" path="/home/matheus/Documentos/compassolisa/src/app/serialize/carSerialize.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="30" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="18" count="5" type="stmt"/>
       </file>
       <file name="errorSerialize.js" path="/home/matheus/Documentos/compassolisa/src/app/serialize/errorSerialize.js">
         <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="42" type="stmt"/>
-        <line num="4" count="42" type="cond" truecount="2" falsecount="0"/>
-        <line num="5" count="12" type="stmt"/>
-        <line num="6" count="12" type="stmt"/>
-        <line num="11" count="12" type="stmt"/>
-        <line num="14" count="42" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="54" type="stmt"/>
+        <line num="4" count="54" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="18" type="stmt"/>
+        <line num="6" count="18" type="stmt"/>
+        <line num="11" count="18" type="stmt"/>
+        <line num="14" count="54" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
       </file>
       <file name="rentalSerialize.js" path="/home/matheus/Documentos/compassolisa/src/app/serialize/rentalSerialize.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="2" count="27" type="stmt"/>
         <line num="3" count="24" type="stmt"/>
         <line num="12" count="48" type="stmt"/>
-        <line num="20" count="4" type="stmt"/>
+        <line num="20" count="5" type="stmt"/>
       </file>
       <file name="userSerialize.js" path="/home/matheus/Documentos/compassolisa/src/app/serialize/userSerialize.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="1" count="46" type="stmt"/>
+        <line num="1" count="55" type="stmt"/>
         <line num="10" count="6" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
+        <line num="18" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.services">
       <metrics statements="132" coveredstatements="102" conditionals="64" coveredconditionals="36" methods="21" coveredmethods="17"/>
       <file name="AuthService.js" path="/home/matheus/Documentos/compassolisa/src/app/services/AuthService.js">
         <metrics statements="16" coveredstatements="16" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
         <line num="11" count="10" type="stmt"/>
         <line num="12" count="10" type="stmt"/>
         <line num="14" count="10" type="cond" truecount="2" falsecount="0"/>
@@ -438,14 +438,14 @@
         <line num="21" count="4" type="stmt"/>
         <line num="25" count="4" type="stmt"/>
         <line num="27" count="4" type="stmt"/>
-        <line num="31" count="4" type="stmt"/>
+        <line num="31" count="5" type="stmt"/>
       </file>
       <file name="CarService.js" path="/home/matheus/Documentos/compassolisa/src/app/services/CarService.js">
         <metrics statements="33" coveredstatements="20" conditionals="20" coveredconditionals="9" methods="7" coveredmethods="5"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
         <line num="8" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="9" count="0" type="stmt"/>
         <line num="11" count="3" type="cond" truecount="1" falsecount="1"/>
@@ -474,19 +474,19 @@
         <line num="60" count="6" type="cond" truecount="2" falsecount="0"/>
         <line num="61" count="3" type="stmt"/>
         <line num="63" count="3" type="stmt"/>
-        <line num="67" count="4" type="stmt"/>
+        <line num="67" count="5" type="stmt"/>
       </file>
       <file name="RentalService.js" path="/home/matheus/Documentos/compassolisa/src/app/services/RentalService.js">
         <metrics statements="51" coveredstatements="36" conditionals="22" coveredconditionals="11" methods="8" coveredmethods="6"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
         <line num="13" count="3" type="stmt"/>
         <line num="15" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="16" count="0" type="stmt"/>
@@ -528,16 +528,16 @@
         <line num="96" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="97" count="0" type="stmt"/>
         <line num="99" count="3" type="stmt"/>
-        <line num="103" count="4" type="stmt"/>
+        <line num="103" count="5" type="stmt"/>
       </file>
       <file name="UserService.js" path="/home/matheus/Documentos/compassolisa/src/app/services/UserService.js">
         <metrics statements="32" coveredstatements="30" conditionals="18" coveredconditionals="12" methods="5" coveredmethods="5"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
         <line num="10" count="6" type="cond" truecount="1" falsecount="1"/>
         <line num="11" count="0" type="stmt"/>
         <line num="13" count="6" type="cond" truecount="1" falsecount="1"/>
@@ -546,9 +546,9 @@
         <line num="19" count="6" type="stmt"/>
         <line num="23" count="15" type="stmt"/>
         <line num="24" count="15" type="stmt"/>
-        <line num="28" count="40" type="stmt"/>
-        <line num="29" count="37" type="stmt"/>
-        <line num="30" count="34" type="stmt"/>
+        <line num="28" count="55" type="stmt"/>
+        <line num="29" count="49" type="stmt"/>
+        <line num="30" count="43" type="stmt"/>
         <line num="34" count="6" type="stmt"/>
         <line num="35" count="6" type="cond" truecount="2" falsecount="0"/>
         <line num="36" count="3" type="stmt"/>
@@ -563,285 +563,285 @@
         <line num="53" count="6" type="cond" truecount="2" falsecount="0"/>
         <line num="54" count="3" type="stmt"/>
         <line num="56" count="3" type="stmt"/>
-        <line num="60" count="4" type="stmt"/>
+        <line num="60" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.utils">
       <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
       <file name="getPatterns.js" path="/home/matheus/Documentos/compassolisa/src/app/utils/getPatterns.js">
         <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
-        <line num="1" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
         <line num="2" count="30" type="stmt"/>
         <line num="3" count="30" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
         <line num="7" count="30" type="stmt"/>
         <line num="8" count="30" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="12" count="58" type="stmt"/>
-        <line num="13" count="58" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="12" count="79" type="stmt"/>
+        <line num="13" count="79" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
         <line num="17" count="33" type="stmt"/>
         <line num="18" count="33" type="stmt"/>
-        <line num="21" count="4" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
       </file>
       <file name="getReferenceDate.js" path="/home/matheus/Documentos/compassolisa/src/app/utils/getReferenceDate.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="52" type="stmt"/>
-        <line num="5" count="52" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="73" type="stmt"/>
+        <line num="5" count="73" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.validations.authentication">
       <metrics statements="10" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="loginValidation.js" path="/home/matheus/Documentos/compassolisa/src/app/validations/authentication/loginValidation.js">
         <metrics statements="10" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
         <line num="5" count="10" type="stmt"/>
         <line num="6" count="10" type="stmt"/>
         <line num="11" count="10" type="stmt"/>
         <line num="12" count="10" type="cond" truecount="1" falsecount="1"/>
         <line num="13" count="10" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
-        <line num="19" count="4" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.validations.car">
       <metrics statements="40" coveredstatements="32" conditionals="8" coveredconditionals="4" methods="4" coveredmethods="3"/>
       <file name="accessoryValidation.js" path="/home/matheus/Documentos/compassolisa/src/app/validations/car/accessoryValidation.js">
         <metrics statements="10" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
         <line num="6" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
         <line num="15" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="16" count="0" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
-        <line num="22" count="4" type="stmt"/>
+        <line num="22" count="5" type="stmt"/>
       </file>
       <file name="createCar.js" path="/home/matheus/Documentos/compassolisa/src/app/validations/car/createCar.js">
         <metrics statements="10" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
         <line num="5" count="24" type="stmt"/>
         <line num="6" count="24" type="stmt"/>
         <line num="21" count="24" type="stmt"/>
         <line num="22" count="24" type="cond" truecount="2" falsecount="0"/>
         <line num="24" count="18" type="stmt"/>
         <line num="26" count="6" type="stmt"/>
-        <line num="30" count="4" type="stmt"/>
+        <line num="30" count="5" type="stmt"/>
       </file>
       <file name="getAll.js" path="/home/matheus/Documentos/compassolisa/src/app/validations/car/getAll.js">
         <metrics statements="10" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
         <line num="5" count="3" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
         <line num="16" count="3" type="stmt"/>
         <line num="17" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="18" count="3" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
-        <line num="24" count="4" type="stmt"/>
+        <line num="24" count="5" type="stmt"/>
       </file>
       <file name="updateCar.js" path="/home/matheus/Documentos/compassolisa/src/app/validations/car/updateCar.js">
         <metrics statements="10" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
         <line num="5" count="3" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
         <line num="20" count="3" type="stmt"/>
         <line num="21" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="23" count="3" type="stmt"/>
         <line num="25" count="0" type="stmt"/>
-        <line num="29" count="4" type="stmt"/>
+        <line num="29" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.validations.rental">
       <metrics statements="33" coveredstatements="30" conditionals="6" coveredconditionals="3" methods="3" coveredmethods="3"/>
       <file name="createRental.js" path="/home/matheus/Documentos/compassolisa/src/app/validations/rental/createRental.js">
         <metrics statements="11" coveredstatements="10" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
         <line num="6" count="24" type="stmt"/>
         <line num="7" count="24" type="stmt"/>
         <line num="38" count="24" type="stmt"/>
         <line num="39" count="24" type="cond" truecount="1" falsecount="1"/>
         <line num="41" count="24" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
-        <line num="47" count="4" type="stmt"/>
+        <line num="47" count="5" type="stmt"/>
       </file>
       <file name="getAll.js" path="/home/matheus/Documentos/compassolisa/src/app/validations/rental/getAll.js">
         <metrics statements="11" coveredstatements="10" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
         <line num="29" count="3" type="stmt"/>
         <line num="30" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="32" count="3" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
-        <line num="38" count="4" type="stmt"/>
+        <line num="38" count="5" type="stmt"/>
       </file>
       <file name="updateRental.js" path="/home/matheus/Documentos/compassolisa/src/app/validations/rental/updateRental.js">
         <metrics statements="11" coveredstatements="10" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
         <line num="37" count="3" type="stmt"/>
         <line num="38" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="40" count="3" type="stmt"/>
         <line num="42" count="0" type="stmt"/>
-        <line num="46" count="4" type="stmt"/>
+        <line num="46" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.app.validations.user">
       <metrics statements="35" coveredstatements="33" conditionals="6" coveredconditionals="4" methods="3" coveredmethods="3"/>
       <file name="createUser.js" path="/home/matheus/Documentos/compassolisa/src/app/validations/user/createUser.js">
         <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="7" count="46" type="stmt"/>
-        <line num="8" count="46" type="stmt"/>
-        <line num="22" count="46" type="stmt"/>
-        <line num="23" count="46" type="cond" truecount="2" falsecount="0"/>
-        <line num="25" count="40" type="stmt"/>
-        <line num="27" count="6" type="stmt"/>
-        <line num="31" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="7" count="67" type="stmt"/>
+        <line num="8" count="67" type="stmt"/>
+        <line num="22" count="67" type="stmt"/>
+        <line num="23" count="67" type="cond" truecount="2" falsecount="0"/>
+        <line num="25" count="55" type="stmt"/>
+        <line num="27" count="12" type="stmt"/>
+        <line num="31" count="5" type="stmt"/>
       </file>
       <file name="getAll.js" path="/home/matheus/Documentos/compassolisa/src/app/validations/user/getAll.js">
         <metrics statements="11" coveredstatements="10" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
         <line num="6" count="6" type="stmt"/>
         <line num="7" count="6" type="stmt"/>
         <line num="21" count="6" type="stmt"/>
         <line num="22" count="6" type="cond" truecount="1" falsecount="1"/>
         <line num="24" count="6" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
-        <line num="30" count="4" type="stmt"/>
+        <line num="30" count="5" type="stmt"/>
       </file>
       <file name="updateUser.js" path="/home/matheus/Documentos/compassolisa/src/app/validations/user/updateUser.js">
         <metrics statements="12" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
         <line num="7" count="6" type="stmt"/>
         <line num="8" count="6" type="stmt"/>
         <line num="22" count="6" type="stmt"/>
         <line num="23" count="6" type="cond" truecount="1" falsecount="1"/>
         <line num="25" count="6" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
-        <line num="31" count="4" type="stmt"/>
+        <line num="31" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.infra.database">
       <metrics statements="9" coveredstatements="8" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
       <file name="index.js" path="/home/matheus/Documentos/compassolisa/src/infra/database/index.js">
         <metrics statements="9" coveredstatements="8" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="7" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="8" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="7" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="8" count="5" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="19" count="8" type="stmt"/>
-        <line num="23" count="4" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="19" count="10" type="stmt"/>
+        <line num="23" count="5" type="stmt"/>
       </file>
     </package>
     <package name="src.routes">
       <metrics statements="55" coveredstatements="55" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="auth.router.js" path="/home/matheus/Documentos/compassolisa/src/routes/auth.router.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
       </file>
       <file name="car.router.js" path="/home/matheus/Documentos/compassolisa/src/routes/car.router.js">
         <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="19" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
       </file>
       <file name="index.js" path="/home/matheus/Documentos/compassolisa/src/routes/index.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
       </file>
       <file name="rental.router.js" path="/home/matheus/Documentos/compassolisa/src/routes/rental.router.js">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
       </file>
       <file name="user.router.js" path="/home/matheus/Documentos/compassolisa/src/routes/user.router.js">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
       </file>
     </package>
   </project>
