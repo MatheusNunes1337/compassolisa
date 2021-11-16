@@ -226,3 +226,38 @@ describe('Do not create a user with blank field', () => {
     });
   });
 });
+
+describe('Do not create a user with invalid cpf format', () => {
+  beforeEach(() => {
+    userMock = {
+      nome: 'Joongwoo',
+      cpf: '1838172.112-09',
+      data_nascimento: '09/12/2000',
+      email: 'joongwoonct@gmail.com',
+      senha: 'nctdream021',
+      habilitado: 'não'
+    };
+  });
+
+  it('should return status code 400', async () => {
+    const { status } = await request(app).post('/api/v1/people/').send(userMock);
+
+    expect(status).toBe(400);
+  });
+
+  it('should return a body with description and name properties', async () => {
+    const { body } = await request(app).post('/api/v1/people/').send(userMock);
+
+    expect(body[0].description).toBe('cpf');
+    expect(body[0].name).toBe('cpf must have the xxx.xxx.xxx-xx format');
+  });
+
+  it('should return a body with values type string', async () => {
+    const { body } = await request(app).post('/api/v1/people/').send(userMock);
+
+    expect(body[0]).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
