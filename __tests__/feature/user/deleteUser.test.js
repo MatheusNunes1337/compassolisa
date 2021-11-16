@@ -3,6 +3,7 @@ const request = require('supertest');
 const app = require('../../../src/index');
 
 let userMock = {};
+let idMock = '';
 
 describe('delete a user', () => {
   beforeEach(() => {
@@ -20,9 +21,8 @@ describe('delete a user', () => {
 
     const { _id } = JSON.parse(text);
 
-    const response = await request(app).delete(`/api/v1/people/${_id.toString()}`);
+    const { status } = await request(app).delete(`/api/v1/people/${_id.toString()}`);
 
-    const { status } = response;
     expect(status).toBe(204);
   });
 
@@ -31,9 +31,7 @@ describe('delete a user', () => {
 
     const { _id } = JSON.parse(text);
 
-    const response = await request(app).delete(`/api/v1/people/${_id.toString()}`);
-
-    const { body } = response;
+    const { body } = await request(app).delete(`/api/v1/people/${_id.toString()}`);
 
     expect(body.nome).toBeUndefined();
     expect(body.cpf).toBeUndefined();
@@ -47,44 +45,63 @@ describe('delete a user', () => {
 
     const { _id } = JSON.parse(text);
 
-    const response = await request(app).delete(`/api/v1/people/${_id.toString()}`);
+    const { body } = await request(app).delete(`/api/v1/people/${_id.toString()}`);
 
-    const { body } = response;
-
-    expect(typeof body).toBe('object');
+    expect(body).toEqual({});
   });
 });
 
 describe('Do not delete a user that not exists', () => {
+  beforeEach(() => {
+    idMock = '4edd40c86762e0fb12000003';
+  });
+
   it('should return status code 404', async () => {
-    const idMock = '4edd40c86762e0fb12000003';
+    const { status } = await request(app).delete(`/api/v1/people/${idMock}`);
 
-    const response = await request(app).delete(`/api/v1/people/${idMock}`);
-
-    const { status } = response;
     expect(status).toBe(404);
   });
 
   it('should return an object with name and description properties', async () => {
-    const idMock = '4edd40c86762e0fb12000003';
-
-    const response = await request(app).delete(`/api/v1/people/${idMock}`);
-
-    const { body } = response;
+    const { body } = await request(app).delete(`/api/v1/people/${idMock}`);
 
     expect(body.name).toBe('User not found');
     expect(body.description).toBe('Not Found');
   });
 
   it('should return a object with properties type string', async () => {
-    const idMock = '4edd40c86762e0fb12000003';
+    const { body } = await request(app).delete(`/api/v1/people/${idMock}`);
 
-    const response = await request(app).delete(`/api/v1/people/${idMock}`);
+    expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
 
-    const { body } = response;
+describe('Do not delete a user with invalid id format', () => {
+  beforeEach(() => {
+    idMock = '4edd40c86762e0fb120000';
+  });
+  it('should return status code 404', async () => {
+    const { status } = await request(app).delete(`/api/v1/people/${idMock}`);
 
-    expect(typeof body).toBe('object');
-    expect(typeof body.name).toBe('string');
-    expect(typeof body.description).toBe('string');
+    expect(status).toBe(400);
+  });
+
+  it('should return an object with name and description properties', async () => {
+    const { body } = await request(app).delete(`/api/v1/people/${idMock}`);
+
+    expect(body[0].name).toBe('id must be have 24 hexadecimal characters');
+    expect(body[0].description).toBe('id');
+  });
+
+  it('should return a object with properties type string', async () => {
+    const { body } = await request(app).delete(`/api/v1/people/${idMock}`);
+
+    expect(body[0]).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
   });
 });
