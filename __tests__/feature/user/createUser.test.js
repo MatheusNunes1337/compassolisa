@@ -261,3 +261,38 @@ describe('Do not create a user with invalid cpf format', () => {
     });
   });
 });
+
+describe('Do not create a user with invalid habilitado field value', () => {
+  beforeEach(() => {
+    userMock = {
+      nome: 'Serena',
+      cpf: '290.481.187-01',
+      data_nascimento: '12/12/1998',
+      email: 'serenadias@outlook.com',
+      senha: 'serena123456',
+      habilitado: 'serena'
+    };
+  });
+
+  it('should return status code 400', async () => {
+    const { status } = await request(app).post('/api/v1/people/').send(userMock);
+
+    expect(status).toBe(400);
+  });
+
+  it('should return a body with description and name properties', async () => {
+    const { body } = await request(app).post('/api/v1/people/').send(userMock);
+
+    expect(body[0].description).toBe('habilitado');
+    expect(body[0].name).toBe('"habilitado" must be one of [sim, não]');
+  });
+
+  it('should return a body with values type string', async () => {
+    const { body } = await request(app).post('/api/v1/people/').send(userMock);
+
+    expect(body[0]).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
