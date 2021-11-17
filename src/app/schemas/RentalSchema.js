@@ -17,7 +17,6 @@ const RentalSchema = Schema({
   },
   endereco: [
     {
-      _id: false,
       cep: { type: String, required: true },
       logradouro: { type: String, required: true },
       complemento: String,
