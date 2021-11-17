@@ -1,15 +1,8 @@
 const request = require('supertest');
 
 const app = require('../../src/index');
-const UserModel = require('../../src/app/models/UserModel');
-
-beforeAll(async () => {
-  await UserModel.deleteMany();
-});
 
 beforeEach(async () => {
-  await UserModel.deleteMany();
-
   const userMock = {
     nome: 'James winston',
     cpf: '182.931.371-08',

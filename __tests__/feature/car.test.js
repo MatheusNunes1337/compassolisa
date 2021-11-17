@@ -1,15 +1,10 @@
 const request = require('supertest');
 
 const app = require('../../src/index');
-const CarModel = require('../../src/app/models/CarModel');
-const UserModel = require('../../src/app/models/UserModel');
 
 let token = null;
 
 beforeAll(async () => {
-  await CarModel.deleteMany();
-  await UserModel.deleteMany();
-
   const userMock = {
     nome: 'James winston',
     cpf: '182.931.371-08',
@@ -29,10 +24,6 @@ beforeAll(async () => {
   token = body.token;
 });
 
-beforeEach(async () => {
-  await CarModel.deleteMany();
-});
-
 let carMock = {};
 let carMock02 = {};
 const cor = {
@@ -41,7 +32,6 @@ const cor = {
 
 describe('create a new car', () => {
   beforeEach(async () => {
-    await CarModel.deleteMany();
     carMock = {
       modelo: 'Modelo 01',
       cor: 'vermelho',
@@ -99,7 +89,6 @@ describe('create a new car', () => {
 
 describe('Do not create a car with accessory field blank', () => {
   beforeEach(async () => {
-    await CarModel.deleteMany();
     carMock = {
       modelo: '',
       cor: 'vermelho',
@@ -141,7 +130,6 @@ describe('Do not create a car with accessory field blank', () => {
 
 describe('Do not create a car with ano greather than 2022', () => {
   beforeEach(async () => {
-    await CarModel.deleteMany();
     carMock = {
       modelo: 'Modelo 02',
       cor: 'Cinza',
@@ -183,8 +171,6 @@ describe('Do not create a car with ano greather than 2022', () => {
 
 describe('Get all cars', () => {
   beforeEach(async () => {
-    await CarModel.deleteMany();
-
     carMock = {
       modelo: 'Modelo 01',
       cor: 'Verde',
@@ -277,8 +263,6 @@ describe('Get all cars', () => {
 
 describe('Get car by ID', () => {
   beforeEach(async () => {
-    await CarModel.deleteMany();
-
     carMock = {
       modelo: 'Mustang',
       cor: 'Preto',
@@ -341,8 +325,6 @@ describe('Get car by ID', () => {
 
 describe('Update a car color', () => {
   beforeEach(async () => {
-    await CarModel.deleteMany();
-
     carMock = {
       modelo: 'Modelo 02',
       cor: 'Cinza',
@@ -414,8 +396,6 @@ describe('Update a car color', () => {
 
 describe('delete a car', () => {
   beforeEach(async () => {
-    await CarModel.deleteMany();
-
     carMock = {
       modelo: 'Ferrari 99',
       cor: 'vermelho',
@@ -470,10 +450,6 @@ describe('delete a car', () => {
 });
 
 describe('Do not delete a car that not exists', () => {
-  beforeEach(async () => {
-    await CarModel.deleteMany();
-  });
-
   it('should return status code 404', async () => {
     const idMock = '4eed60c86632e0ab11012303';
 

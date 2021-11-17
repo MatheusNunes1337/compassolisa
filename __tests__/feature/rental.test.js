@@ -1,15 +1,6 @@
 const request = require('supertest');
 
 const app = require('../../src/index');
-const RentalModel = require('../../src/app/models/RentalModel');
-
-beforeAll(async () => {
-  await RentalModel.deleteMany();
-});
-
-beforeEach(async () => {
-  await RentalModel.deleteMany();
-});
 
 let rentalMock = {};
 let rentalMock02 = {};
@@ -19,8 +10,6 @@ const rentalName = {
 
 describe('create a new rental', () => {
   beforeEach(async () => {
-    await RentalModel.deleteMany();
-
     rentalMock = {
       nome: 'Locadora do mock',
       cnpj: '16.760.085/0920-10',
@@ -81,8 +70,6 @@ describe('create a new rental', () => {
 
 describe('Do not create a rental with cep that not exists', () => {
   beforeEach(async () => {
-    await RentalModel.deleteMany();
-
     rentalMock = {
       nome: 'Locadora do mock',
       cnpj: '16.760.085/0920-10',
@@ -127,8 +114,6 @@ describe('Do not create a rental with cep that not exists', () => {
 
 describe('Do not create a rental with no head office', () => {
   beforeEach(async () => {
-    await RentalModel.deleteMany();
-
     rentalMock = {
       nome: 'Compassolisa',
       cnpj: '18.172.927/0920-15',
@@ -173,8 +158,6 @@ describe('Do not create a rental with no head office', () => {
 
 describe('Do not create a rental with duplicated adresses', () => {
   beforeEach(async () => {
-    await RentalModel.deleteMany();
-
     rentalMock = {
       nome: 'Locadora 01',
       cnpj: '16.123.213/7291-19',
@@ -227,8 +210,6 @@ describe('Do not create a rental with duplicated adresses', () => {
 
 describe('get all rentals', () => {
   beforeEach(async () => {
-    await RentalModel.deleteMany();
-
     rentalMock = {
       nome: 'Moonlight',
       cnpj: '12.567.124/1039-11',
@@ -331,8 +312,6 @@ describe('get all rentals', () => {
 
 describe('update a rental name', () => {
   beforeEach(async () => {
-    await RentalModel.deleteMany();
-
     rentalMock = {
       nome: 'Moonlight',
       cnpj: '12.567.124/1039-11',
@@ -401,8 +380,6 @@ describe('update a rental name', () => {
 
 describe('delete a rental', () => {
   beforeEach(async () => {
-    await RentalModel.deleteMany();
-
     rentalMock = {
       nome: 'Moonlight',
       cnpj: '12.567.124/1039-11',
