@@ -2,6 +2,9 @@ const CarSchema = require('../schemas/CarSchema');
 
 class CarRepository {
   async getAll(filter, offset = 0, limit = 100) {
+    Number(limit);
+    Number(offset);
+
     return CarSchema.paginate(filter, { offset, limit });
   }
 

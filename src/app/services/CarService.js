@@ -1,19 +1,9 @@
 const CarRepository = require('../repositories/CarRepository');
 const NotFound = require('../errors/NotFound');
-const BadRequest = require('../errors/BadRequest');
 const Conflict = require('../errors/Conflict');
 
 class CarService {
   async findAll({ offset, limit, ...filter }) {
-    if (offset) {
-      Number(offset);
-    }
-    if (limit) {
-      Number(limit);
-    }
-
-    if (offset < 0 || limit < 0) throw new BadRequest('Limit and offset cannot be negative');
-
     if (filter.descricao) {
       filter['acessorios.descricao'] = filter.descricao;
       delete filter.descricao;
