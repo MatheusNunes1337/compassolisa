@@ -1,8 +1,8 @@
 const Conflict = require('../../errors/Conflict');
-const UserModel = require('../../models/UserModel');
+const UserSchema = require('../../schemas/UserSchema');
 
 const emailVerification = async (email) => {
-  const user = await UserModel.findOne({ email });
+  const user = await UserSchema.findOne({ email });
   if (user) throw new Conflict(`Email ${email} already in use`);
 };
 

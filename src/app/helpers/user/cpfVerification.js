@@ -1,8 +1,8 @@
 const Conflict = require('../../errors/Conflict');
-const UserModel = require('../../models/UserModel');
+const UserSchema = require('../../schemas/UserSchema');
 
 const cpfVerification = async (cpf) => {
-  const user = await UserModel.findOne({ cpf });
+  const user = await UserSchema.findOne({ cpf });
   if (user) throw new Conflict(`CPF ${cpf} already in use`);
 };
 
