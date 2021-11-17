@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const swaggerUI = require('swagger-ui-express');
 const routes = require('./routes');
 const errorHandler = require('./app/middlewares/errorHandler');
@@ -15,6 +16,8 @@ class App {
 
   middlewares() {
     this.express.use(express.json());
+    this.express.use(cors());
+    this.express.options('*', cors());
     this.express.use('/api/v1/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
   }
 
