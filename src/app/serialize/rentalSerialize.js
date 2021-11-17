@@ -1,5 +1,7 @@
+const addressSerialize = require('./addressSerialize');
+
 function serialize({ _id, nome, cnpj, atividades, endereco }) {
-  endereco.map((address) => (address.isFilial = undefined));
+  endereco = endereco.map((address) => addressSerialize(address, true));
   return {
     _id,
     nome,
