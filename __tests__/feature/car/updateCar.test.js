@@ -415,3 +415,71 @@ describe('Do not Update a car accessory when it has invalid value', () => {
     });
   });
 });
+
+describe('Do not Update a car accessory of a car that not exists', () => {
+  beforeEach(async () => {
+    carMock = {
+      modelo: 'Modelo 00',
+      cor: 'Aazul',
+      ano: 2018,
+      acessorios: [
+        {
+          descricao: 'Teto solar'
+        },
+        {
+          descricao: 'Ar-condicionado'
+        }
+      ],
+      quantidadePassageiros: 2
+    };
+
+    accessoryMock = { descricao: 'Ar-condicionado' };
+    idMock = '4eed60c86632e0ac3b125320';
+  });
+
+  it('should return status code 404', async () => {
+    const { text } = await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock);
+
+    const { acessorios } = JSON.parse(text);
+    const accessoryId = acessorios[0]._id;
+
+    const { status } = await request(app)
+      .patch(`/api/v1/car/${idMock}/acessorios/${accessoryId.toString()}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(accessoryMock);
+
+    expect(status).toBe(404);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { text } = await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock);
+
+    const { acessorios } = JSON.parse(text);
+    const accessoryId = acessorios[0]._id;
+
+    const { body } = await request(app)
+      .patch(`/api/v1/car/${idMock}/acessorios/${accessoryId.toString()}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(accessoryMock);
+
+    expect(body.name).toBe('Car not found');
+    expect(body.description).toBe('Not Found');
+  });
+
+  it('should return a body with values of type string', async () => {
+    const { text } = await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock);
+
+    const { acessorios } = JSON.parse(text);
+    const accessoryId = acessorios[0]._id;
+
+    const { body } = await request(app)
+      .patch(`/api/v1/car/${idMock}/acessorios/${accessoryId.toString()}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(accessoryMock);
+
+    expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
