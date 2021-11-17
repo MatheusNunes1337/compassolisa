@@ -44,7 +44,7 @@ class CarController {
   async updateAccessory(req, res, next) {
     try {
       const response = await CarService.updateAccessory(req.params, req.body);
-      return res.status(200).json(response);
+      return res.status(200).json(serialize(response));
     } catch (err) {
       return next(err);
     }
