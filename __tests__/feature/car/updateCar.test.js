@@ -433,7 +433,7 @@ describe('Do not Update a car accessory of a car that not exists', () => {
       quantidadePassageiros: 2
     };
 
-    accessoryMock = { descricao: 'Ar-condicionado' };
+    accessoryMock = { descricao: 'Ar-bag' };
     idMock = '4eed60c86632e0ac3b125320';
   });
 
@@ -474,6 +474,71 @@ describe('Do not Update a car accessory of a car that not exists', () => {
 
     const { body } = await request(app)
       .patch(`/api/v1/car/${idMock}/acessorios/${accessoryId.toString()}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(accessoryMock);
+
+    expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
+
+describe('Do not Update an accessory that not exists', () => {
+  beforeEach(async () => {
+    carMock = {
+      modelo: 'Modelo G',
+      cor: 'Prata',
+      ano: 2010,
+      acessorios: [
+        {
+          descricao: 'Air bag'
+        },
+        {
+          descricao: 'Ar-condicionado'
+        }
+      ],
+      quantidadePassageiros: 2
+    };
+
+    accessoryMock = { descricao: 'Porta luvas' };
+    idMock = '5afd60c75112f0ac3b005320';
+  });
+
+  it('should return status code 404', async () => {
+    const { text } = await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock);
+
+    const { _id } = JSON.parse(text);
+
+    const { status } = await request(app)
+      .patch(`/api/v1/car/${_id.toString()}/acessorios/${idMock}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(accessoryMock);
+
+    expect(status).toBe(404);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { text } = await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock);
+
+    const { _id } = JSON.parse(text);
+
+    const { body } = await request(app)
+      .patch(`/api/v1/car/${_id.toString()}/acessorios/${idMock}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(accessoryMock);
+
+    expect(body.name).toBe('Accessory not found');
+    expect(body.description).toBe('Not Found');
+  });
+
+  it('should return a body with values of type string', async () => {
+    const { text } = await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock);
+
+    const { _id } = JSON.parse(text);
+
+    const { body } = await request(app)
+      .patch(`/api/v1/car/${_id.toString()}/acessorios/${idMock}`)
       .set('Authorization', `Bearer ${token}`)
       .send(accessoryMock);
 
