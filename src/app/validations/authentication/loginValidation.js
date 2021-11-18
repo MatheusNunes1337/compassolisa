@@ -8,8 +8,9 @@ const loginValidation = async (req, res, next) => {
       senha: Joi.string().trim().min(6).required()
     });
 
-    const { error } = await schema.validateAsync(req.body, { abortEarly: false });
+    const { error } = await schema.validate(req.body, { abortEarly: false });
     if (error) throw error;
+
     return next();
   } catch (err) {
     return res.status(400).json(errorSerialize(err));
