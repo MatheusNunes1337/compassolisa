@@ -220,8 +220,8 @@ describe('Do not update a rental with invalid field value', () => {
 
     const { body } = await request(app).put(`/api/v1/rental/${_id.toString()}`).send(payload);
 
-    expect(body[0].name).toBe(`oi`);
-    expect(body[0].description).toBe('"nome" must be a string');
+    expect(body[0].name).toBe('"nome" must be a string');
+    expect(body[0].description).toBe('nome');
   });
 
   it('should return a object with properties type string', async () => {
