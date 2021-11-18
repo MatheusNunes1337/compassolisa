@@ -194,3 +194,43 @@ describe('Do not create a rental with duplicated adresses', () => {
     });
   });
 });
+
+describe('Do not create a rental with invalid field value', () => {
+  beforeEach(async () => {
+    rentalMock = {
+      nome: true,
+      cnpj: '16.097.356/9851-11',
+      atividades: 'Aluguel de carros de luxo',
+      endereco: [
+        {
+          cep: '96055-740',
+          number: 745,
+          complemento: 'ao lado da havan',
+          isFilial: false
+        }
+      ]
+    };
+  });
+
+  it('should return status code 400', async () => {
+    const { status } = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    expect(status).toBe(400);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { body } = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    expect(body[0].name).toBe('"nome" must be a string');
+    expect(body.description).toBe('nome');
+  });
+
+  it('should return a body with values type string', async () => {
+    const { body } = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    expect(body[0]).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
