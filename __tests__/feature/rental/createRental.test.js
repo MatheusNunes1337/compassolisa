@@ -199,9 +199,55 @@ describe('Do not create a rental with invalid field value', () => {
   beforeEach(async () => {
     rentalMock = {
       nome: true,
-      cnpj: '16.097.356/9851-11',
+      cnpj: '16.097.156/6751-12',
       atividades: 'Aluguel de carros de luxo',
       endereco: [
+        {
+          cep: '96055-740',
+          number: 278,
+          complemento: 'ao lado da havan',
+          isFilial: false
+        }
+      ]
+    };
+  });
+
+  it('should return status code 400', async () => {
+    const { status } = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    expect(status).toBe(400);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { body } = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    expect(body[0].name).toBe('"nome" must be a string');
+    expect(body[0].description).toBe('nome');
+  });
+
+  it('should return a body with values type string', async () => {
+    const { body } = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    expect(body[0]).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
+
+describe('Do not create a rental with two head offices', () => {
+  beforeEach(async () => {
+    rentalMock = {
+      nome: 'Locadora Y',
+      cnpj: '12.076.192/8651-11',
+      atividades: 'Aluguel de carros de luxo',
+      endereco: [
+        {
+          cep: '38181-787',
+          number: 451,
+          complemento: 'ao lado da galeria central',
+          isFilial: false
+        },
         {
           cep: '96055-740',
           number: 745,
@@ -221,14 +267,14 @@ describe('Do not create a rental with invalid field value', () => {
   it('should return a body with name and description error properties', async () => {
     const { body } = await request(app).post('/api/v1/rental/').send(rentalMock);
 
-    expect(body[0].name).toBe('"nome" must be a string');
-    expect(body.description).toBe('nome');
+    expect(body.name).toBe('A rental must have only one head office');
+    expect(body.description).toBe('Bad Request');
   });
 
   it('should return a body with values type string', async () => {
     const { body } = await request(app).post('/api/v1/rental/').send(rentalMock);
 
-    expect(body[0]).toEqual({
+    expect(body).toEqual({
       description: expect.any(String),
       name: expect.any(String)
     });
