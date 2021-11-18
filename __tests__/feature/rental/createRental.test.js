@@ -338,3 +338,62 @@ describe('Do not create a rental with cnpj already in use', () => {
     });
   });
 });
+
+describe('Do not create a rental with address already in use', () => {
+  beforeEach(async () => {
+    rentalMock = {
+      nome: 'Locadora Y',
+      cnpj: '14.865.139/0965-12',
+      atividades: 'Aluguel de carros de luxo',
+      endereco: [
+        {
+          cep: '38181-787',
+          number: 451,
+          complemento: 'ao lado da galeria central',
+          isFilial: false
+        }
+      ]
+    };
+
+    rentalMock02 = {
+      nome: 'Locadora Z',
+      cnpj: '11.065.178/4151-17',
+      atividades: 'Alugel de carros e gestão de frotas',
+      endereco: [
+        {
+          cep: '38181-787',
+          number: 451,
+          complemento: 'perto da galeria central',
+          isFilial: false
+        }
+      ]
+    };
+  });
+
+  it('should return status code 400', async () => {
+    await request(app).post('/api/v1/rental/').send(rentalMock);
+    const { status } = await request(app).post('/api/v1/rental/').send(rentalMock02);
+
+    expect(status).toBe(400);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    await request(app).post('/api/v1/rental/').send(rentalMock);
+    const { body } = await request(app).post('/api/v1/rental/').send(rentalMock02);
+
+    expect(body.name).toBe(
+      `The address with cep ${rentalMock02.endereco[0].cep} and number ${rentalMock02.endereco[0].number} already in use`
+    );
+    expect(body.description).toBe('Conflict');
+  });
+
+  it('should return a body with values type string', async () => {
+    await request(app).post('/api/v1/rental/').send(rentalMock);
+    const { body } = await request(app).post('/api/v1/rental/').send(rentalMock02);
+
+    expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
