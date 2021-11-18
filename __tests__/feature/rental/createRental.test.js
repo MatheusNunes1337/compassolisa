@@ -3,6 +3,7 @@ const request = require('supertest');
 const app = require('../../../src/index');
 
 let rentalMock = {};
+let rentalMock02 = {};
 
 describe('create a new rental', () => {
   beforeEach(async () => {
@@ -273,6 +274,63 @@ describe('Do not create a rental with two head offices', () => {
 
   it('should return a body with values type string', async () => {
     const { body } = await request(app).post('/api/v1/rental/').send(rentalMock);
+
+    expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
+
+describe('Do not create a rental with cnpj already in use', () => {
+  beforeEach(async () => {
+    rentalMock = {
+      nome: 'Locadora Y',
+      cnpj: '12.076.192/8651-11',
+      atividades: 'Aluguel de carros de luxo',
+      endereco: [
+        {
+          cep: '38181-787',
+          number: 451,
+          complemento: 'ao lado da galeria central',
+          isFilial: false
+        }
+      ]
+    };
+
+    rentalMock02 = {
+      nome: 'Locadora X',
+      cnpj: '12.076.192/8651-11',
+      atividades: 'Alugel de carros e gestão de frotas',
+      endereco: [
+        {
+          cep: '96055-740',
+          number: 201,
+          complemento: 'ao lado da havan',
+          isFilial: false
+        }
+      ]
+    };
+  });
+
+  it('should return status code 400', async () => {
+    await request(app).post('/api/v1/rental/').send(rentalMock);
+    const { status } = await request(app).post('/api/v1/rental/').send(rentalMock02);
+
+    expect(status).toBe(400);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    await request(app).post('/api/v1/rental/').send(rentalMock);
+    const { body } = await request(app).post('/api/v1/rental/').send(rentalMock02);
+
+    expect(body.name).toBe(`Cnpj ${rentalMock02.cnpj} already in use`);
+    expect(body.description).toBe('Conflict');
+  });
+
+  it('should return a body with values type string', async () => {
+    await request(app).post('/api/v1/rental/').send(rentalMock);
+    const { body } = await request(app).post('/api/v1/rental/').send(rentalMock02);
 
     expect(body).toEqual({
       description: expect.any(String),
