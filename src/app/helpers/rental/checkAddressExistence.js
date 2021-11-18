@@ -7,7 +7,7 @@ const checkAddressExistence = async (cep, number) => {
   filter['endereco.cep'] = cep;
   filter['endereco.number'] = number;
 
-  const rental = await RentalRepository.getAll(0, 100, filter);
+  const rental = await RentalRepository.getAll(filter, 0, 100);
 
   if (paginateSerialize(rental).locadoras.length > 0)
     throw new Conflict(`The address with cep ${cep} and number ${number} already in use`);
