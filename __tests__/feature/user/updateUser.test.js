@@ -18,7 +18,8 @@ describe('update user', () => {
 
     payload = {
       cpf: '098.163.024-12',
-      email: 'marianagomes@outlook.com'
+      email: 'marianagomes@outlook.com',
+      senha: '278103810'
     };
   });
 

@@ -62,7 +62,7 @@ describe('delete a rental', () => {
   });
 });
 
-describe('delete a rental', () => {
+describe('Do not delete a rental that no exists', () => {
   beforeEach(async () => {
     idMock = '5afd40c86762e0fb12142f23';
   });
