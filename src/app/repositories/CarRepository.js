@@ -1,23 +1,9 @@
 const CarSchema = require('../schemas/CarSchema');
+const Repository = require('./Repository');
 
-class CarRepository {
-  async getAll(filter, offset = 0, limit = 100) {
-    Number(limit);
-    Number(offset);
-
-    return CarSchema.paginate(filter, { offset, limit });
-  }
-
-  async getById(id) {
-    return CarSchema.findById(id);
-  }
-
-  async create(car) {
-    return CarSchema.create(car);
-  }
-
-  async update(id, carData) {
-    return CarSchema.findByIdAndUpdate(id, carData, { new: true });
+class CarRepository extends Repository {
+  constructor() {
+    super(CarSchema);
   }
 
   async updateAccessory(carId, accessoryId, descricao) {
@@ -31,10 +17,6 @@ class CarRepository {
       { new: true }
     );
     return car;
-  }
-
-  async delete(id) {
-    return CarSchema.findByIdAndDelete(id);
   }
 }
 
