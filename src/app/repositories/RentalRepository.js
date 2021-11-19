@@ -2,6 +2,10 @@ const RentalSchema = require('../schemas/RentalSchema');
 const Repository = require('./Repository');
 
 class RentalRepository extends Repository {
+  constructor() {
+    super(RentalSchema);
+  }
+
   async getAll(filter, offset = 0, limit = 100) {
     Number(limit);
     Number(offset);
