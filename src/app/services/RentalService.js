@@ -1,7 +1,11 @@
 const RentalRepository = require('../repositories/RentalRepository');
+const Repository = require('../repositories/Repository');
 const AddressProvider = require('../providers/AddressProvider');
+const RentalSchema = require('../schemas/RentalSchema');
+
 const BadRequest = require('../errors/BadRequest');
 const NotFound = require('../errors/NotFound');
+
 const serialize = require('../serialize/addressSerialize');
 const checkCnpjUsage = require('../helpers/rental/checkCnpjUsage');
 const headOfficeVerification = require('../helpers/rental/headOfficeVerification');
@@ -9,12 +13,16 @@ const checkAddressExistence = require('../helpers/rental/checkAddressExistence')
 const checkDuplicatedAddress = require('../helpers/rental/checkDuplicatedAddress');
 
 class RentalService {
+  constructor() {
+    this.repository = new Repository(RentalSchema);
+  }
+
   async getAll({ offset, limit, ...filter }) {
     return RentalRepository.getAll(filter, offset, limit);
   }
 
   async getById(id) {
-    return RentalRepository.getById(id);
+    return this.repository.getById(id);
   }
 
   async create(payload) {
@@ -39,7 +47,7 @@ class RentalService {
       })
     );
 
-    return RentalRepository.create(payload);
+    return this.repository.create(payload);
   }
 
   async update({ id }, payload) {
@@ -70,7 +78,7 @@ class RentalService {
       );
     }
 
-    return RentalRepository.update(id, payload);
+    return this.repository.update(id, payload);
   }
 
   async delete(id) {
@@ -78,7 +86,7 @@ class RentalService {
     if (!rental) {
       throw new NotFound('Rental');
     }
-    return RentalRepository.delete(id);
+    return this.repository.delete(id);
   }
 }
 
