@@ -1,7 +1,5 @@
 const RentalRepository = require('../repositories/RentalRepository');
-const Repository = require('../repositories/Repository');
 const AddressProvider = require('../providers/AddressProvider');
-const RentalSchema = require('../schemas/RentalSchema');
 
 const BadRequest = require('../errors/BadRequest');
 const NotFound = require('../errors/NotFound');
@@ -13,16 +11,12 @@ const checkAddressExistence = require('../helpers/rental/checkAddressExistence')
 const checkDuplicatedAddress = require('../helpers/rental/checkDuplicatedAddress');
 
 class RentalService {
-  constructor() {
-    this.repository = new Repository(RentalSchema);
-  }
-
   async getAll({ offset, limit, ...filter }) {
     return RentalRepository.getAll(filter, offset, limit);
   }
 
   async getById(id) {
-    return this.repository.getById(id);
+    return RentalRepository.getById(id);
   }
 
   async create(payload) {
@@ -47,7 +41,7 @@ class RentalService {
       })
     );
 
-    return this.repository.create(payload);
+    return RentalRepository.create(payload);
   }
 
   async update({ id }, payload) {
@@ -86,7 +80,7 @@ class RentalService {
     if (!rental) {
       throw new NotFound('Rental');
     }
-    return this.repository.delete(id);
+    return RentalRepository.delete(id);
   }
 }
 
