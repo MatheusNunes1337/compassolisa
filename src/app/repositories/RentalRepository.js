@@ -1,6 +1,7 @@
 const RentalSchema = require('../schemas/RentalSchema');
+const Repository = require('./Repository');
 
-class RentalRepository {
+class RentalRepository extends Repository {
   async getAll(filter, offset = 0, limit = 100) {
     Number(limit);
     Number(offset);
@@ -15,22 +16,6 @@ class RentalRepository {
     });
 
     return RentalSchema.paginate(filter, { offset, limit });
-  }
-
-  async getById(id) {
-    return RentalSchema.findById(id);
-  }
-
-  async create(payload) {
-    return RentalSchema.create(payload);
-  }
-
-  async update(id, payload) {
-    return RentalSchema.findByIdAndUpdate(id, payload, { new: true });
-  }
-
-  async delete(id) {
-    return RentalSchema.findByIdAndDelete(id);
   }
 }
 
