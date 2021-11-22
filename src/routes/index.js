@@ -9,7 +9,7 @@ const authRouter = require('./auth.router');
 routes.use('/api/v1/people', userRouter);
 routes.use('/api/v1/car', carRouter);
 routes.use('/api/v1/rental', rentalRouter);
-routes.use('/api/v1/rental/:id/fleet', fleetRouter);
+routes.use('/api/v1/rental/:rentalId/fleet', fleetRouter);
 routes.use('/api/v1/authenticate', authRouter);
 
 module.exports = routes;
