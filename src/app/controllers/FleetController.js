@@ -20,6 +20,15 @@ class FleetController {
       return next(err);
     }
   }
+
+  async create(req, res, next) {
+    try {
+      const fleet = await FleetService.create(req.body, req.params);
+      return res.status(201).json(serialize(fleet));
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 module.exports = new FleetController();
