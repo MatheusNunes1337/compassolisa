@@ -4,5 +4,6 @@ const FleetController = require('../app/controllers/FleetController');
 const checkIdFormat = require('../app/middlewares/checkIdFormat');
 
 fleetRouter.get('/', checkIdFormat, FleetController.getAll);
+fleetRouter.get('/:id', checkIdFormat, FleetController.getById);
 
 module.exports = fleetRouter;
