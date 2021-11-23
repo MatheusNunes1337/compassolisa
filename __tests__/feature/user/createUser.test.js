@@ -1,20 +1,14 @@
 const request = require('supertest');
+const { UserDataFaker } = require('../../support/datafaker');
 
 const app = require('../../../src/index');
 
 let userMock = {};
 let userMock02 = {};
 
-describe('create a new user', () => {
+describe.only('create a new user', () => {
   beforeEach(() => {
-    userMock = {
-      nome: 'James winston',
-      cpf: '182.931.371-08',
-      data_nascimento: '17/12/1945',
-      email: 'james1945@outlook.com',
-      senha: 'mynae13',
-      habilitado: 'não'
-    };
+    userMock = UserDataFaker();
   });
 
   it('should return status code 201', async () => {
