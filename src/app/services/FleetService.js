@@ -2,6 +2,7 @@ const FleetRepository = require('../repositories/FleetRepository');
 const RentalRepository = require('../repositories/RentalRepository');
 const CarRepository = require('../repositories/CarRepository');
 const NotFound = require('../errors/NotFound');
+const BadRequest = require('../errors/BadRequest');
 
 class FleetService {
   async getAll({ offset, limit, ...filter }, { rentalId }) {
@@ -16,7 +17,14 @@ class FleetService {
     const rental = await RentalRepository.getById(rentalId);
     if (!rental) throw new NotFound('Rental');
 
-    return FleetRepository.getById(id, rentalId);
+    const fleet = await FleetRepository.getById(id);
+
+    if (!fleet) throw new NotFound('Fleet');
+
+    if (fleet.id_locadora.toString() !== rentalId)
+      throw new BadRequest('Essa frota não pertence à locadora informada.');
+
+    return fleet;
   }
 
   async create(payload, { rentalId }) {
@@ -29,6 +37,11 @@ class FleetService {
     if (!car) throw new NotFound('Car');
 
     return FleetRepository.create(payload);
+  }
+
+  async delete({ id, rentalId }) {
+    const { _id } = await this.getById({ id, rentalId });
+    return FleetRepository.delete(_id);
   }
 }
 
