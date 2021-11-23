@@ -1,8 +1,10 @@
 const FleetRepository = require('../repositories/FleetRepository');
 const RentalRepository = require('../repositories/RentalRepository');
 const CarRepository = require('../repositories/CarRepository');
+
 const NotFound = require('../errors/NotFound');
 const BadRequest = require('../errors/BadRequest');
+const licensePlateVerification = require('../helpers/fleet/licensePlateVerification');
 
 class FleetService {
   async getAll({ offset, limit, ...filter }, { rentalId }) {
@@ -32,9 +34,11 @@ class FleetService {
     if (!rental) throw new NotFound('Rental');
     payload.id_locadora = rentalId;
 
-    const { id_carro } = payload;
+    const { id_carro, placa } = payload;
     const car = await CarRepository.getById(id_carro);
     if (!car) throw new NotFound('Car');
+
+    await licensePlateVerification(placa);
 
     return FleetRepository.create(payload);
   }
