@@ -29,6 +29,15 @@ class FleetController {
       return next(err);
     }
   }
+
+  async delete(req, res, next) {
+    try {
+      await FleetService.delete(req.params);
+      return res.status(204).end();
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 module.exports = new FleetController();
