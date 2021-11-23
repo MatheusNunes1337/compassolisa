@@ -3,9 +3,11 @@ const fleetRouter = require('express').Router({ mergeParams: true });
 const FleetController = require('../app/controllers/FleetController');
 const checkIdFormat = require('../app/middlewares/checkIdFormat');
 
-fleetRouter.get('/', checkIdFormat, FleetController.getAll);
-fleetRouter.get('/:id', checkIdFormat, FleetController.getById);
-fleetRouter.post('/', checkIdFormat, FleetController.create);
-fleetRouter.delete('/:id', checkIdFormat, FleetController.delete);
+fleetRouter.use(checkIdFormat);
+fleetRouter.get('/', FleetController.getAll);
+fleetRouter.get('/:id', FleetController.getById);
+fleetRouter.post('/', FleetController.create);
+fleetRouter.put('/:id', FleetController.update);
+fleetRouter.delete('/:id', FleetController.delete);
 
 module.exports = fleetRouter;
