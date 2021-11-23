@@ -27,10 +27,8 @@ const UserSchema = Schema({
   },
   habilitado: {
     type: String,
+    enum: ['sim', 'não'],
     required: true
-  },
-  __v: {
-    type: Number
   }
 });
 
