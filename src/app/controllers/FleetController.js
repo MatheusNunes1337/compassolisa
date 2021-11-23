@@ -30,6 +30,15 @@ class FleetController {
     }
   }
 
+  async update(req, res, next) {
+    try {
+      const response = await FleetService.update(req.body, req.params);
+      return res.status(200).json(serialize(response));
+    } catch (err) {
+      return next(err);
+    }
+  }
+
   async delete(req, res, next) {
     try {
       await FleetService.delete(req.params);
