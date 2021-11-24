@@ -8,7 +8,7 @@ const checkIdFormat = async (req, res, next) => {
 
     const schema = Joi.object({
       id: Joi.array().items(Joi.string().regex(getObjectIdPattern())).messages({
-        'string.pattern.base': `id must be have 24 hexadecimal characters`
+        'string.pattern.base': `id must have 24 hexadecimal characters`
       })
     });
 
