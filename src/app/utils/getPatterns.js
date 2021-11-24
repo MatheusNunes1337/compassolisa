@@ -18,9 +18,15 @@ const getObjectIdPattern = () => {
   return pattern;
 };
 
+const getLicensePlatePattern = () => {
+  const pattern = /[A-Z]{3}[0-9][0-9A-Z][0-9]{2}/;
+  return pattern;
+};
+
 module.exports = {
   getCnpjPattern,
   getCepPattern,
   getCpfPattern,
-  getObjectIdPattern
+  getObjectIdPattern,
+  getLicensePlatePattern
 };
