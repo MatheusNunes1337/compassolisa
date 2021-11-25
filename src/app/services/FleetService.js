@@ -20,14 +20,7 @@ class FleetService {
     const rental = await RentalRepository.getById(rentalId);
     if (!rental) throw new NotFound('Rental');
 
-    const fleet = await FleetRepository.getById(id);
-
-    if (!fleet) throw new NotFound('Fleet');
-
-    if (fleet.id_locadora.toString() !== rentalId)
-      throw new BadRequest('Essa frota não pertence à locadora informada.');
-
-    return fleet;
+    return FleetRepository.getById(id);
   }
 
   async create(payload, { rentalId }) {
@@ -67,8 +60,13 @@ class FleetService {
   }
 
   async delete({ id, rentalId }) {
-    const { _id } = await this.getById({ id, rentalId });
-    return FleetRepository.delete(_id);
+    const rental = await RentalRepository.getById(rentalId);
+    if (!rental) throw new NotFound('Rental');
+
+    const fleet = await FleetRepository.getById(id);
+    if (!fleet) throw new NotFound('Fleet');
+
+    return FleetRepository.delete(id);
   }
 }
 
