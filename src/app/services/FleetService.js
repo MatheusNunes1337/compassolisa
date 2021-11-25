@@ -5,6 +5,7 @@ const CarRepository = require('../repositories/CarRepository');
 const NotFound = require('../errors/NotFound');
 const BadRequest = require('../errors/BadRequest');
 const licensePlateVerification = require('../helpers/fleet/licensePlateVerification');
+const checkDuplicatedCar = require('../helpers/fleet/checkDuplicatedCar');
 
 class FleetService {
   async getAll({ offset, limit, ...filter }, { rentalId }) {
@@ -38,6 +39,7 @@ class FleetService {
     const car = await CarRepository.getById(id_carro);
     if (!car) throw new NotFound('Car');
 
+    await checkDuplicatedCar(id_carro, rentalId);
     await licensePlateVerification(placa);
 
     return FleetRepository.create(payload);
@@ -58,7 +60,8 @@ class FleetService {
       if (!rental) throw new NotFound('Rental');
     }
 
-    if (placa) await licensePlateVerification(placa);
+    await checkDuplicatedCar(id_carro, rentalId);
+    await licensePlateVerification(placa);
 
     return FleetRepository.update(id, payload);
   }
