@@ -20,6 +20,9 @@ class FleetService {
     const rental = await RentalRepository.getById(rentalId);
     if (!rental) throw new NotFound('Rental');
 
+    const fleet = await FleetRepository.getById(id);
+    if (!fleet || fleet.id_locadora !== rentalId) return false;
+
     return FleetRepository.getById(id);
   }
 
@@ -32,7 +35,6 @@ class FleetService {
     const car = await CarRepository.getById(id_carro);
     if (!car) throw new NotFound('Car');
 
-    await checkDuplicatedCar(id_carro, rentalId);
     await licensePlateVerification(placa);
 
     return FleetRepository.create(payload);
@@ -53,7 +55,6 @@ class FleetService {
       if (!rental) throw new NotFound('Rental');
     }
 
-    await checkDuplicatedCar(id_carro, rentalId);
     await licensePlateVerification(placa);
 
     return FleetRepository.update(id, payload);
