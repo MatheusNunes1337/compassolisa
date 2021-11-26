@@ -22,7 +22,7 @@ class FleetService {
 
     if (!fleet || fleet.id_locadora.toString() !== rentalId) return false;
 
-    return FleetRepository.getById(id);
+    return fleet;
   }
 
   async create(payload, { rentalId }) {
