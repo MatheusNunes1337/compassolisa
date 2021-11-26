@@ -16,9 +16,8 @@ class AuthService {
     if (!(await bcrypt.compare(senha, user.senha)))
       throw new InvalidCredentials('The password is incorrect. Try again');
 
-    const { email, habilitado } = user;
-
-    const token = jwt.sign({ email, habilitado }, process.env.API_SECRET, {
+    const { email, habilitado, _id } = user;
+    const token = jwt.sign({ email, habilitado, _id: _id.toString() }, process.env.API_SECRET, {
       expiresIn: '1d'
     });
 
