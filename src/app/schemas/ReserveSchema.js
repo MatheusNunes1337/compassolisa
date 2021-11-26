@@ -17,7 +17,7 @@ const ReserveSchema = Schema({
   },
   id_carro: {
     type: Schema.Types.ObjectId,
-    ref: 'Car',
+    ref: 'Fleet',
     required: true
   },
   id_locadora: {
