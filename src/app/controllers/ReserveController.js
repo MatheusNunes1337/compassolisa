@@ -10,6 +10,16 @@ class ReserveController {
       return next(err);
     }
   }
+
+  async getById(req, res, next) {
+    try {
+      const reserve = await ReserveService.getById(req.params);
+      if (reserve) return res.status(200).json(serialize(reserve));
+      return res.status(204).end();
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 module.exports = new ReserveController();
