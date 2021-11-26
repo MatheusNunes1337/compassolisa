@@ -3,9 +3,7 @@ const RentalRepository = require('../repositories/RentalRepository');
 const CarRepository = require('../repositories/CarRepository');
 
 const NotFound = require('../errors/NotFound');
-const BadRequest = require('../errors/BadRequest');
 const licensePlateVerification = require('../helpers/fleet/licensePlateVerification');
-const checkDuplicatedCar = require('../helpers/fleet/checkDuplicatedCar');
 
 class FleetService {
   async getAll({ offset, limit, ...filter }, { rentalId }) {
@@ -21,7 +19,8 @@ class FleetService {
     if (!rental) throw new NotFound('Rental');
 
     const fleet = await FleetRepository.getById(id);
-    if (!fleet || fleet.id_locadora !== rentalId) return false;
+
+    if (!fleet || fleet.id_locadora.toString() !== rentalId) return false;
 
     return FleetRepository.getById(id);
   }
@@ -32,7 +31,9 @@ class FleetService {
     payload.id_locadora = rentalId;
 
     const { id_carro, placa } = payload;
+
     const car = await CarRepository.getById(id_carro);
+
     if (!car) throw new NotFound('Car');
 
     await licensePlateVerification(placa);
@@ -55,6 +56,10 @@ class FleetService {
       if (!rental) throw new NotFound('Rental');
     }
 
+    const fleet = await FleetRepository.getById(id);
+
+    if (!fleet || fleet.id_locadora.toString() !== rentalId) throw new NotFound('Fleet');
+
     await licensePlateVerification(placa);
 
     return FleetRepository.update(id, payload);
@@ -65,7 +70,8 @@ class FleetService {
     if (!rental) throw new NotFound('Rental');
 
     const fleet = await FleetRepository.getById(id);
-    if (!fleet) throw new NotFound('Fleet');
+
+    if (!fleet || fleet.id_locadora.toString() !== rentalId) throw new NotFound('Fleet');
 
     return FleetRepository.delete(id);
   }
