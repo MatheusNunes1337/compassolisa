@@ -15,7 +15,11 @@ const userAuthentication = async (req, res, next) => {
     if (parts.length !== 2) throw new Authentication('The token has an invalid format');
 
     const [, token] = parts;
-    jwt.verify(token, process.env.API_SECRET);
+    const { _id, habilitado } = jwt.verify(token, process.env.API_SECRET);
+
+    req.userId = _id;
+    req.userStatus = habilitado;
+
     return next();
   } catch (err) {
     return res.status(401).json(errorSerialize(err));
