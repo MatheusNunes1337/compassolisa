@@ -18,11 +18,7 @@ class FleetService {
     const rental = await RentalRepository.getById(rentalId);
     if (!rental) throw new NotFound('Rental');
 
-    const fleet = await FleetRepository.getById(id);
-
-    if (!fleet || fleet.id_locadora.toString() !== rentalId) return false;
-
-    return fleet;
+    return FleetRepository.getById(id, rentalId);
   }
 
   async create(payload, { rentalId }) {
@@ -56,9 +52,8 @@ class FleetService {
       if (!rental) throw new NotFound('Rental');
     }
 
-    const fleet = await FleetRepository.getById(id);
-
-    if (!fleet || fleet.id_locadora.toString() !== rentalId) throw new NotFound('Fleet');
+    const fleet = await FleetRepository.getById(id, rentalId);
+    if (!fleet) throw new NotFound('Fleet');
 
     await licensePlateVerification(placa);
 
@@ -69,9 +64,8 @@ class FleetService {
     const rental = await RentalRepository.getById(rentalId);
     if (!rental) throw new NotFound('Rental');
 
-    const fleet = await FleetRepository.getById(id);
-
-    if (!fleet || fleet.id_locadora.toString() !== rentalId) throw new NotFound('Fleet');
+    const fleet = await FleetRepository.getById(id, rentalId);
+    if (!fleet) throw new NotFound('Fleet');
 
     return FleetRepository.delete(id);
   }
