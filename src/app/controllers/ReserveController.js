@@ -20,6 +20,15 @@ class ReserveController {
       return next(err);
     }
   }
+
+  async create(req, res, next) {
+    try {
+      const reserve = await ReserveService.create(req.userId, req.userStatus, req.params, req.body);
+      return res.status(201).json(serialize(reserve));
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 module.exports = new ReserveController();
