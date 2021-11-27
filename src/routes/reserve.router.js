@@ -7,5 +7,6 @@ const userAuthentication = require('../app/middlewares/userAuthentication');
 reserveRouter.use(userAuthentication);
 reserveRouter.get('/', checkIdFormat, ReserveController.getAll);
 reserveRouter.get('/:id', checkIdFormat, ReserveController.getById);
+reserveRouter.post('/', checkIdFormat, ReserveController.create);
 
 module.exports = reserveRouter;
