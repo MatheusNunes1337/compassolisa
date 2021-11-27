@@ -1,4 +1,6 @@
 const request = require('supertest');
+const { UserDataFaker } = require('../../support/datafaker');
+const generateObjectId = require('../../support/generateObjectId');
 
 const app = require('../../../src/index');
 
@@ -7,14 +9,7 @@ let idMock = '';
 
 describe('delete a user', () => {
   beforeEach(() => {
-    userMock = {
-      nome: 'Neymar',
-      cpf: '111.209.345-01',
-      data_nascimento: '17/12/1990',
-      email: 'neymarjr10@gmail.com',
-      senha: '123456',
-      habilitado: 'não'
-    };
+    userMock = UserDataFaker();
   });
   it('should return status code 204', async () => {
     const { text } = await request(app).post('/api/v1/people/').send(userMock);
@@ -53,7 +48,7 @@ describe('delete a user', () => {
 
 describe('Do not delete a user that not exists', () => {
   beforeEach(() => {
-    idMock = '4edd40c86762e0fb12000003';
+    idMock = generateObjectId();
   });
 
   it('should return status code 404', async () => {
@@ -92,7 +87,7 @@ describe('Do not delete a user with invalid id format', () => {
   it('should return an object with name and description properties', async () => {
     const { body } = await request(app).delete(`/api/v1/people/${idMock}`);
 
-    expect(body[0].name).toBe('id must be have 24 hexadecimal characters');
+    expect(body[0].name).toBe('id must have 24 hexadecimal characters');
     expect(body[0].description).toBe('id');
   });
 

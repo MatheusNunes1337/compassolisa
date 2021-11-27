@@ -1,25 +1,24 @@
 const request = require('supertest');
+const { UserDataFaker } = require('../../support/datafaker');
+const generateObjectId = require('../../support/generateObjectId');
 
 const app = require('../../../src/index');
 
 let userMock = {};
+let userMock02 = {};
+let idMock = '';
 let payload = {};
+let senha = '';
 
 describe('update user', () => {
   beforeEach(() => {
-    userMock = {
-      nome: 'Mariana',
-      cpf: '098.163.024-05',
-      data_nascimento: '03/12/1996',
-      email: 'marianagomes@gmail.com',
-      senha: '123456',
-      habilitado: 'não'
-    };
+    userMock = UserDataFaker();
+    userMock02 = UserDataFaker();
 
     payload = {
-      cpf: '098.163.024-12',
-      email: 'marianagomes@outlook.com',
-      senha: '278103810'
+      cpf: userMock02.cpf,
+      email: userMock02.email,
+      senha: userMock02.senha
     };
   });
 
@@ -73,9 +72,10 @@ describe('update user', () => {
 });
 
 describe('Do not update a password of a user that not exists', () => {
+  beforeEach(() => {
+    idMock = generateObjectId();
+  });
   it('should return status code 404', async () => {
-    const idMock = '4edd40c86762e0fb12000003';
-
     const response = await request(app).put(`/api/v1/people/${idMock}`);
 
     const { status } = response;
@@ -83,8 +83,6 @@ describe('Do not update a password of a user that not exists', () => {
   });
 
   it('should return an object with name and description properties', async () => {
-    const idMock = '4edd40c86762e0fb12000003';
-
     const response = await request(app).put(`/api/v1/people/${idMock}`);
 
     const { body } = response;
@@ -94,8 +92,6 @@ describe('Do not update a password of a user that not exists', () => {
   });
 
   it('should return a object with properties type string', async () => {
-    const idMock = '4edd40c86762e0fb12000003';
-
     const response = await request(app).put(`/api/v1/people/${idMock}`);
 
     const { body } = response;
@@ -109,56 +105,38 @@ describe('Do not update a password of a user that not exists', () => {
 
 describe("Do not update a user's password that have less than 6 characteres", () => {
   beforeEach(() => {
-    userMock = {
-      nome: 'Bianca',
-      cpf: '019.348.118-07',
-      data_nascimento: '01/01/1998',
-      email: 'bianca@gmail.com',
-      senha: '123456',
-      habilitado: 'sim'
-    };
+    userMock = UserDataFaker();
+    senha = '123';
   });
 
   it('should return status code 400', async () => {
-    const senha = {
-      senha: '123'
-    };
-
     const { text } = await request(app).post('/api/v1/people/').send(userMock);
 
     const { _id } = JSON.parse(text);
 
-    const response = await request(app).put(`/api/v1/people/${_id.toString()}`).send(senha);
+    const response = await request(app).put(`/api/v1/people/${_id.toString()}`).send({ senha });
 
     const { status } = response;
     expect(status).toBe(400);
   });
 
   it('should return a object with name and description error properties', async () => {
-    const senha = {
-      senha: '123'
-    };
-
     const { text } = await request(app).post('/api/v1/people/').send(userMock);
 
     const { _id } = JSON.parse(text);
 
-    const { body } = await request(app).put(`/api/v1/people/${_id.toString()}`).send(senha);
+    const { body } = await request(app).put(`/api/v1/people/${_id.toString()}`).send({ senha });
 
     expect(body[0].name).toBe('"senha" length must be at least 6 characters long');
     expect(body[0].description).toBe('senha');
   });
 
   it('should return a body with properties values type string', async () => {
-    const senha = {
-      senha: '123'
-    };
-
     const { text } = await request(app).post('/api/v1/people/').send(userMock);
 
     const { _id } = JSON.parse(text);
 
-    const { body } = await request(app).put(`/api/v1/people/${_id.toString()}`).send(senha);
+    const { body } = await request(app).put(`/api/v1/people/${_id.toString()}`).send({ senha });
 
     expect(body[0]).toEqual({
       description: expect.any(String),

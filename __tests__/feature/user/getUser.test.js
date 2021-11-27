@@ -1,19 +1,15 @@
 const request = require('supertest');
+const { UserDataFaker } = require('../../support/datafaker');
+const generateObjectId = require('../../support/generateObjectId');
 
 const app = require('../../../src/index');
 
 let userMock = {};
+let idMock = '';
 
 describe('get all users', () => {
   beforeEach(() => {
-    userMock = {
-      nome: 'Thomas',
-      cpf: '192.168.010-02',
-      data_nascimento: '18/11/1997',
-      email: 'thomasgermano@outlook.com',
-      senha: '123456',
-      habilitado: 'sim'
-    };
+    userMock = UserDataFaker();
   });
 
   it('should return status code 200', async () => {
@@ -83,14 +79,7 @@ describe('Do not get users when limit is invalid', () => {
 
 describe('get users by their names', () => {
   beforeEach(() => {
-    userMock = {
-      nome: 'Pedro',
-      cpf: '183.103.187-04',
-      data_nascimento: '20/11/2001',
-      email: 'pedrooo@outlook.com',
-      senha: 'onlined134',
-      habilitado: 'não'
-    };
+    userMock = UserDataFaker();
   });
 
   it('should return status code 200', async () => {
@@ -137,14 +126,7 @@ describe('get users by their names', () => {
 
 describe('get users by id', () => {
   beforeEach(() => {
-    userMock = {
-      nome: 'Lucas Morais',
-      cpf: '467.127.189-07',
-      data_nascimento: '20/03/2001',
-      email: 'lucasmorais2001@outlook.com',
-      senha: 'engix1923',
-      habilitado: 'sim'
-    };
+    userMock = UserDataFaker();
   });
 
   it('should return status code 200', async () => {
@@ -190,17 +172,16 @@ describe('get users by id', () => {
 });
 
 describe('get no user by id', () => {
+  beforeEach(() => {
+    idMock = generateObjectId();
+  });
   it('should return status code 204', async () => {
-    const id = '61718ad8c7cc0116a68800a6';
-
-    const { status } = await request(app).get(`/api/v1/people/${id}`);
+    const { status } = await request(app).get(`/api/v1/people/${idMock}`);
     expect(status).toBe(204);
   });
 
   it('should return a body with empty object', async () => {
-    const id = '61718ad8c7cc0116a68800a6';
-
-    const { body } = await request(app).get(`/api/v1/people/${id}`);
+    const { body } = await request(app).get(`/api/v1/people/${idMock}`);
 
     expect(body._id).toBeUndefined();
     expect(body.nome).toBeUndefined();
@@ -211,9 +192,7 @@ describe('get no user by id', () => {
   });
 
   it('should return a body with any property', async () => {
-    const id = '61718ad8c7cc0116a68800a6';
-
-    const { body } = await request(app).get(`/api/v1/people/${id}`);
+    const { body } = await request(app).get(`/api/v1/people/${idMock}`);
 
     expect(body).toEqual({});
   });
