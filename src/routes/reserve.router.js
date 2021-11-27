@@ -8,5 +8,6 @@ reserveRouter.use(userAuthentication);
 reserveRouter.get('/', checkIdFormat, ReserveController.getAll);
 reserveRouter.get('/:id', checkIdFormat, ReserveController.getById);
 reserveRouter.post('/', checkIdFormat, ReserveController.create);
+reserveRouter.delete('/:id', checkIdFormat, ReserveController.delete);
 
 module.exports = reserveRouter;

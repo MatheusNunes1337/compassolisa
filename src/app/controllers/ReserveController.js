@@ -29,6 +29,15 @@ class ReserveController {
       return next(err);
     }
   }
+
+  async delete(req, res, next) {
+    try {
+      await ReserveService.delete(req.params);
+      return res.status(204).end();
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 module.exports = new ReserveController();
