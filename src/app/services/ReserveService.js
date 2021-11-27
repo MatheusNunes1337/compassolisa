@@ -57,7 +57,7 @@ class ReserveService {
     const reserve = await ReserveRepository.getById(id, rentalId);
     if (!reserve) throw new NotFound('Reserve');
 
-    return ReserveRepository.delete(id, rentalId);
+    return ReserveRepository.delete(id);
   }
 }
 
