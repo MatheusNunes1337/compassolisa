@@ -21,11 +21,7 @@ class ReserveService {
     const rental = await RentalRepository.getById(rentalId);
     if (!rental) throw new NotFound('Rental');
 
-    const reserve = await ReserveRepository.getById(id);
-
-    if (!reserve || reserve.id_locadora.toString() !== rentalId) return false;
-
-    return reserve;
+    return ReserveRepository.getById(id);
   }
 
   async create(userId, userStatus, { rentalId }, payload) {
@@ -52,6 +48,16 @@ class ReserveService {
     payload.valor_final = calcReservePrice(data_inicio, data_fim, valor_diaria);
 
     return ReserveRepository.create(payload);
+  }
+
+  async delete({ id, rentalId }) {
+    const rental = await RentalRepository.getById(rentalId);
+    if (!rental) throw new NotFound('Rental');
+
+    const reserve = await ReserveRepository.getById(id, rentalId);
+    if (!reserve) throw new NotFound('Reserve');
+
+    return ReserveRepository.delete(id, rentalId);
   }
 }
 
