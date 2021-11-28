@@ -122,3 +122,30 @@ describe('Do not delete a fleet when the rental not exists', () => {
     });
   });
 });
+
+describe('Do not delete a fleet that not exists', () => {
+  beforeEach(() => {
+    idMock = generateObjectId();
+  });
+  it('should return status code 404', async () => {
+    const { status } = await request(app).delete(`/api/v1/rental/${id_locadora}/fleet/${idMock}`);
+
+    expect(status).toBe(404);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { body } = await request(app).delete(`/api/v1/rental/${id_locadora}/fleet/${idMock}`);
+
+    expect(body.description).toBe('Not Found');
+    expect(body.name).toBe('Fleet not found');
+  });
+
+  it('should return a body with values type string', async () => {
+    const { body } = await request(app).delete(`/api/v1/rental/${id_locadora}/fleet/${idMock}`);
+
+    expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
