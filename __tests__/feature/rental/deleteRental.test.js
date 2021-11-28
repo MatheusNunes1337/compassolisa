@@ -1,4 +1,6 @@
 const request = require('supertest');
+const { RentalDataFaker } = require('../../support/datafaker');
+const generateObjectId = require('../../support/generateObjectId');
 
 const app = require('../../../src/index');
 
@@ -7,25 +9,9 @@ let idMock = '';
 
 describe('delete a rental', () => {
   beforeEach(async () => {
-    rentalMock = {
-      nome: 'Moonlight',
-      cnpj: '12.567.124/1039-11',
-      atividades: 'Aluguel de ferraris',
-      endereco: [
-        {
-          cep: '20050-000',
-          number: 201,
-          complemento: '',
-          isFilial: false
-        },
-        {
-          cep: '20050-000',
-          number: 467,
-          complemento: 'Na frente da padaria do Jorge',
-          isFilial: true
-        }
-      ]
-    };
+    rentalMock = RentalDataFaker();
+    rentalMock.endereco[0].cep = '96055-760';
+    rentalMock.endereco.pop();
   });
 
   it('should return status code 204', async () => {
@@ -64,7 +50,7 @@ describe('delete a rental', () => {
 
 describe('Do not delete a rental that no exists', () => {
   beforeEach(async () => {
-    idMock = '5afd40c86762e0fb12142f23';
+    idMock = generateObjectId();
   });
 
   it('should return status code 404', async () => {

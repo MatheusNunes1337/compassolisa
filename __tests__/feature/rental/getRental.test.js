@@ -1,24 +1,17 @@
 const request = require('supertest');
+const { RentalDataFaker } = require('../../support/datafaker');
+const generateObjectId = require('../../support/generateObjectId');
 
 const app = require('../../../src/index');
 
 let rentalMock = {};
+let idMock = '';
 
 describe('get rentals by cep', () => {
   beforeEach(async () => {
-    rentalMock = {
-      nome: 'Moonlight',
-      cnpj: '12.567.124/1039-11',
-      atividades: 'Aluguel de ferraris',
-      endereco: [
-        {
-          cep: '96055-760',
-          number: 201,
-          complemento: 'Ao lado do shopping',
-          isFilial: false
-        }
-      ]
-    };
+    rentalMock = RentalDataFaker();
+    rentalMock.endereco[0].cep = '96055-760';
+    rentalMock.endereco.pop();
   });
 
   it('should return status code 200', async () => {
@@ -102,20 +95,10 @@ describe('Do not get rentals when offset has an invalid value', () => {
 });
 
 describe('get users by id', () => {
-  beforeEach(() => {
-    rentalMock = {
-      nome: 'Locadora do José',
-      cnpj: '14.298.076/1278-12',
-      atividades: 'Aluguel de fuscas',
-      endereco: [
-        {
-          cep: '96055-740',
-          number: 1854,
-          complemento: 'Na frente do Jockey Club',
-          isFilial: false
-        }
-      ]
-    };
+  beforeEach(async () => {
+    rentalMock = RentalDataFaker();
+    rentalMock.endereco[0].cep = '96055-760';
+    rentalMock.endereco.pop();
   });
 
   it('should return status code 200', async () => {
@@ -173,17 +156,16 @@ describe('get users by id', () => {
 });
 
 describe('get no rental by id', () => {
+  beforeEach(async () => {
+    idMock = generateObjectId();
+  });
   it('should return status code 204', async () => {
-    const id = 'd0818ad8cfcc0116aab100a1';
-
-    const { status } = await request(app).get(`/api/v1/rental/${id}`);
+    const { status } = await request(app).get(`/api/v1/rental/${idMock}`);
     expect(status).toBe(204);
   });
 
   it('should return a body with empty object', async () => {
-    const id = 'd0818ad8cfcc0116aab100a1';
-
-    const { body } = await request(app).get(`/api/v1/rental/${id}`);
+    const { body } = await request(app).get(`/api/v1/rental/${idMock}`);
 
     expect(body._id).toBeUndefined();
     expect(body.nome).toBeUndefined();
@@ -193,9 +175,7 @@ describe('get no rental by id', () => {
   });
 
   it('should return a body with any property', async () => {
-    const id = 'd0818ad8cfcc0116aab100a1';
-
-    const { body } = await request(app).get(`/api/v1/rental/${id}`);
+    const { body } = await request(app).get(`/api/v1/rental/${idMock}`);
 
     expect(body).toEqual({});
   });

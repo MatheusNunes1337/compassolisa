@@ -1,4 +1,5 @@
 const request = require('supertest');
+const { RentalDataFaker } = require('../../support/datafaker');
 
 const app = require('../../../src/index');
 
@@ -7,19 +8,9 @@ let rentalMock02 = {};
 
 describe('create a new rental', () => {
   beforeEach(async () => {
-    rentalMock = {
-      nome: 'Locadora do mock',
-      cnpj: '16.760.085/0920-10',
-      atividades: 'Alugel de carros e gestão de frotas',
-      endereco: [
-        {
-          cep: '96055-740',
-          number: 201,
-          complemento: 'ao lado da havan',
-          isFilial: false
-        }
-      ]
-    };
+    rentalMock = RentalDataFaker();
+    rentalMock.endereco[0].cep = '96055-740';
+    rentalMock.endereco.pop();
   });
 
   it('should return status code 201', async () => {
@@ -70,19 +61,9 @@ describe('create a new rental', () => {
 
 describe('Do not create a rental with cep that not exists', () => {
   beforeEach(async () => {
-    rentalMock = {
-      nome: 'Locadora do mock',
-      cnpj: '16.760.085/0920-10',
-      atividades: 'Alugel de carros e gestão de frotas',
-      endereco: [
-        {
-          cep: '12455-000',
-          number: 201,
-          complemento: 'ao lado da havan',
-          isFilial: false
-        }
-      ]
-    };
+    rentalMock = RentalDataFaker();
+    rentalMock.endereco[0].cep = '12455-000';
+    rentalMock.endereco.pop();
   });
 
   it('should return status code 400', async () => {
@@ -110,19 +91,10 @@ describe('Do not create a rental with cep that not exists', () => {
 
 describe('Do not create a rental with no head office', () => {
   beforeEach(async () => {
-    rentalMock = {
-      nome: 'Compassolisa',
-      cnpj: '18.172.927/0920-15',
-      atividades: 'Alugel de carros',
-      endereco: [
-        {
-          cep: '12455-000',
-          number: 201,
-          complemento: 'ao lado da havan',
-          isFilial: true
-        }
-      ]
-    };
+    rentalMock = RentalDataFaker();
+    rentalMock.endereco[0].cep = '96055-740';
+    rentalMock.endereco[0].isFilial = true;
+    rentalMock.endereco.pop();
   });
 
   it('should return status code 400', async () => {
@@ -150,25 +122,13 @@ describe('Do not create a rental with no head office', () => {
 
 describe('Do not create a rental with duplicated adresses', () => {
   beforeEach(async () => {
-    rentalMock = {
-      nome: 'Locadora 01',
-      cnpj: '16.123.213/7291-19',
-      atividades: 'Aluguel de carros de luxo',
-      endereco: [
-        {
-          cep: '96055-740',
-          number: 745,
-          complemento: 'ao lado da havan',
-          isFilial: true
-        },
-        {
-          cep: '96055-740',
-          number: 745,
-          complemento: 'ao lado da havan',
-          isFilial: false
-        }
-      ]
-    };
+    rentalMock = RentalDataFaker();
+    rentalMock.endereco[0].cep = '96055-740';
+
+    rentalMock.endereco[1].cep = rentalMock.endereco[0].cep;
+    rentalMock.endereco[1].number = rentalMock.endereco[0].number;
+    rentalMock.endereco[1].complemento = rentalMock.endereco[0].complemento;
+    rentalMock.endereco[1].isFilial = true;
   });
 
   it('should return status code 400', async () => {
@@ -198,19 +158,10 @@ describe('Do not create a rental with duplicated adresses', () => {
 
 describe('Do not create a rental with invalid field value', () => {
   beforeEach(async () => {
-    rentalMock = {
-      nome: true,
-      cnpj: '16.097.156/6751-12',
-      atividades: 'Aluguel de carros de luxo',
-      endereco: [
-        {
-          cep: '96055-740',
-          number: 278,
-          complemento: 'ao lado da havan',
-          isFilial: false
-        }
-      ]
-    };
+    rentalMock = RentalDataFaker();
+    rentalMock.endereco[0].cep = '96055-740';
+    rentalMock.nome = true;
+    rentalMock.endereco.pop();
   });
 
   it('should return status code 400', async () => {
@@ -238,25 +189,9 @@ describe('Do not create a rental with invalid field value', () => {
 
 describe('Do not create a rental with two head offices', () => {
   beforeEach(async () => {
-    rentalMock = {
-      nome: 'Locadora Y',
-      cnpj: '12.076.192/8651-11',
-      atividades: 'Aluguel de carros de luxo',
-      endereco: [
-        {
-          cep: '38181-787',
-          number: 451,
-          complemento: 'ao lado da galeria central',
-          isFilial: false
-        },
-        {
-          cep: '96055-740',
-          number: 745,
-          complemento: 'ao lado da havan',
-          isFilial: false
-        }
-      ]
-    };
+    rentalMock = RentalDataFaker();
+    rentalMock.endereco[0].cep = '96055-740';
+    rentalMock.endereco[1].cep = '96055-760';
   });
 
   it('should return status code 400', async () => {
@@ -284,33 +219,14 @@ describe('Do not create a rental with two head offices', () => {
 
 describe('Do not create a rental with cnpj already in use', () => {
   beforeEach(async () => {
-    rentalMock = {
-      nome: 'Locadora Y',
-      cnpj: '12.076.192/8651-11',
-      atividades: 'Aluguel de carros de luxo',
-      endereco: [
-        {
-          cep: '38181-787',
-          number: 451,
-          complemento: 'ao lado da galeria central',
-          isFilial: false
-        }
-      ]
-    };
+    rentalMock = RentalDataFaker();
+    rentalMock.endereco[0].cep = '96055-740';
+    rentalMock.endereco.pop();
 
-    rentalMock02 = {
-      nome: 'Locadora X',
-      cnpj: '12.076.192/8651-11',
-      atividades: 'Alugel de carros e gestão de frotas',
-      endereco: [
-        {
-          cep: '96055-740',
-          number: 201,
-          complemento: 'ao lado da havan',
-          isFilial: false
-        }
-      ]
-    };
+    rentalMock02 = RentalDataFaker();
+    rentalMock02.endereco[0].cep = '96055-760';
+    rentalMock02.cnpj = rentalMock.cnpj;
+    rentalMock02.endereco.pop();
   });
 
   it('should return status code 400', async () => {
@@ -341,33 +257,14 @@ describe('Do not create a rental with cnpj already in use', () => {
 
 describe('Do not create a rental with address already in use', () => {
   beforeEach(async () => {
-    rentalMock = {
-      nome: 'Locadora Y',
-      cnpj: '14.865.139/0965-12',
-      atividades: 'Aluguel de carros de luxo',
-      endereco: [
-        {
-          cep: '38181-787',
-          number: 451,
-          complemento: 'ao lado da galeria central',
-          isFilial: false
-        }
-      ]
-    };
+    rentalMock = RentalDataFaker();
+    rentalMock.endereco[0].cep = '96055-740';
+    rentalMock.endereco.pop();
 
-    rentalMock02 = {
-      nome: 'Locadora Z',
-      cnpj: '11.065.178/4151-17',
-      atividades: 'Alugel de carros e gestão de frotas',
-      endereco: [
-        {
-          cep: '38181-787',
-          number: 451,
-          complemento: 'perto da galeria central',
-          isFilial: false
-        }
-      ]
-    };
+    rentalMock02 = RentalDataFaker();
+    rentalMock02.endereco[0].cep = rentalMock.endereco[0].cep;
+    rentalMock02.endereco[0].number = rentalMock.endereco[0].number;
+    rentalMock02.endereco.pop();
   });
 
   it('should return status code 400', async () => {

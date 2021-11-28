@@ -1,18 +1,12 @@
 const request = require('supertest');
+const { UserDataFaker, CarDataFaker } = require('../../support/datafaker');
 
 const app = require('../../../src/index');
 
 let token = null;
 
 beforeAll(async () => {
-  const userMock = {
-    nome: 'James winston',
-    cpf: '182.931.371-08',
-    data_nascimento: '17/12/1945',
-    email: 'james1945@outlook.com',
-    senha: 'mynae13',
-    habilitado: 'não'
-  };
+  const userMock = UserDataFaker();
 
   await request(app).post('/api/v1/people/').send(userMock);
 
@@ -28,17 +22,7 @@ let carMock = {};
 
 describe('create a new car', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Modelo 01',
-      cor: 'vermelho',
-      ano: 2019,
-      acessorios: [
-        {
-          descricao: 'Ar-condicionado'
-        }
-      ],
-      quantidadePassageiros: 5
-    };
+    carMock = CarDataFaker();
   });
 
   it('should return status code 201', async () => {
@@ -81,17 +65,8 @@ describe('create a new car', () => {
 
 describe('Do not create a car with accessory field blank', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: '',
-      cor: 'vermelho',
-      ano: 2019,
-      acessorios: [
-        {
-          descricao: 'Ar-condicionado'
-        }
-      ],
-      quantidadePassageiros: 5
-    };
+    carMock = CarDataFaker();
+    carMock.modelo = '';
   });
 
   it('should return status code 400', async () => {

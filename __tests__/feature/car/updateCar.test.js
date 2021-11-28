@@ -1,18 +1,13 @@
 const request = require('supertest');
+const { UserDataFaker, CarDataFaker } = require('../../support/datafaker');
+const generateObjectId = require('../../support/generateObjectId');
 
 const app = require('../../../src/index');
 
 let token = null;
 
 beforeAll(async () => {
-  const userMock = {
-    nome: 'James winston',
-    cpf: '182.931.371-08',
-    data_nascimento: '17/12/1945',
-    email: 'james1945@outlook.com',
-    senha: 'mynae13',
-    habilitado: 'não'
-  };
+  const userMock = UserDataFaker();
 
   await request(app).post('/api/v1/people/').send(userMock);
 
@@ -26,24 +21,13 @@ beforeAll(async () => {
 
 let carMock = {};
 let idMock = '';
-const cor = {
-  cor: 'vermelho'
-};
+let cor = '';
 let accessoryMock = {};
 
 describe('Update a car color', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Modelo 02',
-      cor: 'Cinza',
-      ano: 2020,
-      acessorios: [
-        {
-          descricao: 'Ar-condicionado'
-        }
-      ],
-      quantidadePassageiros: 4
-    };
+    carMock = CarDataFaker();
+    cor = 'vermelho';
   });
 
   it('should return status code 200', async () => {
@@ -54,7 +38,7 @@ describe('Update a car color', () => {
     const { status } = await request(app)
       .put(`/api/v1/car/${_id.toString()}`)
       .set('Authorization', `Bearer ${token}`)
-      .send(cor);
+      .send({ cor });
 
     expect(status).toBe(200);
   });
@@ -67,11 +51,11 @@ describe('Update a car color', () => {
     const { body } = await request(app)
       .put(`/api/v1/car/${_id.toString()}`)
       .set('Authorization', `Bearer ${token}`)
-      .send(cor);
+      .send({ cor });
 
     expect(body).toHaveProperty('_id');
     expect(body.modelo).toBe(carMock.modelo);
-    expect(body.cor).toBe(cor.cor);
+    expect(body.cor).toBe(cor);
     expect(body.ano).toBe(carMock.ano);
     expect(body.acessorios[0].descricao).toBe(carMock.acessorios[0].descricao);
     expect(body.quantidadePassageiros).toBe(carMock.quantidadePassageiros);
@@ -85,7 +69,7 @@ describe('Update a car color', () => {
     const response = await request(app)
       .put(`/api/v1/car/${_id.toString()}`)
       .set('Authorization', `Bearer ${token}`)
-      .send(cor);
+      .send({ cor });
 
     const { body } = response;
 
@@ -102,17 +86,7 @@ describe('Update a car color', () => {
 
 describe('Do not update a car when modelo has invalid value', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Modelo 05',
-      cor: 'Verde',
-      ano: 2017,
-      acessorios: [
-        {
-          descricao: 'Ar-condicionado'
-        }
-      ],
-      quantidadePassageiros: 4
-    };
+    carMock = CarDataFaker();
   });
 
   it('should return status code 400', async () => {
@@ -161,18 +135,8 @@ describe('Do not update a car when modelo has invalid value', () => {
 
 describe('Do not update a car that not exists', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Modelo 10',
-      cor: 'Cinza',
-      ano: 2006,
-      acessorios: [
-        {
-          descricao: 'Ar-condicionado'
-        }
-      ],
-      quantidadePassageiros: 5
-    };
-    idMock = '4eed60c86632e0ac33025313';
+    carMock = CarDataFaker();
+    idMock = generateObjectId();
   });
 
   it('should return status code 404', async () => {
@@ -215,17 +179,7 @@ describe('Do not update a car that not exists', () => {
 
 describe('Update a car accessory', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Modelo 02',
-      cor: 'Cinza',
-      ano: 2020,
-      acessorios: [
-        {
-          descricao: 'Ar-condicionado'
-        }
-      ],
-      quantidadePassageiros: 4
-    };
+    carMock = CarDataFaker();
 
     accessoryMock = { descricao: 'Air bag' };
   });
@@ -287,17 +241,7 @@ describe('Update a car accessory', () => {
 
 describe('Do not Update a car accessory when it has invalid value', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Modelo 00',
-      cor: 'Aazul',
-      ano: 2018,
-      acessorios: [
-        {
-          descricao: 'Teto solar'
-        }
-      ],
-      quantidadePassageiros: 2
-    };
+    carMock = CarDataFaker();
 
     accessoryMock = { descricao: true };
   });
@@ -349,24 +293,11 @@ describe('Do not Update a car accessory when it has invalid value', () => {
   });
 });
 
-describe('Do not Update a car accessory when it has invalid value', () => {
+describe('Do not Update a car accessory when it already exists invalid value', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Modelo 00',
-      cor: 'Aazul',
-      ano: 2018,
-      acessorios: [
-        {
-          descricao: 'Teto solar'
-        },
-        {
-          descricao: 'Ar-condicionado'
-        }
-      ],
-      quantidadePassageiros: 2
-    };
+    carMock = CarDataFaker();
 
-    accessoryMock = { descricao: 'Ar-condicionado' };
+    accessoryMock = { descricao: carMock.acessorios[1].descricao };
   });
 
   it('should return status code 400', async () => {
@@ -418,23 +349,10 @@ describe('Do not Update a car accessory when it has invalid value', () => {
 
 describe('Do not Update a car accessory of a car that not exists', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Modelo 00',
-      cor: 'Aazul',
-      ano: 2018,
-      acessorios: [
-        {
-          descricao: 'Teto solar'
-        },
-        {
-          descricao: 'Ar-condicionado'
-        }
-      ],
-      quantidadePassageiros: 2
-    };
+    carMock = CarDataFaker();
 
     accessoryMock = { descricao: 'Ar-bag' };
-    idMock = '4eed60c86632e0ac3b125320';
+    idMock = generateObjectId();
   });
 
   it('should return status code 404', async () => {
@@ -486,23 +404,10 @@ describe('Do not Update a car accessory of a car that not exists', () => {
 
 describe('Do not Update an accessory that not exists', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Modelo G',
-      cor: 'Prata',
-      ano: 2010,
-      acessorios: [
-        {
-          descricao: 'Air bag'
-        },
-        {
-          descricao: 'Ar-condicionado'
-        }
-      ],
-      quantidadePassageiros: 2
-    };
+    carMock = CarDataFaker();
 
     accessoryMock = { descricao: 'Porta luvas' };
-    idMock = '5afd60c75112f0ac3b005320';
+    idMock = generateObjectId();
   });
 
   it('should return status code 404', async () => {
