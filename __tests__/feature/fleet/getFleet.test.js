@@ -75,11 +75,54 @@ describe('Get all fleet', () => {
     await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
 
     const { body } = await request(app).get(`/api/v1/rental/${id_locadora}/fleet`);
-    console.log('body', body);
 
     const { frota } = body;
 
     expect(frota[0]).toEqual({
+      _id: expect.any(String),
+      id_carro: expect.any(String),
+      status: expect.any(String),
+      valor_diaria: expect.any(Number),
+      id_locadora: expect.any(String),
+      placa: expect.any(String)
+    });
+  });
+});
+
+describe('Get fleet by id', () => {
+  it('should return status code 200', async () => {
+    const { text } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    const { _id } = JSON.parse(text);
+
+    const { status } = await request(app).get(`/api/v1/rental/${id_locadora}/fleet/${_id.toString()}`);
+
+    expect(status).toBe(200);
+  });
+
+  it('should return a fleet object with same properties of mock plus _id and locadora_id', async () => {
+    const { text } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    const { _id } = JSON.parse(text);
+
+    const { body } = await request(app).get(`/api/v1/rental/${id_locadora}/fleet/${_id.toString()}`);
+
+    expect(body).toHaveProperty('_id');
+    expect(body.id_carro).toBe(fleetMock.id_carro);
+    expect(body.status).toBe(fleetMock.status);
+    expect(body.valor_diaria).toBe(fleetMock.valor_diaria);
+    expect(body.id_locadora).toBe(id_locadora);
+    expect(body.placa).toBe(fleetMock.placa);
+  });
+
+  it('should return an array of rental objects with values type string, number an object', async () => {
+    const { text } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    const { _id } = JSON.parse(text);
+
+    const { body } = await request(app).get(`/api/v1/rental/${id_locadora}/fleet/${_id.toString()}`);
+
+    expect(body).toEqual({
       _id: expect.any(String),
       id_carro: expect.any(String),
       status: expect.any(String),
