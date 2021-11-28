@@ -160,3 +160,30 @@ describe('Get no fleet by id', () => {
     expect(body).toEqual({});
   });
 });
+
+describe('Get no fleet when rental not exists', () => {
+  beforeEach(() => {
+    idMock = generateObjectId();
+  });
+  it('should return status code 204', async () => {
+    const { status } = await request(app).get(`/api/v1/rental/${idMock}/fleet/`);
+
+    expect(status).toBe(404);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { body } = await request(app).get(`/api/v1/rental/${idMock}/fleet/`);
+
+    expect(body.description).toBe('Not Found');
+    expect(body.name).toBe('Rental not found');
+  });
+
+  it('should return a body with values type string', async () => {
+    const { body } = await request(app).get(`/api/v1/rental/${idMock}/fleet/`);
+
+    expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
