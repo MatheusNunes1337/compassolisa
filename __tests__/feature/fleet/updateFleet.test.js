@@ -91,3 +91,42 @@ describe('Update fleet license plate', () => {
     });
   });
 });
+
+describe('Do not update a fleet car when it does not exists', () => {
+  beforeEach(() => {
+    payload = { id_carro: generateObjectId() };
+  });
+  it('should return status code 404', async () => {
+    const { text } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    const { _id } = JSON.parse(text);
+
+    const { status } = await request(app).put(`/api/v1/rental/${id_locadora}/fleet/${_id}`).send(payload);
+
+    expect(status).toBe(404);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { text } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    const { _id } = JSON.parse(text);
+
+    const { body } = await request(app).put(`/api/v1/rental/${id_locadora}/fleet/${_id}`).send(payload);
+
+    expect(body.description).toBe('Not Found');
+    expect(body.name).toBe('Car not found');
+  });
+
+  it('should return a body with values type string', async () => {
+    const { text } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    const { _id } = JSON.parse(text);
+
+    const { body } = await request(app).put(`/api/v1/rental/${id_locadora}/fleet/${_id}`).send(payload);
+
+    expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
