@@ -79,7 +79,7 @@ describe('Create a fleet', () => {
   });
 });
 
-describe('Do not create a fleet when the rental not exists', () => {
+describe('Do not create a fleet when rental not exists', () => {
   beforeEach(() => {
     idMock = generateObjectId();
   });
@@ -100,6 +100,33 @@ describe('Do not create a fleet when the rental not exists', () => {
     const { body } = await request(app).post(`/api/v1/rental/${idMock}/fleet`).send(fleetMock);
 
     expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
+
+describe('Do not create a fleet with invalid field value', () => {
+  beforeEach(() => {
+    fleetMock.valor_diaria = true;
+  });
+
+  it('should return status code 400', async () => {
+    const { status } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+    expect(status).toBe(400);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { body } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    expect(body[0].description).toBe('valor_diaria');
+    expect(body[0].name).toBe('"valor_diaria" must be a number');
+  });
+
+  it('should return a body with values type string', async () => {
+    const { body } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    expect(body[0]).toEqual({
       description: expect.any(String),
       name: expect.any(String)
     });
