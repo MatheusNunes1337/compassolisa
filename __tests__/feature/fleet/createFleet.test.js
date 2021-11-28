@@ -6,7 +6,7 @@ const app = require('../../../src/index');
 
 let id_carro = '';
 let id_locadora = '';
-const idMock = '';
+let idMock = '';
 let fleetMock = {};
 let token = null;
 
@@ -75,6 +75,33 @@ describe('Create a fleet', () => {
       valor_diaria: expect.any(Number),
       id_locadora: expect.any(String),
       placa: expect.any(String)
+    });
+  });
+});
+
+describe('Do not create a fleet when the rental not exists', () => {
+  beforeEach(() => {
+    idMock = generateObjectId();
+  });
+  it('should return status code 404', async () => {
+    const { status } = await request(app).post(`/api/v1/rental/${idMock}/fleet`).send(fleetMock);
+
+    expect(status).toBe(404);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { body } = await request(app).post(`/api/v1/rental/${idMock}/fleet`).send(fleetMock);
+
+    expect(body.description).toBe('Not Found');
+    expect(body.name).toBe('Rental not found');
+  });
+
+  it('should return a body with values type string', async () => {
+    const { body } = await request(app).post(`/api/v1/rental/${idMock}/fleet`).send(fleetMock);
+
+    expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
     });
   });
 });
