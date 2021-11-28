@@ -187,3 +187,27 @@ describe('Get no fleet when rental not exists', () => {
     });
   });
 });
+
+describe('Do not get fleets when offset has an invalid value', () => {
+  it('should return status code 400', async () => {
+    const { status } = await request(app).get(`/api/v1/rental/${idMock}/fleet/?offset=-20`);
+
+    expect(status).toBe(400);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { body } = await request(app).get(`/api/v1/rental/${idMock}/fleet/?offset=-20`);
+
+    expect(body[0].description).toBe('offset');
+    expect(body[0].name).toBe('"offset" must be greater than or equal to 0');
+  });
+
+  it('should return an error object with values type string', async () => {
+    const { body } = await request(app).get(`/api/v1/rental/${idMock}/fleet/?offset=-20`);
+
+    expect(body[0]).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});

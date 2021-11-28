@@ -69,7 +69,7 @@ describe('get rentals by cep', () => {
 });
 
 describe('Do not get rentals when offset has an invalid value', () => {
-  it('should return status code 200', async () => {
+  it('should return status code 400', async () => {
     const { status } = await request(app).get('/api/v1/rental/?offset=-500');
 
     expect(status).toBe(400);
@@ -83,8 +83,6 @@ describe('Do not get rentals when offset has an invalid value', () => {
   });
 
   it('should return an error object with values type string', async () => {
-    await request(app).post('/api/v1/rental/').send(rentalMock);
-
     const { body } = await request(app).get('/api/v1/rental/offset=-500');
 
     expect(body[0]).toEqual({
@@ -94,7 +92,7 @@ describe('Do not get rentals when offset has an invalid value', () => {
   });
 });
 
-describe('get users by id', () => {
+describe('get rental by id', () => {
   beforeEach(async () => {
     rentalMock = RentalDataFaker();
     rentalMock.endereco[0].cep = '96055-760';
