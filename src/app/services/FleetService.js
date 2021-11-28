@@ -55,7 +55,7 @@ class FleetService {
     const fleet = await FleetRepository.getById(id, rentalId);
     if (!fleet) throw new NotFound('Fleet');
 
-    await licensePlateVerification(placa);
+    if (placa) await licensePlateVerification(placa);
 
     return FleetRepository.update(id, payload);
   }
