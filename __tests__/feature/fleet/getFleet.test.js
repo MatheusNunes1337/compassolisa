@@ -6,7 +6,7 @@ const app = require('../../../src/index');
 
 let id_carro = '';
 let id_locadora = '';
-const idMock = '';
+let idMock = '';
 let fleetMock = {};
 let token = null;
 
@@ -130,5 +130,33 @@ describe('Get fleet by id', () => {
       id_locadora: expect.any(String),
       placa: expect.any(String)
     });
+  });
+});
+
+describe('Get no fleet by id', () => {
+  beforeEach(() => {
+    idMock = generateObjectId();
+  });
+  it('should return status code 204', async () => {
+    const { status } = await request(app).get(`/api/v1/rental/${id_locadora}/fleet/${idMock}`);
+
+    expect(status).toBe(204);
+  });
+
+  it('should return a body with empty object', async () => {
+    const { body } = await request(app).get(`/api/v1/rental/${id_locadora}/fleet/${idMock}`);
+
+    expect(body._id).toBeUndefined();
+    expect(body.id_carro).toBeUndefined();
+    expect(body.status).toBeUndefined();
+    expect(body.valor_diaria).toBeUndefined();
+    expect(body.id_locadora).toBeUndefined();
+    expect(body.placa).toBeUndefined();
+  });
+
+  it('should return a body with any property', async () => {
+    const { body } = await request(app).get(`/api/v1/rental/${id_locadora}/fleet/${idMock}`);
+
+    expect(body).toEqual({});
   });
 });
