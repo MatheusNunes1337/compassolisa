@@ -47,6 +47,43 @@ beforeEach(async () => {
   };
 });
 
+describe('Delete a fleet ', () => {
+  it('should return status code 204', async () => {
+    const { text } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    const { _id } = JSON.parse(text);
+
+    const { status } = await request(app).delete(`/api/v1/rental/${id_locadora}/fleet/${_id}`);
+
+    expect(status).toBe(204);
+  });
+
+  it('should return a body with empty object', async () => {
+    const { text } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    const { _id } = JSON.parse(text);
+
+    const { body } = await request(app).delete(`/api/v1/rental/${id_locadora}/fleet/${_id}`);
+
+    expect(body._id).toBeUndefined();
+    expect(body.id_carro).toBeUndefined();
+    expect(body.status).toBeUndefined();
+    expect(body.valor_diaria).toBeUndefined();
+    expect(body.id_locadora).toBeUndefined();
+    expect(body.placa).toBeUndefined();
+  });
+
+  it('should return a body with any property', async () => {
+    const { text } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    const { _id } = JSON.parse(text);
+
+    const { body } = await request(app).delete(`/api/v1/rental/${id_locadora}/fleet/${_id}`);
+
+    expect(body).toEqual({});
+  });
+});
+
 describe('Do not delete a fleet when the rental not exists', () => {
   beforeEach(() => {
     idMock = generateObjectId();
