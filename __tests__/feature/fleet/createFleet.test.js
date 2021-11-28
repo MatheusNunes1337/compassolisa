@@ -132,3 +132,30 @@ describe('Do not create a fleet with invalid field value', () => {
     });
   });
 });
+
+describe('Do not create a fleet when car not exists', () => {
+  beforeEach(() => {
+    fleetMock.id_carro = generateObjectId();
+  });
+
+  it('should return status code 400', async () => {
+    const { status } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+    expect(status).toBe(404);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { body } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    expect(body.description).toBe('Not Found');
+    expect(body.name).toBe('Car not found');
+  });
+
+  it('should return a body with values type string', async () => {
+    const { body } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
