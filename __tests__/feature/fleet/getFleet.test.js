@@ -188,6 +188,43 @@ describe('Get no fleet when rental not exists', () => {
   });
 });
 
+describe('Do not get fleet by id when rental not exists', () => {
+  beforeEach(() => {
+    idMock = generateObjectId();
+  });
+
+  it('should return status code 404', async () => {
+    const { text } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+    const { _id } = JSON.parse(text);
+
+    const { status } = await request(app).get(`/api/v1/rental/${idMock}/fleet/${_id}`);
+
+    expect(status).toBe(404);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    const { text } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+    const { _id } = JSON.parse(text);
+
+    const { body } = await request(app).get(`/api/v1/rental/${idMock}/fleet/${_id}`);
+
+    expect(body.description).toBe('Not Found');
+    expect(body.name).toBe('Rental not found');
+  });
+
+  it('should return a body with values type string', async () => {
+    const { text } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+    const { _id } = JSON.parse(text);
+
+    const { body } = await request(app).get(`/api/v1/rental/${idMock}/fleet/${_id}`);
+
+    expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
+
 describe('Do not get fleets when offset has an invalid value', () => {
   it('should return status code 400', async () => {
     const { status } = await request(app).get(`/api/v1/rental/${idMock}/fleet/?offset=-20`);
