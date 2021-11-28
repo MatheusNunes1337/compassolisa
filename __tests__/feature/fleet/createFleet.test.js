@@ -8,6 +8,7 @@ let id_carro = '';
 let id_locadora = '';
 let idMock = '';
 let fleetMock = {};
+let fleetMock02 = {};
 let token = null;
 
 beforeEach(async () => {
@@ -152,6 +153,37 @@ describe('Do not create a fleet when car not exists', () => {
 
   it('should return a body with values type string', async () => {
     const { body } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+
+    expect(body).toEqual({
+      description: expect.any(String),
+      name: expect.any(String)
+    });
+  });
+});
+
+describe('Do not create a fleet with license plate that is already in use', () => {
+  beforeEach(() => {
+    fleetMock02 = fleetMock;
+  });
+
+  it('should return status code 400', async () => {
+    await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+    const { status } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock02);
+
+    expect(status).toBe(400);
+  });
+
+  it('should return a body with name and description error properties', async () => {
+    await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+    const { body } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock02);
+
+    expect(body.description).toBe('Conflict');
+    expect(body.name).toBe(`The license plate ${fleetMock02.placa} already in use`);
+  });
+
+  it('should return a body with values type string', async () => {
+    await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock);
+    const { body } = await request(app).post(`/api/v1/rental/${id_locadora}/fleet`).send(fleetMock02);
 
     expect(body).toEqual({
       description: expect.any(String),
