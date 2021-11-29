@@ -1,49 +1,37 @@
 const request = require('supertest');
+const { UserDataFaker } = require('../../support/datafaker');
 
 const app = require('../../../src/index');
 
-beforeEach(async () => {
-  const userMock = {
-    nome: 'James winston',
-    cpf: '182.931.371-08',
-    data_nascimento: '17/12/1945',
-    email: 'james1945@outlook.com',
-    senha: 'paradise003',
-    habilitado: 'não'
-  };
+let userMock = {};
+let userMock02 = {};
+let credentialsMock;
 
+beforeEach(async () => {
+  userMock = UserDataFaker();
   await request(app).post('/api/v1/people/').send(userMock);
 });
 
 describe('authenticate a user with valid credentials', () => {
-  it('should return status code 200', async () => {
-    const credentialsMock = {
-      email: 'james1945@outlook.com',
-      senha: 'paradise003'
+  beforeEach(() => {
+    credentialsMock = {
+      email: userMock.email,
+      senha: userMock.senha
     };
-
+  });
+  it('should return status code 200', async () => {
     const { status } = await request(app).post('/api/v1/authenticate/').send(credentialsMock);
 
     expect(status).toBe(200);
   });
 
   it('should return a body with token property', async () => {
-    const credentialsMock = {
-      email: 'james1945@outlook.com',
-      senha: 'paradise003'
-    };
-
     const { body } = await request(app).post('/api/v1/authenticate/').send(credentialsMock);
 
     expect(body).toHaveProperty('token');
   });
 
   it('should return a body with a string token', async () => {
-    const credentialsMock = {
-      email: 'james1945@outlook.com',
-      senha: 'paradise003'
-    };
-
     const { body } = await request(app).post('/api/v1/authenticate/').send(credentialsMock);
 
     expect(body).toEqual({
@@ -53,23 +41,20 @@ describe('authenticate a user with valid credentials', () => {
 });
 
 describe('Do not authenticate a user with invalid email', () => {
-  it('should return status code 200', async () => {
-    const credentialsMock = {
-      email: 'james1900@outlook.com',
-      senha: 'paradise003'
+  beforeEach(() => {
+    userMock02 = UserDataFaker();
+    credentialsMock = {
+      email: userMock02.email,
+      senha: userMock.senha
     };
-
+  });
+  it('should return status code 200', async () => {
     const { status } = await request(app).post('/api/v1/authenticate/').send(credentialsMock);
 
     expect(status).toBe(400);
   });
 
   it('should return a body with name and description error properties', async () => {
-    const credentialsMock = {
-      email: 'james1900@outlook.com',
-      senha: 'paradise003'
-    };
-
     const { body } = await request(app).post('/api/v1/authenticate/').send(credentialsMock);
 
     expect(body.token).toBeUndefined();
@@ -78,11 +63,6 @@ describe('Do not authenticate a user with invalid email', () => {
   });
 
   it('should return a body with a string token undefined and name and description type string', async () => {
-    const credentialsMock = {
-      email: 'james1900@outlook.com',
-      senha: 'paradise003'
-    };
-
     const { body } = await request(app).post('/api/v1/authenticate/').send(credentialsMock);
 
     expect(body).toEqual({
@@ -93,23 +73,19 @@ describe('Do not authenticate a user with invalid email', () => {
 });
 
 describe('Do not authenticate a user with invalid email format', () => {
-  it('should return status code 200', async () => {
-    const credentialsMock = {
+  beforeEach(() => {
+    credentialsMock = {
       email: 'james1900',
-      senha: 'paradise003'
+      senha: userMock.senha
     };
-
+  });
+  it('should return status code 200', async () => {
     const { status } = await request(app).post('/api/v1/authenticate/').send(credentialsMock);
 
     expect(status).toBe(400);
   });
 
   it('should return a body with name and description error properties', async () => {
-    const credentialsMock = {
-      email: 'james1900',
-      senha: 'paradise003'
-    };
-
     const { body } = await request(app).post('/api/v1/authenticate/').send(credentialsMock);
 
     expect(body[0].name).toBe('"email" must be a valid email');
@@ -117,11 +93,6 @@ describe('Do not authenticate a user with invalid email format', () => {
   });
 
   it('should return a body with a string token undefined and name and description type string', async () => {
-    const credentialsMock = {
-      email: 'james1900',
-      senha: 'paradise003'
-    };
-
     const { body } = await request(app).post('/api/v1/authenticate/').send(credentialsMock);
 
     expect(body[0]).toEqual({
@@ -132,23 +103,21 @@ describe('Do not authenticate a user with invalid email format', () => {
 });
 
 describe('Do not authenticate a user with invalid password', () => {
-  it('should return status code 200', async () => {
-    const credentialsMock = {
-      email: 'james1945@outlook.com',
-      senha: 'paradise'
+  beforeEach(() => {
+    userMock02 = UserDataFaker();
+    credentialsMock = {
+      email: userMock.email,
+      senha: userMock02.senha
     };
+  });
 
+  it('should return status code 400', async () => {
     const { status } = await request(app).post('/api/v1/authenticate/').send(credentialsMock);
 
     expect(status).toBe(400);
   });
 
   it('should return a body with name and description error properties', async () => {
-    const credentialsMock = {
-      email: 'james1945@outlook.com',
-      senha: 'paradise'
-    };
-
     const { body } = await request(app).post('/api/v1/authenticate/').send(credentialsMock);
 
     expect(body.token).toBeUndefined();
@@ -157,11 +126,6 @@ describe('Do not authenticate a user with invalid password', () => {
   });
 
   it('should return a body with a string token undefined and name and description type string', async () => {
-    const credentialsMock = {
-      email: 'james1945@outlook.com',
-      senha: 'paradise'
-    };
-
     const { body } = await request(app).post('/api/v1/authenticate/').send(credentialsMock);
 
     expect(body).toEqual({

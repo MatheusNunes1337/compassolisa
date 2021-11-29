@@ -1,18 +1,13 @@
 const request = require('supertest');
+const { UserDataFaker, CarDataFaker } = require('../../support/datafaker');
+const generateObjectId = require('../../support/generateObjectId');
 
 const app = require('../../../src/index');
 
 let token = null;
 
 beforeAll(async () => {
-  const userMock = {
-    nome: 'James winston',
-    cpf: '182.931.371-08',
-    data_nascimento: '17/12/1945',
-    email: 'james1945@outlook.com',
-    senha: 'mynae13',
-    habilitado: 'não'
-  };
+  const userMock = UserDataFaker();
 
   await request(app).post('/api/v1/people/').send(userMock);
 
@@ -29,17 +24,7 @@ let idMock = '';
 
 describe('delete a car', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Ferrari 99',
-      cor: 'vermelho',
-      ano: 1999,
-      acessorios: [
-        {
-          descricao: 'Ar-condicionado'
-        }
-      ],
-      quantidadePassageiros: 2
-    };
+    carMock = CarDataFaker();
   });
 
   it('should return status code 204', async () => {
@@ -81,7 +66,7 @@ describe('delete a car', () => {
 
 describe('Do not delete a car that not exists', () => {
   beforeEach(() => {
-    idMock = '4eed60c86632e0ab11012303';
+    idMock = generateObjectId();
   });
   it('should return status code 404', async () => {
     const { status } = await request(app).delete(`/api/v1/car/${idMock}`).set('Authorization', `Bearer ${token}`);

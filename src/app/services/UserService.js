@@ -10,8 +10,7 @@ class UserService {
   }
 
   async findById(id) {
-    const user = await UserRepository.getById(id);
-    return user;
+    return UserRepository.getById(id);
   }
 
   async create(payload) {
@@ -22,9 +21,8 @@ class UserService {
 
   async update(id, payload) {
     const user = await this.findById(id);
-    if (!user) {
-      throw new NotFound('User');
-    }
+    if (!user) throw new NotFound('User');
+
     const { cpf, email, senha } = payload;
     if (cpf) await cpfVerification(cpf);
 
@@ -40,9 +38,8 @@ class UserService {
 
   async delete(id) {
     const user = await this.findById(id);
-    if (!user) {
-      throw new NotFound('User');
-    }
+    if (!user) throw new NotFound('User');
+
     return UserRepository.delete(id);
   }
 }

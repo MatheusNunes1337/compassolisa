@@ -3,7 +3,6 @@ const RentalRepository = require('../repositories/RentalRepository');
 const CarRepository = require('../repositories/CarRepository');
 
 const NotFound = require('../errors/NotFound');
-const BadRequest = require('../errors/BadRequest');
 const licensePlateVerification = require('../helpers/fleet/licensePlateVerification');
 
 class FleetService {
@@ -19,14 +18,7 @@ class FleetService {
     const rental = await RentalRepository.getById(rentalId);
     if (!rental) throw new NotFound('Rental');
 
-    const fleet = await FleetRepository.getById(id);
-
-    if (!fleet) throw new NotFound('Fleet');
-
-    if (fleet.id_locadora.toString() !== rentalId)
-      throw new BadRequest('Essa frota não pertence à locadora informada.');
-
-    return fleet;
+    return FleetRepository.getById(id, rentalId);
   }
 
   async create(payload, { rentalId }) {
@@ -35,7 +27,9 @@ class FleetService {
     payload.id_locadora = rentalId;
 
     const { id_carro, placa } = payload;
+
     const car = await CarRepository.getById(id_carro);
+
     if (!car) throw new NotFound('Car');
 
     await licensePlateVerification(placa);
@@ -46,17 +40,15 @@ class FleetService {
   async update(payload, { rentalId, id }) {
     await this.getById({ id, rentalId });
 
-    const { id_carro, id_locadora, placa } = payload;
+    const { id_carro, placa } = payload;
 
     if (id_carro) {
       const car = await CarRepository.getById(id_carro);
       if (!car) throw new NotFound('Car');
     }
 
-    if (id_locadora) {
-      const rental = await RentalRepository.getById(id_locadora);
-      if (!rental) throw new NotFound('Rental');
-    }
+    const fleet = await FleetRepository.getById(id, rentalId);
+    if (!fleet) throw new NotFound('Fleet');
 
     if (placa) await licensePlateVerification(placa);
 
@@ -64,8 +56,13 @@ class FleetService {
   }
 
   async delete({ id, rentalId }) {
-    const { _id } = await this.getById({ id, rentalId });
-    return FleetRepository.delete(_id);
+    const rental = await RentalRepository.getById(rentalId);
+    if (!rental) throw new NotFound('Rental');
+
+    const fleet = await FleetRepository.getById(id, rentalId);
+    if (!fleet) throw new NotFound('Fleet');
+
+    return FleetRepository.delete(id);
   }
 }
 

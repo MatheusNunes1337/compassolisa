@@ -6,7 +6,7 @@ const app = require('../../../src/index');
 let userMock = {};
 let userMock02 = {};
 
-describe.only('create a new user', () => {
+describe('create a new user', () => {
   beforeEach(() => {
     userMock = UserDataFaker();
   });
@@ -43,23 +43,10 @@ describe.only('create a new user', () => {
 
 describe('Do not create a user with a existing email', () => {
   beforeEach(() => {
-    userMock = {
-      nome: 'Bruna Garcia',
-      cpf: '391.385.123-05',
-      data_nascimento: '11/10/1978',
-      email: 'bruna@outlook.com',
-      senha: '123456',
-      habilitado: 'não'
-    };
+    userMock = UserDataFaker();
 
-    userMock02 = {
-      nome: 'Bruna Bustamante',
-      cpf: '982.123.281-07',
-      data_nascimento: '12/12/2000',
-      email: 'bruna@outlook.com',
-      senha: 'mm84na9',
-      habilitado: 'sim'
-    };
+    userMock02 = UserDataFaker();
+    userMock02.email = userMock.email;
   });
   it('should return status code 400', async () => {
     await request(app).post('/api/v1/people/').send(userMock);
@@ -92,28 +79,14 @@ describe('Do not create a user with a existing email', () => {
 
 describe('Do not not create a user with a existing cpf', () => {
   beforeEach(() => {
-    userMock = {
-      nome: 'Cristina',
-      cpf: '391.382.102-01',
-      data_nascimento: '13/12/1987',
-      email: 'cristina083@outlook.com',
-      senha: '123bga',
-      habilitado: 'não'
-    };
+    userMock = UserDataFaker();
 
-    userMock02 = {
-      nome: 'Bruno Henrique',
-      cpf: '391.382.102-01',
-      data_nascimento: '12/12/1999',
-      email: 'brunohenrique@outlook.com',
-      senha: 'mm84na9',
-      habilitado: 'sim'
-    };
+    userMock02 = UserDataFaker();
+    userMock02.cpf = userMock.cpf;
   });
 
   it('should return status code 400', async () => {
     await request(app).post('/api/v1/people/').send(userMock);
-
     const { status } = await request(app).post('/api/v1/people/').send(userMock02);
 
     expect(status).toBe(400);
@@ -142,14 +115,8 @@ describe('Do not not create a user with a existing cpf', () => {
 
 describe('Do not create a user with invalid email format', () => {
   beforeEach(() => {
-    userMock = {
-      nome: 'Roger Guedes',
-      cpf: '347.189.193-07',
-      data_nascimento: '27/10/1978',
-      email: 'roguerg',
-      senha: 'lavista6381',
-      habilitado: 'sim'
-    };
+    userMock = UserDataFaker();
+    userMock.email = 'roguerg';
   });
 
   it('should return status code 400', async () => {
@@ -177,14 +144,8 @@ describe('Do not create a user with invalid email format', () => {
 
 describe('Do not create a user with blank field', () => {
   beforeEach(() => {
-    userMock = {
-      nome: '',
-      cpf: '892.182.109-02',
-      data_nascimento: '29/10/2002',
-      email: 'marina2022@outlook.com',
-      senha: '123456',
-      habilitado: 'sim'
-    };
+    userMock = UserDataFaker();
+    userMock.nome = '';
   });
 
   it('should return status code 400', async () => {
@@ -212,14 +173,8 @@ describe('Do not create a user with blank field', () => {
 
 describe('Do not create a user with invalid cpf format', () => {
   beforeEach(() => {
-    userMock = {
-      nome: 'Joongwoo',
-      cpf: '1838172.112-09',
-      data_nascimento: '09/12/2000',
-      email: 'joongwoonct@gmail.com',
-      senha: 'nctdream021',
-      habilitado: 'não'
-    };
+    userMock = UserDataFaker();
+    userMock.cpf = '017726.560-09';
   });
 
   it('should return status code 400', async () => {
@@ -247,14 +202,8 @@ describe('Do not create a user with invalid cpf format', () => {
 
 describe('Do not create a user with invalid habilitado field value', () => {
   beforeEach(() => {
-    userMock = {
-      nome: 'Serena',
-      cpf: '290.481.187-01',
-      data_nascimento: '12/12/1998',
-      email: 'serenadias@outlook.com',
-      senha: 'serena123456',
-      habilitado: 'serena'
-    };
+    userMock = UserDataFaker();
+    userMock.habilitado = 'okay';
   });
 
   it('should return status code 400', async () => {

@@ -9,7 +9,9 @@ This API refers to a luxury and semi luxury car rental system
 - People CRUD
 - Cars CRUD
 - Rentals CRUD
-- Filter people/cars/rentals by their attributes
+- Fleet CRUD
+- Rent cars
+- Filter people/cars/rentals/fleets/reserves by their attributes
 - Offset-based pagination
 - User authentication
 
@@ -22,6 +24,7 @@ This API refers to a luxury and semi luxury car rental system
 - Mongoose v.6.0.11
 - Joi validator v.17.4.2
 - Jest v.27.3.1
+- Chance v.1.1.8
 
 
 ## Run Locally

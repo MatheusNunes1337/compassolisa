@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
-require('dotenv').config({
-  path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
-});
+require('dotenv').config();
+
+let mongoUri;
+
+if (process.env.NODE_ENV === 'test') mongoUri = process.env.MONGO_URL_TEST;
+else mongoUri = process.env.MONGO_URL;
 
 class DatabaseConnection {
   async connect() {
-    return mongoose.connect(process.env.MONGO_URL);
+    return mongoose.connect(mongoUri);
   }
 }
 

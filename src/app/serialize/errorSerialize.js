@@ -1,11 +1,11 @@
 const errorSerialize = (error) => {
   let errors = { description: error.name, name: error.message };
 
-  if (error.hasOwnProperty('details')) {
-    errors = error.details.map((e) => {
+  if (error.details) {
+    errors = error.details.map((err) => {
       const erro = {
-        description: e.path[0],
-        name: e.message
+        description: err.path[0],
+        name: err.message
       };
 
       return erro;

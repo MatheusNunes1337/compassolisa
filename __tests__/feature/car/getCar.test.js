@@ -1,18 +1,13 @@
 const request = require('supertest');
+const { UserDataFaker, CarDataFaker } = require('../../support/datafaker');
+const generateObjectId = require('../../support/generateObjectId');
 
 const app = require('../../../src/index');
 
 let token = null;
 
 beforeAll(async () => {
-  const userMock = {
-    nome: 'James winston',
-    cpf: '182.931.371-08',
-    data_nascimento: '17/12/1945',
-    email: 'james1945@outlook.com',
-    senha: 'mynae13',
-    habilitado: 'não'
-  };
+  const userMock = UserDataFaker();
 
   await request(app).post('/api/v1/people/').send(userMock);
 
@@ -30,32 +25,8 @@ let idMock = '';
 
 describe('Get all cars', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Modelo 01',
-      cor: 'Verde',
-      ano: 2021,
-      acessorios: [
-        {
-          descricao: 'Ar-condicionado'
-        },
-        {
-          descricao: 'Air bag'
-        }
-      ],
-      quantidadePassageiros: 4
-    };
-
-    carMock02 = {
-      modelo: 'Modelo 02',
-      cor: 'Preto',
-      ano: 2014,
-      acessorios: [
-        {
-          descricao: 'Ar-condicionado'
-        }
-      ],
-      quantidadePassageiros: 5
-    };
+    carMock = CarDataFaker();
+    carMock02 = CarDataFaker();
   });
 
   it('should return status code 200', async () => {
@@ -142,34 +113,10 @@ describe('Do not get cars with invalid limit value', () => {
   });
 });
 
-describe('Get all cars that have Teto solar as accessory', () => {
+describe('Filter cars by modelo', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Modelo x',
-      cor: 'vermelho',
-      ano: 2015,
-      acessorios: [
-        {
-          descricao: 'Teto solar'
-        },
-        {
-          descricao: 'Air bag'
-        }
-      ],
-      quantidadePassageiros: 4
-    };
-
-    carMock02 = {
-      modelo: 'Modelo y',
-      cor: 'Prata',
-      ano: 2018,
-      acessorios: [
-        {
-          descricao: 'Ar-condicionado'
-        }
-      ],
-      quantidadePassageiros: 5
-    };
+    carMock = CarDataFaker();
+    carMock02 = CarDataFaker();
   });
 
   it('should return status code 200', async () => {
@@ -177,7 +124,7 @@ describe('Get all cars that have Teto solar as accessory', () => {
     await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock02);
 
     const { status } = await request(app)
-      .get('/api/v1/car/?descricao=Teto solar')
+      .get(`/api/v1/car/?modelo=${carMock.modelo}`)
       .set('Authorization', `Bearer ${token}`);
 
     expect(status).toBe(200);
@@ -188,7 +135,7 @@ describe('Get all cars that have Teto solar as accessory', () => {
     await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock02);
 
     const { body } = await request(app)
-      .get('/api/v1/car/?descricao=Teto solar')
+      .get(`/api/v1/car/?modelo=${carMock.modelo}`)
       .set('Authorization', `Bearer ${token}`);
 
     const { veiculos } = body;
@@ -206,7 +153,7 @@ describe('Get all cars that have Teto solar as accessory', () => {
     await request(app).post('/api/v1/car/').set('Authorization', `Bearer ${token}`).send(carMock02);
 
     const { body } = await request(app)
-      .get('/api/v1/car/?descricao=Teto solar')
+      .get(`/api/v1/car/?modelo=${carMock.modelo}`)
       .set('Authorization', `Bearer ${token}`);
 
     const { veiculos } = body;
@@ -224,17 +171,7 @@ describe('Get all cars that have Teto solar as accessory', () => {
 
 describe('Do not get cars without authentication token', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Modelo x',
-      cor: 'preto',
-      ano: 2021,
-      acessorios: [
-        {
-          descricao: 'Air bag'
-        }
-      ],
-      quantidadePassageiros: 2
-    };
+    carMock = CarDataFaker();
   });
 
   it('should return status code 401', async () => {
@@ -292,17 +229,7 @@ describe('Do not get cars with malformated token', () => {
 
 describe('Get car by ID', () => {
   beforeEach(async () => {
-    carMock = {
-      modelo: 'Mustang',
-      cor: 'Preto',
-      ano: 2002,
-      acessorios: [
-        {
-          descricao: 'Banco de couro'
-        }
-      ],
-      quantidadePassageiros: 5
-    };
+    carMock = CarDataFaker();
   });
 
   it('should return status code 200', async () => {
@@ -350,7 +277,7 @@ describe('Get car by ID', () => {
 
 describe('Get no car by ID', () => {
   beforeEach(() => {
-    idMock = '4edd40c86762e0fb12130026';
+    idMock = generateObjectId();
   });
   it('should return status code 204', async () => {
     const { status } = await request(app).get(`/api/v1/car/${idMock}`).set('Authorization', `Bearer ${token}`);
