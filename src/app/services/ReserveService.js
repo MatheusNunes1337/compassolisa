@@ -50,6 +50,33 @@ class ReserveService {
     return ReserveRepository.create(payload);
   }
 
+  async update(userId, { rentalId, id }, payload) {
+    const rental = await RentalRepository.getById(rentalId);
+    if (!rental) throw new NotFound('Rental');
+
+    const reserve = await ReserveRepository.getById(id, rentalId);
+    if (!reserve) throw new NotFound('Reserve');
+
+    const { data_inicio, data_fim } = reserve;
+
+    const fleet = await fleetRepository.getById(reserve.id_carro, rentalId);
+
+    const { valor_diaria, _id } = fleet;
+
+    if (payload.data_inicio || payload.data_fim) {
+      let initialDate = data_inicio;
+      let finalDate = data_fim;
+
+      if (payload.data_inicio) initialDate = payload.data_inicio;
+      if (payload.data_fim) finalDate = payload.data_fim;
+
+      await checkReserveConflict(_id.toString(), initialDate, finalDate);
+      await checkUserReserves(userId, initialDate, finalDate);
+
+      payload.valor_final = calcReservePrice(initialDate, finalDate, valor_diaria);
+    }
+  }
+
   async delete({ id, rentalId }) {
     const rental = await RentalRepository.getById(rentalId);
     if (!rental) throw new NotFound('Rental');
