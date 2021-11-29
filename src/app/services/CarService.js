@@ -13,8 +13,7 @@ class CarService {
   }
 
   async findById(id) {
-    const car = await CarRepository.getById(id);
-    return car;
+    return CarRepository.getById(id);
   }
 
   async create(car) {
@@ -23,9 +22,8 @@ class CarService {
 
   async update(id, carData) {
     const car = await this.findById(id);
-    if (!car) {
-      throw new NotFound('Car');
-    }
+    if (!car) throw new NotFound('Car');
+
     return CarRepository.update(id, carData);
   }
 
@@ -34,9 +32,7 @@ class CarService {
     if (!car) throw new NotFound('Car');
 
     const accessoriesDescription = car.acessorios.filter((acessorio) => acessorio.descricao === descricao);
-    if (accessoriesDescription.length > 0) {
-      throw new Conflict(`This car already has an accessory called ${descricao}`);
-    }
+    if (accessoriesDescription.length > 0) throw new Conflict(`This car already has an accessory called ${descricao}`);
 
     const response = await CarRepository.updateAccessory(id, accessoryId, descricao);
 
@@ -47,9 +43,8 @@ class CarService {
 
   async delete(id) {
     const car = await this.findById(id);
-    if (!car) {
-      throw new NotFound('Car');
-    }
+    if (!car) throw new NotFound('Car');
+
     return CarRepository.delete(id);
   }
 }
