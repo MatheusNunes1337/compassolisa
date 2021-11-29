@@ -30,6 +30,15 @@ class ReserveController {
     }
   }
 
+  async update(req, res, next) {
+    try {
+      const response = await ReserveService.update(req.userId, req.params, req.body);
+      return res.status(200).json(serialize(response));
+    } catch (err) {
+      return next(err);
+    }
+  }
+
   async delete(req, res, next) {
     try {
       await ReserveService.delete(req.params);
