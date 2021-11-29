@@ -4,7 +4,6 @@ const Conflict = require('../../errors/Conflict');
 
 const checkReserveConflict = async (id_carro, initialDate, finalDate) => {
   const reserves = await ReserveRepository.getAll({ id_carro });
-  if (!reserves) return true;
 
   reserves.docs.forEach((reserve) => {
     const { data_inicio, data_fim } = reserve;
@@ -15,8 +14,6 @@ const checkReserveConflict = async (id_carro, initialDate, finalDate) => {
       throw new Conflict(`This car is rented from ${data_inicio} until ${data_fim}`);
     }
   });
-
-  return true;
 };
 
 module.exports = checkReserveConflict;

@@ -4,7 +4,6 @@ const BadRequest = require('../../errors/BadRequest');
 
 const checkUserReserves = async (id_user, initialDate, finalDate) => {
   const reserves = await ReserveRepository.getAll({ id_user });
-  if (!reserves) return true;
 
   reserves.docs.forEach((reserve) => {
     const { data_inicio, data_fim } = reserve;
@@ -15,8 +14,6 @@ const checkUserReserves = async (id_user, initialDate, finalDate) => {
       throw new BadRequest(`You cannot rent a car between ${data_inicio} and ${data_fim}`);
     }
   });
-
-  return true;
 };
 
 module.exports = checkUserReserves;
