@@ -91,5 +91,11 @@ To run this project, you will need to add the following environment variables to
   GET /api/v1/api-docs
 ```
 
+#### Access the API on heroku
+
+```http
+  https://compassolisa.herokuapp.com/
+```
+
 
 
